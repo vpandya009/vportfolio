@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Realize Platform — Vagmita Pandya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="casestudy.css">
+<style>
+.step-list::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border)}
+.step-item{display:flex;gap:.9rem;padding:0 0 1.25rem}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--vi-soft);border:2px solid var(--vi);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:var(--vi);flex-shrink:0;z-index:1}
+.step-content h4{font-family:var(--body);font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.22rem;padding-top:.38rem}
+.step-content p{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0}
+.cs-quote{margin:1.5rem 0;padding:1.6rem 1.75rem 1.6rem 2.5rem;background:#F0EEFF;border:1.5px solid rgba(108,76,241,.2);border-radius:12px;font-family:var(--hand);font-size:1.4rem;font-weight:700;color:var(--vi);line-height:1.45;position:relative}
+.cs-quote::before{content:'"';font-size:3.5rem;line-height:0;color:var(--vi);opacity:.3;position:absolute;top:1.8rem;left:1.2rem;font-family:var(--body)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin:1.6rem 0;border:1px solid var(--border)}
+.stat{background:var(--white);padding:1.5rem;text-align:center}
+.stat-n{font-family:var(--body);font-size:2.1rem;font-weight:800;color:var(--vi);line-height:1;margin-bottom:.2rem;letter-spacing:-.04em}
+.stat-l{font-family:var(--hand);font-size:.88rem;color:var(--muted)}
+.learn-grid{display:flex;flex-direction:column;gap:.6rem;margin:1.25rem 0}
+.learn{display:flex;gap:.85rem;padding:1rem 1.15rem;background:var(--off);border-radius:12px;border:1px solid var(--border);transition:box-shadow .2s,transform .2s}
+.learn:hover{box-shadow:0 4px 20px rgba(108,76,241,.1);transform:translateY(-2px)}
+.learn-icon{width:34px;height:34px;border-radius:9px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem}
+.learn h4{font-family:var(--body);font-size:.8rem;font-weight:700;color:var(--black);margin-bottom:.18rem}
+.learn p{font-size:.75rem;color:var(--muted);line-height:1.55;margin:0}
+.hmw-list{display:flex;flex-direction:column;gap:.45rem;margin:1.25rem 0}
+.hmw{background:var(--off);border:1px solid var(--border);border-left:3px solid rgba(108,76,241,.2);border-radius:12px;padding:1rem 1.25rem;font-size:.86rem;color:var(--black);line-height:1.55;font-style:italic;transition:border-color .18s,background .18s}
+.hmw:hover{border-left-color:var(--vi);background:var(--vi-soft)}
+.hmw::before{content:'"';color:rgba(108,76,241,.45);font-size:1.1rem;margin-right:.18rem;font-style:normal}
+.cs-sec-divider{display:inline-flex;align-items:center;gap:.55rem;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vi);margin:1.75rem 0 1rem}
+.cs-sec-divider::before,.cs-sec-divider::after{content:'';height:1px;background:rgba(108,76,241,.2)}
+.cs-sec-divider::before{width:20px}
+.cs-sec-divider::after{flex:1;max-width:60px}
+
+/* SMART IMAGE RULE — no cropping */
+.cs-img-wrap{border-radius:14px;overflow:hidden;background:var(--off);display:flex;align-items:center;justify-content:center}
+.cs-img-wrap img{width:100%;height:auto;display:block;object-fit:contain}
+
+.img-slot{border-radius:12px;overflow:hidden;border:none;background:transparent;min-height:0;display:flex;align-items:center;justify-content:center;position:relative}
+.img-slot img{width:100%;height:auto;display:block;object-fit:contain}
+.img-side .img-slot{align-self:stretch}
+.img-slot-fallback{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:2rem;text-align:center}
+.img-slot-icon{font-size:1.8rem}
+.img-below{margin:1.5rem 0}
+.img-side{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:stretch;margin:1.5rem 0}
+.img-side-text{display:flex;flex-direction:column;gap:.75rem}
+
+/* RESEARCH QUOTES */
+.rq{display:flex;gap:.85rem;padding:.9rem 1.1rem;background:var(--off);border-radius:12px;border:1px solid var(--border);margin-bottom:.6rem}
+.rq-av{width:34px;height:34px;border-radius:50%;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
+.rq-quote{font-size:.82rem;font-style:italic;color:var(--black);line-height:1.6;margin-bottom:.25rem}
+.rq-attr{font-size:.65rem;color:var(--muted);font-weight:600}
+
+/* AFFINITY */
+.affinity-chaos{position:relative;min-height:380px;background:var(--off);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin:1.5rem 0;overflow:hidden}
+.affinity-chaos::before{content:'Research Wall';position:absolute;top:.75rem;left:1rem;font-family:var(--hand);font-size:1.1rem;font-weight:700;color:rgba(108,76,241,.2);pointer-events:none}
+.sticky{position:absolute;border-radius:4px 4px 4px 3px;padding:.55rem .7rem;font-size:.67rem;line-height:1.45;font-weight:600;box-shadow:2px 3px 8px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);cursor:default;max-width:160px;transition:transform .2s}
+.sticky:hover{z-index:10;transform:scale(1.05) rotate(0deg)!important}
+.sticky.y{background:#FFF9C4;color:#5a4a00;border-top:3px solid #f5d800}
+.sticky.b{background:#DCEEFF;color:#0a3a6b;border-top:3px solid #4d9de0}
+.sticky.g{background:#D8F5E0;color:#0a4020;border-top:3px solid #3cb96a}
+.sticky.p{background:#F0EEFF;color:#3d1f8a;border-top:3px solid var(--vi)}
+.sticky.o{background:#FFE8D6;color:#6a2e00;border-top:3px solid #f47c30}
+.affinity-label{display:inline-flex;align-items:center;gap:.4rem;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:100px;position:absolute}
+
+/* PERSONA */
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1.4rem 0}
+.persona{background:var(--white);border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.persona-head{background:var(--vi);padding:1.1rem 1.25rem 1rem;border-bottom:1px solid rgba(108,76,241,.2);display:flex;gap:.65rem}
+.persona-head.alt{background:var(--vi2)}
+.p-av{width:40px;height:40px;border-radius:9px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.p-name{font-size:.85rem;font-weight:700;color:#fff}
+.p-role{font-size:.65rem;color:rgba(255,255,255,.7);margin-top:.12rem}
+.persona-body{padding:1rem 1.25rem}
+.p-sec{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin:.6rem 0 .3rem;font-family:var(--body)}
+.p-sec:first-child{margin-top:0}
+.p-ul{list-style:none;display:flex;flex-direction:column;gap:.18rem}
+.p-ul li{font-size:.67rem;color:var(--muted);line-height:1.4;padding-left:.65rem;position:relative}
+.p-ul li::before{content:'·';position:absolute;left:0;color:var(--vi)}
+
+/* OPP CARDS */
+.opp-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1.4rem 0}
+.opp-card{background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;border-top:3px solid var(--vi);transition:box-shadow .2s,transform .2s}
+.opp-card:hover{box-shadow:0 4px 18px rgba(108,76,241,.1);transform:translateY(-2px)}
+.opp-num{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vi);margin-bottom:.4rem}
+.opp-title{font-size:.88rem;font-weight:700;color:var(--black);margin-bottom:.3rem}
+.opp-desc{font-size:.76rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* CA TABLE */
+.ca-table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:1rem}
+.ca-table{width:100%;border-collapse:collapse;font-size:.76rem}
+.ca-table thead{background:var(--off)}
+.ca-table th{padding:.6rem .85rem;text-align:left;font-weight:700;color:var(--black);border-bottom:1px solid var(--border);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.ca-table td{padding:.6rem .85rem;color:var(--muted);border-bottom:1px solid var(--border);line-height:1.5;vertical-align:top}
+.ca-table tr:last-child td{border-bottom:none}
+.ca-table td.ca-gap{color:#C84B31;font-weight:500}
+.ca-table td strong{color:var(--black);font-weight:700}
+
+/* BEFORE/AFTER */
+.ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.5rem 0}
+.ba-card{background:var(--off);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;align-items:stretch}
+.ba-half{flex:1;padding:1rem;text-align:center}
+.before{background:rgba(200,75,49,.04);border-right:1px solid var(--border)}
+.after{background:rgba(108,76,241,.04)}
+.ba-tag{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+.before .ba-tag{color:#C84B31}
+.after .ba-tag{color:var(--vi)}
+.ba-val{font-size:1.3rem;font-weight:800;color:var(--black);line-height:1.1;margin-bottom:.25rem}
+.after .ba-val{color:var(--vi)}
+.ba-desc{font-size:.65rem;color:var(--muted);line-height:1.4}
+.ba-mid{display:flex;align-items:center;padding:0 .5rem;font-size:1rem;color:var(--vi);font-weight:700;flex-shrink:0}
+
+/* DESIGN EXECUTION */
+.de-img-slot{background:var(--off);border-radius:12px;overflow:hidden;margin:1.25rem 0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem}
+.de-img{width:100%;display:block;object-fit:contain;border-radius:12px;background:var(--off)}
+.de-img-fallback{display:none;flex-direction:column;align-items:center;gap:.5rem;padding:2.5rem;color:var(--muted);font-size:.78rem;text-align:center;background:var(--off);border-radius:12px;width:100%}
+.de-img-fallback div:first-child{font-size:2rem}
+.de-img-fallback code{font-size:.65rem;background:var(--off2);padding:.2rem .5rem;border-radius:4px;color:var(--vi)}
+
+/* FUTURE ITERATION CARDS */
+.future-card{background:var(--off);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s,border-color .2s}
+.future-card:hover{box-shadow:0 4px 20px rgba(108,76,241,.1);transform:translateY(-1px);border-color:rgba(108,76,241,.25)}
+.future-card.open{border-color:rgba(108,76,241,.35);background:#fff}
+.future-card-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;user-select:none}
+.future-card-num{width:36px;height:36px;border-radius:9px;background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.25);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--vi);flex-shrink:0;transition:background .2s,border-color .2s}
+.future-card.open .future-card-num{background:var(--vi);color:#fff;border-color:var(--vi)}
+.future-card-title{flex:1;font-size:.88rem;font-weight:700;color:var(--black);line-height:1.3}
+.future-card-arrow{color:var(--muted);flex-shrink:0;transition:transform .25s ease,color .2s}
+.future-card.open .future-card-arrow{transform:rotate(180deg);color:var(--vi)}
+.future-card-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.future-card-body p{font-size:.82rem;color:var(--muted);line-height:1.7;margin:0;padding:0 1.25rem 1.1rem 4rem}
+.future-card.open .future-card-body{max-height:200px}
+
+/* OUTCOME STRIP */
+.outcome-strip{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.25rem;background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.2);border-radius:12px;font-size:.84rem;color:var(--black);line-height:1.6;margin-top:1.25rem}
+.outcome-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+
+/* PROBLEM STATEMENT COMPARE */
+.realproblem-compare{display:flex;flex-direction:column;gap:.5rem;margin:1.5rem 0}
+.realproblem-side{padding:1.25rem 1.5rem;border-radius:12px;border:1px solid var(--border)}
+.realproblem-assumed{background:rgba(200,75,49,.04);border-color:rgba(200,75,49,.2)}
+.realproblem-actual{background:var(--vi-soft);border-color:rgba(108,76,241,.25)}
+.realproblem-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.realproblem-statement{font-size:.9rem;font-weight:700;color:var(--black);line-height:1.55;margin-bottom:.5rem;font-style:italic}
+.realproblem-note{font-size:.76rem;color:var(--muted);line-height:1.6}
+.realproblem-arrow{text-align:center;font-size:1.5rem;color:var(--vi);padding:.25rem 0}
+.realproblem-final{background:var(--vi);border-radius:14px;padding:1.5rem 1.75rem;margin:1.5rem 0}
+.realproblem-final p{font-family:var(--hand);font-size:1.2rem;font-weight:700;color:#fff;line-height:1.55;margin:0}
+.realproblem-final strong{color:rgba(255,255,255,.95)}
+
+/* SPRINT/PROCESS CARDS */
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.4rem 0}
+.process-card{background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem;transition:box-shadow .2s,transform .2s}
+.process-card:hover{box-shadow:0 4px 18px rgba(108,76,241,.08);transform:translateY(-2px)}
+.process-card-icon{font-size:1.3rem;margin-bottom:.5rem}
+.process-card-title{font-size:.8rem;font-weight:700;color:var(--black);margin-bottom:.25rem}
+.process-card-desc{font-size:.72rem;color:var(--muted);line-height:1.55}
+
+/* VISION FLIP */
+.vision-flip{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin:1.25rem 0}
+.vision-side{padding:1rem 1.15rem;border-radius:12px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:.65rem}
+.vision-side.old{background:var(--off)}
+.vision-side.new{background:var(--vi-soft);border-color:rgba(108,76,241,.25)}
+.vision-side-tag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.vision-side.old .vision-side-tag{color:var(--muted)}
+.vision-side.new .vision-side-tag{color:var(--vi)}
+.vision-side-text{font-size:.85rem;font-weight:600;color:var(--black);line-height:1.5}
+.vision-side.new .vision-side-text{color:var(--vi)}
+
+/* USER FLOW CHAIN */
+.uf-chain{display:flex;flex-direction:column;gap:0;margin:1.25rem 0}
+.uf-step{display:grid;grid-template-columns:80px 1fr;gap:.75rem;padding-bottom:.5rem;position:relative}
+.uf-step-role{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .5rem;border-radius:6px;text-align:center;flex-shrink:0;margin-top:.2rem}
+.uf-step-role.admin{background:rgba(108,76,241,.12);color:var(--vi)}
+.uf-step-role.user{background:rgba(42,157,92,.1);color:#1a6a3c}
+.uf-step-body{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:.75rem .95rem}
+.uf-step-action{font-size:.8rem;font-weight:700;color:var(--black);margin-bottom:.2rem}
+.uf-step-desc{font-size:.72rem;color:var(--muted);line-height:1.55}
+.uf-step-arrow{grid-column:2;font-size:.85rem;color:rgba(108,76,241,.4);padding:.1rem 0 .1rem .5rem;font-weight:700}
+
+/* MODULES CAROUSEL */
+.modules-carousel-wrap{position:relative;overflow:hidden;margin:1.5rem 0}
+.modules-carousel-wrap::before,.modules-carousel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:10;pointer-events:none}
+.modules-carousel-wrap::before{left:0;background:linear-gradient(to right,var(--white),transparent)}
+.modules-carousel-wrap::after{right:0;background:linear-gradient(to left,var(--white),transparent)}
+.modules-carousel{display:flex;gap:1rem;width:max-content;padding:.5rem 60px}
+.module-card{background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.35rem;width:200px;flex-shrink:0;transition:border-color .2s,transform .2s}
+.module-card:hover{border-color:var(--vi);transform:translateY(-2px)}
+.module-card-icon{font-size:1.2rem}
+.module-card-name{font-size:.82rem;font-weight:700;color:var(--black)}
+.module-card-desc{font-size:.7rem;color:var(--muted);line-height:1.5}
+
+/* CHALLENGE CARDS — improved */
+.challenge-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1.5rem 0}
+.challenge-card{display:grid;grid-template-columns:36px 1fr;gap:1rem;padding:1.1rem 1.25rem;background:var(--off);border:1px solid var(--border);border-radius:14px;transition:box-shadow .2s,transform .2s;align-content:start}
+.challenge-card:hover{box-shadow:0 4px 20px rgba(108,76,241,.09);transform:translateY(-2px)}
+.challenge-num{width:36px;height:36px;border-radius:9px;background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.25);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--vi);flex-shrink:0}
+.challenge-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.3rem}
+.challenge-title{font-size:.88rem;font-weight:700;color:var(--black);margin-bottom:.35rem}
+.challenge-body{font-size:.79rem;color:var(--muted);line-height:1.65;margin:0}
+.challenge-how{margin-top:.5rem;font-size:.76rem;color:var(--black);line-height:1.55;background:var(--vi-soft);border-radius:8px;padding:.45rem .75rem}
+.challenge-how strong{color:var(--vi)}
+
+/* SECTION CONNECTOR */
+.sec-connector{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;background:var(--off);border:1px solid var(--border);border-radius:12px;margin:1.5rem 0;font-size:.82rem;color:var(--black)}
+.sec-connector-arrow{font-size:1rem;color:var(--vi);flex-shrink:0}
+.sec-connector strong{color:var(--vi)}
+
+/* IMPACT TIMELINE */
+.impact-timeline{display:flex;flex-direction:column;gap:0;margin:1.5rem 0;position:relative}
+.impact-timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:var(--border);border-radius:2px}
+.impact-fill{position:absolute;left:20px;top:0;width:2px;background:var(--vi);border-radius:2px;transition:height .4s ease}
+.it-item{display:grid;grid-template-columns:42px 1fr;gap:1rem;padding-bottom:1rem;position:relative}
+.it-dot{width:42px;height:42px;border-radius:50%;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;z-index:1;transition:border-color .3s,background .3s}
+.it-dot.active{border-color:var(--vi);background:var(--vi-soft)}
+.it-content{padding-top:.4rem}
+.it-label{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.2rem}
+.it-title{font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.18rem}
+.it-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
+
+/* STAT BAR (for impact section) */
+.stat-bars{display:flex;flex-direction:column;gap:.75rem;margin:1.25rem 0}
+.stat-bar-item{display:flex;flex-direction:column;gap:.3rem}
+.stat-bar-label{display:flex;justify-content:space-between;align-items:baseline}
+.stat-bar-name{font-size:.78rem;font-weight:600;color:var(--black)}
+.stat-bar-val{font-size:.78rem;font-weight:800;color:var(--vi)}
+.stat-bar-track{height:6px;background:var(--off2);border-radius:99px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--vi),#9C7EFA);width:0%;transition:width .8s cubic-bezier(.25,.46,.45,.94)}
+
+/* HERO READ TIME */
+.cs-hero-meta-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.read-time-chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);border:1px solid var(--border);padding:.28rem .75rem;border-radius:100px}
+.read-time-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
+
+/* BETTER validation note */
+.validation-note{font-size:.72rem;color:#92660a;text-align:center;padding:.6rem 1rem;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:8px;margin-top:.75rem}
+
+
+
+/* ═══ MVP FLOW CAROUSEL SYSTEM ═══ */
+.fcs-wrap{margin:1.75rem 0;display:flex;flex-direction:column;gap:0}
+
+/* TABS */
+.fcs-tabs{display:flex;gap:0;border:1px solid var(--border);border-radius:14px 14px 0 0;overflow:hidden;background:var(--off)}
+.fcs-tab{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:.18rem;padding:.85rem 1rem;border:none;background:transparent;cursor:pointer;border-right:1px solid var(--border);transition:background .15s;text-align:left}
+.fcs-tab:last-child{border-right:none}
+.fcs-tab:hover{background:rgba(108,76,241,.05)}
+.fcs-tab.active{background:var(--white);box-shadow:inset 0 -2px 0 var(--vi)}
+.fcs-tab-num{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1}
+.fcs-tab.active .fcs-tab-num{color:var(--vi)}
+.fcs-tab-name{font-size:.78rem;font-weight:700;color:var(--black);line-height:1.2}
+.fcs-tab.active .fcs-tab-name{color:var(--vi)}
+.fcs-tab-count{font-size:.6rem;color:var(--muted);font-weight:500}
+
+/* STAGE */
+.fcs-stage{border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;background:var(--white);overflow:hidden}
+
+/* META BAR */
+.fcs-meta-bar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;border-bottom:1px solid var(--border);background:var(--off)}
+.fcs-meta-left{display:flex;align-items:center;gap:.65rem}
+.fcs-flow-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--vi);color:#fff;padding:.22rem .6rem;border-radius:6px}
+.fcs-flow-title{font-size:.82rem;font-weight:600;color:var(--black)}
+.fcs-meta-right{display:flex;align-items:center;gap:.5rem}
+.fcs-counter{font-size:.72rem;font-weight:700;color:var(--muted);min-width:36px;text-align:right}
+.fcs-arrow{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--black);transition:background .12s,border-color .12s,transform .1s}
+.fcs-arrow:hover{background:var(--vi-soft);border-color:rgba(108,76,241,.3);color:var(--vi)}
+.fcs-arrow:active{transform:scale(.94)}
+.fcs-arrow:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
+
+/* VIEWER — macOS chrome */
+.fcs-viewer{background:#1A1A24;padding:0;margin:0}
+.fcs-chrome{background:#2A2A38;height:36px;display:flex;align-items:center;padding:0 1rem;gap:.75rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.fcs-chrome-dots{display:flex;gap:.4rem}
+.fcs-chrome-dots span{width:10px;height:10px;border-radius:50%;display:block}
+.fcs-chrome-bar{flex:1;display:flex;justify-content:center}
+.fcs-chrome-url{background:rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-size:.62rem;font-weight:500;padding:.22rem .85rem;border-radius:5px;font-family:var(--body);letter-spacing:.01em;max-width:320px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* IMAGE AREA */
+.fcs-img-area{position:relative;width:100%;min-height:480px;background:#0F0F18;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#fcsImg{width:100%;height:100%;object-fit:contain;display:block;transition:opacity .22s ease}
+#fcsImg.fcs-fade{opacity:0}
+.fcs-img-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:3rem}
+.fcs-fallback-icon{font-size:3rem}
+.fcs-fallback-name{font-size:.9rem;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.01em}
+.fcs-fallback-path{font-size:.65rem;color:rgba(108,76,241,.7);background:rgba(108,76,241,.12);padding:.3rem .75rem;border-radius:6px;font-family:monospace}
+
+/* CAPTION */
+.fcs-caption{padding:1.1rem 1.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.25rem;background:var(--white)}
+.fcs-caption-title{font-size:.85rem;font-weight:700;color:var(--black)}
+.fcs-caption-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
+
+/* DOT STRIP */
+.fcs-dots{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.85rem 1.5rem;border-top:1px solid var(--border);background:var(--off);flex-wrap:wrap}
+.fcs-dot{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:background .15s,transform .15s}
+.fcs-dot:hover{background:rgba(108,76,241,.4)}
+.fcs-dot.active{background:var(--vi);transform:scale(1.3)}
+
+/* HINT */
+.fcs-hint{text-align:center;font-size:.63rem;color:var(--muted);padding:.6rem 0 .2rem;letter-spacing:.02em}
+
+
+/* ═══ FOUNDER CONVERSATION SCENE ═══ */
+.founder-scene{margin:2rem 0;border-radius:18px;overflow:hidden;border:1px solid var(--border);width:100%;box-sizing:border-box}
+.founder-scene-top{background:#0F0F18;padding:2.5rem 2.75rem;position:relative;overflow:hidden;box-sizing:border-box}
+.founder-scene-top::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(108,76,241,.18) 0%,transparent 65%);pointer-events:none}
+.founder-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(108,76,241,.7);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem}
+.founder-eyebrow::before{content:'';width:20px;height:1px;background:rgba(108,76,241,.4)}
+.founder-vision{font-family:var(--hand);font-size:clamp(1.35rem,2.2vw,1.85rem);font-weight:700;color:#fff;line-height:1.45;max-width:640px;position:relative;z-index:1}
+.founder-vision em{color:#9C7EFA;font-style:normal}
+.founder-attribution{margin-top:1.5rem;display:flex;align-items:center;gap:.75rem}
+.founder-av{width:32px;height:32px;border-radius:50%;background:rgba(108,76,241,.25);border:1.5px solid rgba(108,76,241,.4);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.founder-attr-text{font-size:.68rem;color:rgba(255,255,255,.45);font-weight:500;line-height:1.4}
+.founder-attr-text strong{color:rgba(255,255,255,.75);font-weight:600}
+.founder-scene-bottom{background:var(--white);display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:0}
+.founder-scene-divider{background:var(--border)}
+.founder-col{padding:1.75rem 2rem}
+.founder-col-label{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem}
+.founder-col-label.vision-lbl{color:rgba(108,76,241,.6)}
+.founder-col-label.gap-lbl{color:#C84B31}
+.founder-col-label::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.founder-col-label.vision-lbl::before{background:rgba(108,76,241,.5)}
+.founder-col-label.gap-lbl::before{background:#C84B31}
+.founder-col-items{display:flex;flex-direction:column;gap:.5rem}
+.founder-col-item{font-size:.8rem;color:var(--black);line-height:1.6;display:flex;align-items:flex-start;gap:.6rem}
+.founder-col-item::before{content:'→';color:var(--vi);font-weight:700;flex-shrink:0;margin-top:.05rem;font-size:.75rem}
+.founder-col-item.gap-item::before{color:#C84B31;content:'✕'}
+.founder-designer-note{background:var(--vi-soft);border-top:1px solid rgba(108,76,241,.15);padding:1.25rem 2rem;display:flex;align-items:flex-start;gap:.85rem}
+.founder-designer-note-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+.founder-designer-note-text{font-size:.82rem;color:var(--black);line-height:1.65}
+.founder-designer-note-text strong{color:var(--vi)}
+
+/* ═══ DESIGN SPRINT STEPS ═══ */
+.sprint-wrap{display:flex;flex-direction:column;gap:0;margin:1.75rem 0;position:relative}
+.sprint-wrap::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:var(--border);border-radius:2px;z-index:0}
+.sprint-step{display:grid;grid-template-columns:44px 1fr;gap:1.25rem;padding-bottom:1.25rem;position:relative;z-index:1}
+.sprint-step:last-child{padding-bottom:0}
+.sprint-step-num{width:44px;height:44px;border-radius:50%;background:var(--white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:800;color:var(--muted);transition:border-color .2s,background .2s,color .2s;z-index:2}
+.sprint-step:hover .sprint-step-num{border-color:var(--vi);background:var(--vi-soft);color:var(--vi)}
+.sprint-step-card{background:var(--off);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.25rem;transition:box-shadow .2s,border-color .2s}
+.sprint-step:hover .sprint-step-card{border-color:rgba(108,76,241,.25);box-shadow:0 4px 18px rgba(108,76,241,.07)}
+.sprint-step-header{display:flex;align-items:center;gap:.65rem;margin-bottom:.55rem}
+.sprint-step-icon{font-size:1.1rem}
+.sprint-step-title{font-size:.88rem;font-weight:700;color:var(--black)}
+.sprint-step-tag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);background:var(--vi-soft);padding:.18rem .55rem;border-radius:5px;margin-left:auto;white-space:nowrap}
+.sprint-step-desc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.65rem}
+.sprint-step-items{display:flex;flex-direction:column;gap:.28rem}
+.sprint-step-item{font-size:.76rem;color:var(--black);line-height:1.55;display:flex;align-items:flex-start;gap:.5rem}
+.sprint-step-item::before{content:'→';color:var(--vi);font-weight:700;flex-shrink:0;font-size:.7rem;margin-top:.1rem}
+
+/* SPRINT META STRIP */
+.sprint-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1.5rem 0}
+.sprint-meta-cell{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;text-align:center}
+.sprint-meta-val{font-size:1.5rem;font-weight:800;color:var(--vi);letter-spacing:-.03em;line-height:1}
+.sprint-meta-lbl{font-size:.62rem;color:var(--muted);font-weight:600;margin-top:.3rem;line-height:1.3}
+
+.ia-card{background:var(--off);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.ia-card-head{background:var(--vi);padding:.75rem 1rem;font-size:.65rem;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase}
+.ia-card-body{padding:1rem;display:flex;flex-direction:column;gap:.3rem}
+.ia-item{font-size:.72rem;color:var(--muted);padding:.3rem .5rem;background:var(--white);border-radius:6px;border:1px solid var(--border)}
+.ia-item.active-ia{color:var(--vi);background:var(--vi-soft);border-color:rgba(108,76,241,.2)}
+
+/* SCREEN MOCKUP WRAP */
+.screen-wrap{background:#0F0F14;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.06);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.screen-bar{background:#13131A;height:28px;display:flex;align-items:center;padding:0 .75rem;gap:.35rem}
+.screen-dot{width:8px;height:8px;border-radius:50%}
+.screen-content{height:260px;overflow:hidden}
+.screen-content img{width:100%;height:100%;object-fit:cover;display:block}
+.screen-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;color:rgba(255,255,255,.3);font-size:.72rem;text-align:center;padding:1rem}
+.screen-fallback code{font-size:.6rem;color:rgba(108,76,241,.7);background:rgba(108,76,241,.1);padding:.2rem .5rem;border-radius:4px}
+
+/* RESPONSIVE */
+@media(max-width:1100px){:root{--pad:60px}}
+@media(max-width:860px){
+  :root{--pad:24px}
+  .cs-sidebar{display:none}
+  .cs-main{padding:0 var(--pad) 4rem}
+  .prob-grid,.vision-flip,.persona-grid,.opp-grid,.ba-grid,.process-grid,.img-side{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .cs-meta-box{grid-template-columns:repeat(3,1fr)}
+  .cs-meta-cell:nth-child(3){border-right:none}
+  .cs-meta-cell:nth-child(1),.cs-meta-cell:nth-child(2),.cs-meta-cell:nth-child(3){border-bottom:1px solid var(--border)}
+  .cs-header{padding:0 24px}
+}
+
+</style>
+</head>
+<body>
+<div class="read-progress" id="readProgress"></div>
+<body>
+
+<div class="read-progress" id="readProgress"></div>
+
+<!-- HEADER -->
+<header class="cs-header">
+  <a href="index.html" class="cs-header-logo">Vagmita Pandya</a>
+  <nav class="cs-header-nav">
+    <a href="index.html#work">My Work</a>
+    <a href="index.html#about">About me</a>
+    <a href="index.html#blogs">Blogs</a>
+    <a href="index.html#contact">Say hi</a>
+    <a href="https://linkedin.com/in/vagmita" target="_blank" class="cs-header-linkedin">
+      <span class="cs-linkedin-in">in</span>
+      <span class="cs-linkedin-label">LinkedIn</span>
+    </a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="cs-hero">
+  <div class="cs-type-chip">End-to-End Case Study · Enterprise Security UX</div>
+  <h1 class="cs-hero-title">Realize — <span>designing the<br>system inside the platform</span></h1>
+  <p class="cs-hero-sub">An enterprise cybersecurity platform had four capable modules and zero product experience. I joined as the sole designer and rebuilt it from the ground up — research, architecture, design system, full UI.</p>
+  <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:2rem">
+    <div class="read-time-chip">~ 12 min read</div>
+  </div>
+  <div class="cs-meta-box" style="grid-template-columns:repeat(5,1fr)">
+    <div class="cs-meta-cell">
+      <div class="cs-meta-cell-label">Role</div>
+      <div class="cs-meta-cell-value">Product Designer</div>
+    </div>
+    <div class="cs-meta-cell">
+      <div class="cs-meta-cell-label">Duration</div>
+      <div class="cs-meta-cell-value">4 Weeks</div>
+    </div>
+    <div class="cs-meta-cell">
+      <div class="cs-meta-cell-label">Type</div>
+      <div class="cs-meta-cell-value">SaaS · Enterprise · AI</div>
+    </div>
+    <div class="cs-meta-cell">
+      <div class="cs-meta-cell-label">Team</div>
+      <div class="cs-meta-cell-value">2 Designers · 1 PM · 4 Devs</div>
+    </div>
+    <div class="cs-meta-cell" style="border-right:none">
+      <div class="cs-meta-cell-label">Company</div>
+      <div class="cs-meta-cell-value">Skysecure.ai</div>
+    </div>
+  </div>
+</section>
+
+<!-- 30-SEC OVERVIEW + STICKY NOTE -->
+<div class="cs-overview-wrap">
+  <div class="cs-overview-combined">
+    <div class="cs-overview-card">
+      <div class="cs-overview-heading">30-second overview</div>
+      <ul class="cs-overview-list">
+        <li><span><strong>The problem:</strong> Realize had four powerful modules but no cohesive product experience. Screens were AI-generated and handed to developers without UX logic, flows, or structure.</span></li>
+        <li><span><strong>What I did:</strong> Led design within a cross-functional team, driving AI-assisted research, competitive analysis, and interviews with real security professionals to ground decisions in reality.</span></li>
+        <li><span><strong>The insight:</strong> Security teams aren't lacking data — they're lacking guided action. Competitors highlight issues, but solving them requires jumping across tools.</span></li>
+        <li><span><strong>The outcome:</strong> Delivered a cohesive end-to-end product experience — defining IA, designing flows across all four modules, introducing an AI chatbot layer, and building a design system. Transformed the product into a connected assess-to-deploy workflow that previously didn't exist.</span></li>
+      </ul>
+    </div>
+    <div class="sticky-note-paper sticky-note-attached">
+      <div class="sticky-note-tape"></div>
+      <div class="sticky-note-heading">✨ Before you scroll in…</div>
+      <p class="sticky-note-body">Let me warn you — this is a big one (and a good one, I promise). A full end-to-end project where I led the design from the very first founder conversation to the final product experience.</p>
+      <p class="sticky-note-body" style="margin-top:.6rem">I've gone deep into the thinking, decisions, and process — so take your time with it.</p>
+      <p class="sticky-note-body" style="margin-top:.75rem;font-weight:700;color:#3a3000">Short on time?</p>
+      <div class="sticky-note-links" style="flex-direction:column;align-items:flex-start;gap:.5rem">
+        <a href="#s-ideation" class="sticky-note-btn">👉 Jump straight to the prototype</a>
+        <div style="display:flex;align-items:center;gap:.4rem">
+          <span class="sticky-note-or">or…</span>
+        </div>
+        <a href="index.html#contact" class="sticky-note-btn sticky-note-btn-ghost">👋 Say hello — I'll walk you through it myself</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CONTENT ZONE -->
+<div class="cs-content-zone">
+
+  <!-- SIDEBAR -->
+  <aside class="cs-sidebar">
+    <div class="cs-sidebar-inner">
+      <div class="cs-sidebar-cap">Case Study</div>
+      <nav class="cs-sidebar-nav">
+        <div class="snav-spine-fill" id="snavFill"></div>
+
+        <button class="snav-item" data-sec="s-space">
+          <span class="snav-num">01</span>
+          <span class="snav-label">Understanding the Space</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-role">
+          <span class="snav-num">02</span>
+          <span class="snav-label">My Role</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-problem-init">
+          <span class="snav-num">03</span>
+          <span class="snav-label">Initial Problem Framing</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-approach">
+          <span class="snav-num">03.5</span>
+          <span class="snav-label">Our Approach</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-research">
+          <span class="snav-num">04</span>
+          <span class="snav-label">Research</span>
+        </button>
+        <button class="snav-sub-item" data-sec="s-ai-research"><span class="snav-sub-label">AI-Assisted Research</span></button>
+        <button class="snav-sub-item" data-sec="s-comp-analysis"><span class="snav-sub-label">Competitive Analysis</span></button>
+        <button class="snav-sub-item" data-sec="s-user-interviews"><span class="snav-sub-label">User Interviews</span></button>
+
+        <button class="snav-item" data-sec="s-synthesis">
+          <span class="snav-num">05</span>
+          <span class="snav-label">Synthesis</span>
+        </button>
+        <button class="snav-sub-item" data-sec="s-affinity"><span class="snav-sub-label">Affinity Mapping</span></button>
+        <button class="snav-sub-item" data-sec="s-personas"><span class="snav-sub-label">Personas</span></button>
+
+        <button class="snav-item" data-sec="s-opportunities">
+          <span class="snav-num">06</span>
+          <span class="snav-label">Problem &amp; Opportunities</span>
+        </button>
+        <button class="snav-sub-item" data-sec="s-final-ps"><span class="snav-sub-label">Final Problem Statement</span></button>
+        <button class="snav-sub-item" data-sec="s-hmw"><span class="snav-sub-label">How Might We</span></button>
+        <button class="snav-sub-item" data-sec="s-solution-dir"><span class="snav-sub-label">Solution Direction</span></button>
+
+        <button class="snav-item" data-sec="s-ideation">
+          <span class="snav-num">07</span>
+          <span class="snav-label">Ideation &amp; Exploration</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-vision">
+          <span class="snav-num">08</span>
+          <span class="snav-label">My Vision</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-structure">
+          <span class="snav-num">09</span>
+          <span class="snav-label">Experience Structure</span>
+        </button>
+        <button class="snav-sub-item" data-sec="s-userflows"><span class="snav-sub-label">User Flows</span></button>
+        <button class="snav-sub-item" data-sec="s-ia"><span class="snav-sub-label">Information Architecture</span></button>
+
+        <button class="snav-item" data-sec="s-execution">
+          <span class="snav-num">10</span>
+          <span class="snav-label">Design Execution</span>
+        </button>
+        <button class="snav-sub-item" data-sec="s-wireframes"><span class="snav-sub-label">Wireframes</span></button>
+        <button class="snav-sub-item" data-sec="s-visual"><span class="snav-sub-label">Visual Language</span></button>
+        <button class="snav-sub-item" data-sec="s-design-system"><span class="snav-sub-label">Design System</span></button>
+
+        <button class="snav-item" data-sec="s-finalui">
+          <span class="snav-num">10d</span>
+          <span class="snav-label">First Visual Iterations</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-challenges">
+          <span class="snav-num">11</span>
+          <span class="snav-label">Challenges</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-impact">
+          <span class="snav-num">12</span>
+          <span class="snav-label">Impact &amp; Outcome</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-reflection">
+          <span class="snav-num">13</span>
+          <span class="snav-label">Reflection</span>
+        </button>
+
+        <button class="snav-item" data-sec="s-future">
+          <span class="snav-num">14</span>
+          <span class="snav-label">Future Iterations</span>
+        </button>
+
+      </nav>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="cs-main">
+
+
+    <!-- ═══ 01 UNDERSTANDING THE SPACE ═══ -->
+    <section class="cs-sec" id="s-space">
+      <div class="cs-sec-label"><span class="cs-sec-num">01</span> Understanding the Space</div>
+      <h2>A platform with no product inside it</h2>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin-top:1rem">
+        <div style="min-width:0">
+          <p class="cs-para">Realize is an enterprise cybersecurity platform built around four core capabilities: running security assessments, deploying solutions, managing incidents, and automating tasks through AI agents. The technical foundation was solid. But when I arrived, the product didn't exist.</p>
+
+          <p class="cs-para">What I found on day one was essentially <strong>a landing page with four unlabelled entry points</strong>. The screens had been AI-generated and handed directly to engineering — no UX logic, no user flows, no structure. Nobody had designed the system. Nobody had even asked what order the modules should be used in.</p>
+
+          <div class="callout">
+            <div class="callout-lbl">The starting point</div>
+            <p>A security team logging into Realize for the first time saw four unnamed module tiles and no signal of where to begin. Most couldn't navigate past the first screen without asking for help. The platform had features. It had no product experience.</p>
+          </div>
+        </div>
+        <div class="cs-img-wrap" style="min-width:0">
+          <img src="img/Realize/img1.png" alt="Platform state on day one" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+            <div style="font-size:2rem">🖼️</div>
+            <div style="font-size:.75rem;color:var(--muted);font-weight:600">Platform — day one state</div>
+            <code style="font-size:.62rem;color:var(--vi)">img/Realize/img1.png</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-sec-divider">The four modules in scope</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin:1.25rem 0">
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.2rem;border-top:3px solid var(--vi);transition:box-shadow .2s,transform .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 18px rgba(108,76,241,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="font-size:1.4rem;margin-bottom:.55rem">🔍</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Assess</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Run security assessments — identify risks, gaps, and vulnerabilities across the system.</div>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.2rem;border-top:3px solid var(--vi);transition:box-shadow .2s,transform .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 18px rgba(108,76,241,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="font-size:1.4rem;margin-bottom:.55rem">🚀</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Deploy</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Deploy security solutions using AI-assisted guided workflows without manual configuration.</div>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.2rem;border-top:3px solid var(--vi);transition:box-shadow .2s,transform .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 18px rgba(108,76,241,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="font-size:1.4rem;margin-bottom:.55rem">📊</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Manage</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Monitor live incidents, track system health, and manage ongoing security posture.</div>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.2rem;border-top:3px solid var(--vi);transition:box-shadow .2s,transform .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 18px rgba(108,76,241,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="font-size:1.4rem;margin-bottom:.55rem">🤖</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Agent Factory</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Build and deploy AI agents to automate recurring security tasks and workflows.</div>
+        </div>
+      </div>
+
+      <div class="cs-sec-divider">The founder conversation</div>
+
+      <div class="founder-scene">
+        <!-- TOP — lighter dark, the vision -->
+        <div class="founder-scene-top" style="background:#1E1B2E">
+          <div class="founder-eyebrow">The brief, in his words</div>
+          <div class="founder-vision">
+            He wanted Realize to be the platform where a security lead could <em>run an assessment, identify a problem, and fix it</em> — without switching tools, reading documentation, or relying on a specialist to interpret the output.
+          </div>
+          <div style="margin-top:1.5rem;padding:1rem 1.25rem;background:rgba(108,76,241,.15);border-left:3px solid rgba(108,76,241,.6);border-radius:0 10px 10px 0">
+            <div style="font-family:var(--hand);font-size:1.45rem;font-weight:700;color:#E8E4FF;line-height:1.3">"One system, start to finish."</div>
+          </div>
+          <div class="founder-attribution">
+            <div class="founder-av">👤</div>
+            <div class="founder-attr-text"><strong>Founder, first meeting</strong><br>Walking me through the product vision before I'd seen a single screen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S- layout: text left, image right -->
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin:2rem 0">
+        <div style="min-width:0">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem">What I found when I saw the screens</div>
+          <p style="font-size:.92rem;color:var(--black);line-height:1.8;margin:0">The engineering team had built something technically real — four capable modules on a solid foundation. But the product experience hadn't been built yet. What existed was closer to <strong>a collection of rooms than a building</strong>: each module functional in isolation, but with no front door, no hallway connecting them, and no sign telling you where to start.</p>
+          <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin:1rem 0 0;font-style:italic">The founder's vision was vivid and coherent. The platform hadn't caught up to it yet.</p>
+        </div>
+        <div class="cs-img-wrap">
+          <img src="img/Realize/img2.png" alt="Initial platform state — what I saw on day one" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+            <div style="font-size:2rem">🖼️</div>
+            <div style="font-size:.75rem;color:var(--muted);font-weight:600">Initial platform state</div>
+            <code style="font-size:.62rem;color:var(--vi)">img/Realize/img2.png</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- What was there / What wasn't -->
+      <div class="founder-scene" style="margin-top:0">
+        <div class="founder-scene-bottom">
+          <div class="founder-col">
+            <div class="founder-col-label vision-lbl">What was there</div>
+            <div class="founder-col-items">
+              <div class="founder-col-item">Four capable modules — Assess, Deploy, Manage, Agent Factory</div>
+              <div class="founder-col-item">A solid technical foundation built by the engineering team</div>
+              <div class="founder-col-item">A clear, specific vision — but held entirely in the founder's head</div>
+            </div>
+          </div>
+          <div class="founder-scene-divider"></div>
+          <div class="founder-col">
+            <div class="founder-col-label gap-lbl">What wasn't</div>
+            <div class="founder-col-items">
+              <div class="founder-col-item gap-item">No onboarding — no way to enter the platform for the first time</div>
+              <div class="founder-col-item gap-item">No narrative linking the modules into a coherent workflow</div>
+              <div class="founder-col-item gap-item">No guided entry point, no sense of sequence, no product experience</div>
+            </div>
+          </div>
+        </div>
+        <div class="founder-designer-note">
+          <div class="founder-designer-note-icon">✏️</div>
+          <div class="founder-designer-note-text">The vision was clear. <strong>My job was to translate it into something a user could actually navigate</strong> — to build the connective tissue between what the engineering team had built and what the founder had imagined. Starting with research, working up to a complete product experience.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 02 MY ROLE ═══ -->
+    <section class="cs-sec" id="s-role">
+      <div class="cs-sec-label"><span class="cs-sec-num">02</span> My Role</div>
+      <h2>What my work actually covered</h2>
+      <p class="cs-para">I came in as the sole designer on this project. There was no design team, no existing design system, no prior UX work to build from. I owned the entire design process — from initial research through to final UI delivery.</p>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin:1.25rem 0">
+        <div class="prob-grid" style="margin:0">
+          <div class="prob-card">
+            <h4>🔬 Research</h4>
+            <p>AI-assisted secondary research, competitive analysis of enterprise security tools, and direct user interviews with security professionals to understand real workflows.</p>
+          </div>
+          <div class="prob-card">
+            <h4>🗂️ Synthesis</h4>
+            <p>Affinity mapping, persona creation, problem statement definition, HMW framing, and translating raw insights into design opportunities.</p>
+          </div>
+          <div class="prob-card">
+            <h4>🏗️ Architecture</h4>
+            <p>Designed the full information architecture — how four modules connect, how users move between them, and how AI acts as the layer reducing complexity throughout.</p>
+          </div>
+          <div class="prob-card">
+            <h4>🎨 Design Execution</h4>
+            <p>Wireframes, visual language, a full design system, and high-fidelity screens for all key flows including onboarding, dashboard, deploy, manage, agents, and the AI chatbot.</p>
+          </div>
+        </div>
+        <div class="cs-img-wrap" style="min-width:0;position:sticky;top:80px">
+          <img src="img/Realize/img3.png" alt="Design ownership scope" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+            <div style="font-size:2rem">🖼️</div>
+            <div style="font-size:.75rem;color:var(--muted);font-weight:600">Design ownership scope</div>
+            <code style="font-size:.62rem;color:var(--vi)">img/Realize/img3.png</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-lbl">The constraint</div>
+        <p>No existing design foundation, no user data, and a technical team that had already shipped some screens without design input. I had to move fast, validate as I went, and sometimes work around engineering decisions that were already in flight.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 03 INITIAL PROBLEM FRAMING ═══ -->
+    <section class="cs-sec" id="s-problem-init">
+      <div class="cs-sec-label"><span class="cs-sec-num">03</span> Initial Problem Framing</div>
+      <h2>The brief I was handed</h2>
+      <p class="cs-para">The problem statement I received at the start was broad but real: <strong>users cannot understand the platform.</strong> They log in, they see modules, and they don't know what to do. They don't know where to start, what order to follow, or what any given action will result in.</p>
+
+      <div class="realproblem-compare">
+        <div class="realproblem-side realproblem-assumed">
+          <div class="realproblem-tag">The brief as given</div>
+          <div class="realproblem-statement">"Users can't understand the platform — they don't know what to do when they log in."</div>
+          <div class="realproblem-note">This was true, but it described a symptom. The deeper question was: why can't they understand it, and what would it take to fix that at a system level — not just a surface level?</div>
+        </div>
+        <div class="realproblem-arrow">↓</div>
+        <div class="realproblem-side realproblem-actual">
+          <div class="realproblem-tag">What I suspected after the founder call</div>
+          <div class="realproblem-statement">"The platform was built around capabilities, not around how people actually think about security work."</div>
+          <div class="realproblem-note">Security professionals think in workflows: I have a problem → I need to understand it → I need to fix it. The four modules mapped to steps in that workflow, but the product didn't make that logic visible. I needed research to validate this hunch before acting on it.</div>
+        </div>
+      </div>
+
+      <p class="cs-para">With that framing in place, I went into research with a clear goal: understand how security teams actually work, what tools they use today, where they struggle, and what a platform that genuinely helps them would need to do differently.</p>
+    </section>
+
+    <!-- ═══ 03.5 OUR APPROACH ═══ -->
+    <section class="cs-sec" id="s-approach">
+      <div class="cs-sec-label"><span class="cs-sec-num">03.5</span> Our Approach</div>
+      <h2>Two designers, one week, a modified <em>design sprint</em></h2>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin-bottom:1.75rem">
+        <div style="min-width:0">
+          <p class="cs-para" style="margin-top:0">Engineering was already moving. There was no time for a long research phase, no room for weeks of ideation. I was working alongside one other designer — two of us total — and we needed to go from a vague problem to a concrete platform structure as fast as responsibly possible.</p>
+          <p class="cs-para" style="margin-bottom:0">We adapted the classic 5-day design sprint format to fit our constraints. Not a textbook sprint — we stretched it to a week and shaped each phase around what this project actually needed. The goal wasn't to design every screen in five days. It was to establish the right <strong>structure, logic, and design direction</strong> before a single pixel was pushed.</p>
+        </div>
+        <div class="cs-img-wrap" style="min-width:0">
+          <img src="img/Realize/img4.png" alt="Design sprint approach" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+            <div style="font-size:2rem">🖼️</div>
+            <div style="font-size:.75rem;color:var(--muted);font-weight:600">Design sprint — our approach</div>
+            <code style="font-size:.62rem;color:var(--vi)">img/Realize/img4.png</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="sprint-meta">
+        <div class="sprint-meta-cell">
+          <div class="sprint-meta-val">2</div>
+          <div class="sprint-meta-lbl">Designers on the sprint</div>
+        </div>
+        <div class="sprint-meta-cell">
+          <div class="sprint-meta-val">1 wk</div>
+          <div class="sprint-meta-lbl">To a validated platform structure</div>
+        </div>
+        <div class="sprint-meta-cell">
+          <div class="sprint-meta-val">5</div>
+          <div class="sprint-meta-lbl">Phases, run in sequence</div>
+        </div>
+      </div>
+
+      <div class="sprint-wrap">
+
+        <div class="sprint-step">
+          <div class="sprint-step-num">01</div>
+          <div class="sprint-step-card">
+            <div class="sprint-step-header">
+              <span class="sprint-step-icon">🧭</span>
+              <span class="sprint-step-title">Align — founder, stakeholders, team</span>
+              <span class="sprint-step-tag">Day 1</span>
+            </div>
+            <p class="sprint-step-desc">Before sketching anything, we needed everyone pointing at the same problem. We ran alignment sessions with the founder and the engineering team to separate vision from assumptions and make sure we were solving the right thing.</p>
+            <div class="sprint-step-items">
+              <div class="sprint-step-item">Broke down the platform vision into clear, testable goals — what success looks like for each module</div>
+              <div class="sprint-step-item">Identified what the product must solve immediately vs. what can wait for v2</div>
+              <div class="sprint-step-item">Surfaced conflicting assumptions between founder vision and what engineering had already built — and resolved them before designing anything</div>
+              <div class="sprint-step-item">Mapped the current state: what's real, what's aspirational, and what gaps are blocking users on day one</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sprint-step">
+          <div class="sprint-step-num">02</div>
+          <div class="sprint-step-card">
+            <div class="sprint-step-header">
+              <span class="sprint-step-icon">🔍</span>
+              <span class="sprint-step-title">Explore & benchmark</span>
+              <span class="sprint-step-tag">Day 2</span>
+            </div>
+            <p class="sprint-step-desc">We didn't want to design in a vacuum. We studied how the best (and worst) enterprise security tools handle the same problems — not to copy them, but to understand what patterns users already know and where every competitor consistently fails.</p>
+            <div class="sprint-step-items">
+              <div class="sprint-step-item">Studied Sentinel, Cortex XSIAM, and CrowdStrike Falcon — tore apart their IA, navigation patterns, and AI integration models</div>
+              <div class="sprint-step-item">Analysed how security workflows are structured in practice: assess → triage → deploy → monitor, and where that chain breaks</div>
+              <div class="sprint-step-item">Identified the consistent gap across all three: strong on detection, weak on guided action — exactly where Realize could differentiate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sprint-step">
+          <div class="sprint-step-num">03</div>
+          <div class="sprint-step-card">
+            <div class="sprint-step-header">
+              <span class="sprint-step-icon">👤</span>
+              <span class="sprint-step-title">Define personas & workflows</span>
+              <span class="sprint-step-tag">Day 3</span>
+            </div>
+            <p class="sprint-step-desc">We mapped the two users who matter most — the ops lead making decisions under pressure, and the engineer executing those decisions in the platform. Then we defined what each one actually needs to do, in what order, and how often.</p>
+            <div class="sprint-step-items">
+              <div class="sprint-step-item">Defined Aarav (security ops lead) and Neha (cloud security engineer) — their goals, their friction points, and their mental models</div>
+              <div class="sprint-step-item">Mapped the core actions each user needs to perform and the sequence that makes sense to them — not the sequence the platform was currently offering</div>
+              <div class="sprint-step-item">Prioritised flows by impact and frequency — what do users do most, and what failing to get right would cost them the most time</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sprint-step">
+          <div class="sprint-step-num">04</div>
+          <div class="sprint-step-card">
+            <div class="sprint-step-header">
+              <span class="sprint-step-icon">✏️</span>
+              <span class="sprint-step-title">Sketch & diverge</span>
+              <span class="sprint-step-tag">Day 4</span>
+            </div>
+            <p class="sprint-step-desc">With a shared understanding of users and constraints, we diverged — each exploring different structural approaches before comparing. The goal wasn't polish. It was breadth: find as many ways to solve the navigation and workflow problem as possible before committing to any.</p>
+            <div class="sprint-step-items">
+              <div class="sprint-step-item">Explored different ways to organise four modules into a coherent platform — linear flows, hub-and-spoke, contextual entry, AI-led navigation</div>
+              <div class="sprint-step-item">Tested different approaches to the assess → deploy handoff — this was the most critical moment to get right</div>
+              <div class="sprint-step-item">Focused specifically on reducing decision fatigue at entry — how do you walk into a platform and know where to start in under 5 seconds?</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sprint-step">
+          <div class="sprint-step-num">05</div>
+          <div class="sprint-step-card">
+            <div class="sprint-step-header">
+              <span class="sprint-step-icon">✅</span>
+              <span class="sprint-step-title">Converge & commit</span>
+              <span class="sprint-step-tag">Day 5</span>
+            </div>
+            <p class="sprint-step-desc">We brought our sketches together, stress-tested the best ideas against scalability and engineering feasibility, and committed to a direction. By end of day 5 we had the core platform structure — the logic that all subsequent design work would build on.</p>
+            <div class="sprint-step-items">
+              <div class="sprint-step-item">Evaluated ideas against three criteria: does it scale to new modules? Can engineering build it in the current stack? Does it serve both personas without compromising either?</div>
+              <div class="sprint-step-item">Aligned with engineering on what could ship fast vs. what would need iteration — design direction had to be realistic, not just elegant</div>
+              <div class="sprint-step-item">Finalised the four-path landing structure, the AI chatbot as connective layer, and the assess → deploy handoff as the platform's core UX logic</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout" style="margin-top:1rem">
+        <div class="callout-lbl">What we had after one week</div>
+        <p>A validated platform structure — four modules with a clear entry logic, a defined assess-to-deploy handoff, and an AI chatbot layer that connected it all. Not screens. Not pixels. A system that everyone on the team understood and agreed on. That's what made everything that came after possible.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 04 RESEARCH ═══ -->
+    <section class="cs-sec" id="s-research">
+      <div class="cs-sec-label"><span class="cs-sec-num">04</span> Research</div>
+      <h2>Finding the gaps before designing the fix</h2>
+      <p class="cs-para">Research in this project had a real constraint: <strong>time</strong>. A full research sprint wasn't feasible — engineering was already moving. I needed to be strategic about what I could learn quickly, and rigorous about how I used it.</p>
+
+      <p class="cs-para"><strong>I ran three parallel streams: AI-assisted secondary research</strong> to quickly map the landscape, <strong>competitive analysis</strong> to understand what existing tools do well and where they fall short, and <strong>direct user interviews</strong> with security professionals to ground everything in real behaviour.</p>
+
+      <div class="cs-img-wrap" style="margin:1.5rem 0">
+        <img src="img/Realize/img5.png" alt="Research process — three parallel streams" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+          <div style="font-size:2rem">🖼️</div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600">Research — three parallel streams</div>
+          <code style="font-size:.62rem;color:var(--vi)">img/Realize/img5.png</code>
+        </div>
+      </div>
+
+      <!-- 4a AI-Assisted Research -->
+      <div id="s-ai-research" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">04a</span> AI-Assisted Research</div>
+        <h3>Moving fast without cutting corners</h3>
+        <p class="cs-para">With limited time for traditional secondary research, I used Claude and Perplexity to rapidly synthesise existing knowledge — academic papers, industry reports, practitioner forums, and CISO-level content — about how enterprise security teams work and where they struggle most.</p>
+
+        <div class="callout">
+          <div class="callout-lbl">Why AI-assisted research?</div>
+          <p>When you don't have weeks for literature review, AI tools can surface patterns across hundreds of sources in hours. The goal isn't to replace rigorous research — it's to build a well-informed foundation quickly, so that the time you do spend with real users is focused on the right questions, not starting from zero.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start;margin:1.25rem 0">
+
+          <!-- LEFT: vertical stack of 4 cards -->
+          <div style="display:flex;flex-direction:column;gap:.65rem">
+            <div class="prob-card">
+              <h4>📚 What I fed in</h4>
+              <p>Security team workflow documentation, CISO pain point surveys, industry reports on SOC analyst burnout, tool fragmentation studies, and AI in security adoption trends.</p>
+            </div>
+            <div class="prob-card">
+              <h4>🎯 What I asked for</h4>
+              <p>Common workflow breakdowns, where teams lose time, what decisions are hardest to make under pressure, and where AI assistance was most and least trusted.</p>
+            </div>
+            <div class="prob-card">
+              <h4>📍 What it surfaced</h4>
+              <p>A consistent pattern: security professionals are overwhelmed not by lack of data, but by inability to act on it quickly. Too much information, too little guidance.</p>
+            </div>
+            <div class="prob-card">
+              <h4>⚠️ How I used it</h4>
+              <p>As a hypothesis-builder, not a truth-teller. Every pattern flagged by AI research was carried into user interviews as a question to validate — not an assumption to design around.</p>
+            </div>
+          </div>
+
+          <!-- RIGHT: image -->
+          <div class="cs-img-wrap" style="position:sticky;top:80px">
+            <img src="img/Realize/img6.png" alt="AI-assisted research process" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+              <div style="font-size:2rem">🖼️</div>
+              <div style="font-size:.75rem;color:var(--muted);font-weight:600">AI-assisted research</div>
+              <code style="font-size:.62rem;color:var(--vi)">img/Realize/img6.png</code>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4b Competitive Analysis -->
+      <div id="s-comp-analysis" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">04b</span> Competitive Analysis</div>
+        <h3>What's already out there — and what's missing</h3>
+        <p class="cs-para">I studied the three most widely used enterprise security platforms — Microsoft Sentinel, Palo Alto Cortex, and CrowdStrike Falcon — not to replicate them, but to understand their mental model and find where they all fail together.</p>
+
+        <p class="cs-para">The pattern was consistent across all three: <strong>strong on detection, weak on action.</strong> Each platform shows you the problem with impressive clarity. None of them help you solve it efficiently.</p>
+
+        <div class="ca-table-wrap">
+          <table class="ca-table">
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>MS Sentinel</th>
+                <th>Cortex (Palo Alto)</th>
+                <th>CrowdStrike</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Core strength</strong></td><td>Data aggregation, SIEM</td><td>XDR, automation</td><td>Endpoint protection, threat intel</td></tr>
+              <tr><td><strong>Guided workflows</strong></td><td>❌ Minimal</td><td>🟡 Partial playbooks</td><td>❌ User-driven</td></tr>
+              <tr><td><strong>Deployment UX</strong></td><td class="ca-gap">Complex, config-heavy</td><td class="ca-gap">Moderate friction</td><td class="ca-gap">Agent-based, manual</td></tr>
+              <tr><td><strong>AI assistance</strong></td><td>🟡 Copilot add-on</td><td>🟡 Limited NLP</td><td>🟡 Charlotte AI</td></tr>
+              <tr><td><strong>Alert fatigue</strong></td><td class="ca-gap">High — no prioritisation</td><td class="ca-gap">Moderate</td><td class="ca-gap">High volume alerts</td></tr>
+              <tr><td><strong>Learning curve</strong></td><td class="ca-gap">Steep</td><td class="ca-gap">Moderate-steep</td><td class="ca-gap">Moderate</td></tr>
+              <tr><td><strong>Biggest gap</strong></td><td class="ca-gap">Too much data, no guidance</td><td class="ca-gap">Complex for newer users</td><td class="ca-gap">Fragmented across tools</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:.4rem;margin:.75rem 0">
+          <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.65rem .9rem;background:var(--off);border-radius:8px;font-size:.78rem;color:var(--muted)"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span> Most platforms are data-heavy and dashboard-driven — great at showing problems, not at helping users solve them</div>
+          <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.65rem .9rem;background:var(--off);border-radius:8px;font-size:.78rem;color:var(--muted)"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span> Workflows are fragmented — users manually piece together assess → decide → deploy → monitor</div>
+          <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.65rem .9rem;background:var(--off);border-radius:8px;font-size:.78rem;color:var(--muted)"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span> AI assistance exists but it's additive (a Copilot bolt-on), not structural — the workflow logic is still manual</div>
+        </div>
+
+        <div class="outcome-strip">
+          <span class="outcome-icon">💡</span>
+          <span><strong>The opening:</strong> No major platform connects assessment to deployment to management in a single guided flow. That gap was exactly where Realize could win.</span>
+        </div>
+
+        <div class="img-below">
+      </div>
+
+      <!-- 4c User Interviews -->
+      <div id="s-user-interviews" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">04c</span> User Interviews</div>
+        <h3>What security professionals actually said</h3>
+        <p class="cs-para">Time constraints meant I couldn't run a full research panel. I was able to talk to a small group of security professionals — a security operations lead and a cloud security engineer — whose daily reality gave me what secondary research couldn't: the texture of the friction.</p>
+
+        <p class="cs-para">Sessions were conversational — 30–45 minutes over calls. The goal wasn't to validate a list of assumptions, it was to understand the daily workflow and find where it breaks.</p>
+
+        <div class="cs-quote">I spend the first two hours every morning just figuring out what I'm supposed to be looking at. There's too much noise and nothing tells me what actually matters.</div>
+
+        <div class="img-side">
+          <div class="img-side-text">
+            <div class="rq">
+              <div class="rq-av">🛡️</div>
+              <div>
+                <div class="rq-quote">We use at least four tools just to run one incident response cycle. Half the time I'm just copying data between dashboards.</div>
+                <div class="rq-attr">Security Operations Lead · Mid-size enterprise · 6 years in security ops</div>
+              </div>
+            </div>
+            <div class="rq">
+              <div class="rq-av">☁️</div>
+              <div>
+                <div class="rq-quote">Deploying a new security module used to take me a full day. It's not that it's technically hard — there's just no clear path. I have to figure it out from the docs every single time.</div>
+                <div class="rq-attr">Cloud Security Engineer · SaaS company · 3 years in cloud security</div>
+              </div>
+            </div>
+            <div class="rq">
+              <div class="rq-av">🛡️</div>
+              <div>
+                <div class="rq-quote">I don't need more alerts. I need to know which one to act on first and what to do about it. That part I still have to figure out myself.</div>
+                <div class="rq-attr">Security Operations Lead · Following up on the alert fatigue question</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-slot">
+            <img src="img/Realize/img7.png" alt="User interview notes" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">Interview notes</div><code>img/Realize/img7.png</code></div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-lbl">Key takeaway from interviews</div>
+          <p>Security professionals are not looking for more information — they're drowning in it. What they need is a system that <strong>tells them what to do next and helps them do it</strong>. The intelligence already exists in their tools. The guidance does not.</p>
+        </div>
+
+        <div class="sec-connector">
+          <span class="sec-connector-arrow">→</span>
+          <span>Three streams of research. Now I needed to find what they had in common. That's what <strong>Synthesis</strong> is for.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ 05 SYNTHESIS ═══ -->
+    <section class="cs-sec" id="s-synthesis">
+      <div class="cs-sec-label"><span class="cs-sec-num">05</span> Synthesis</div>
+      <h2>Making sense of everything I found</h2>
+      <p class="cs-para">By the end of the research phase I had AI-generated literature patterns, competitive teardown notes, interview transcripts, and my own observations from the founder conversation — all sitting across different documents and tabs. The next step was to stop collecting and start connecting.</p>
+
+      <p class="cs-para">Synthesis is where the real design work begins. Raw findings don't tell you what to build. Synthesis shows you the patterns inside those findings — the recurring pain, the structural gaps, the moments where every source points to the same underlying problem.</p>
+
+      <div class="cs-img-wrap" style="margin:1.5rem 0">
+        <img src="img/Realize/img8.png" alt="Synthesis — from raw data to patterns" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+          <div style="font-size:2rem">🖼️</div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600">Synthesis — from raw data to patterns</div>
+          <code style="font-size:.62rem;color:var(--vi)">img/Realize/img8.png</code>
+        </div>
+      </div>
+
+      <!-- 5a Affinity Mapping -->
+      <div id="s-affinity" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">05a</span> Affinity Mapping</div>
+        <h3>From scattered inputs to visible patterns</h3>
+        <p class="cs-para">By this point I had a lot of raw material — but it was fragmented across different sources and people. I'd spoken to the <strong>founder</strong> about his vision, had conversations with <strong>engineers</strong> already building the platform, talked to <strong>security professionals</strong> about their real daily workflows, and pulled in competitive observations and AI-research patterns. Everything was in different tabs, voice notes, and documents.</p>
+
+        <p class="cs-para">Affinity mapping was how I made sense of all of it. I broke everything down into individual observations — one idea, one quote, one friction point per note — and then started grouping them by what they had in common. No pre-set categories. I let the clusters form naturally and named them only once the pattern was clear.</p>
+
+        <div class="callout">
+          <div class="callout-lbl">Who I pulled from</div>
+          <p>Founder vision brief · Engineer conversations (what was already built and why) · Security ops lead interview · Cloud engineer interview · AI-assisted literature patterns · Competitive teardown observations · My own first-hand observations of the platform</p>
+        </div>
+
+        <div class="img-below">
+          <div class="img-slot">
+            <img src="img/Realize/img9.png" alt="Affinity mapping — clustered research wall" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">Affinity mapping output</div><code>img/Realize/img9.png</code></div>
+          </div>
+        </div>
+
+        <div class="cs-sec-divider" style="margin-top:2rem">What the clusters actually revealed</div>
+        <p class="cs-para" style="font-size:.82rem;margin-bottom:1rem">Four themes emerged. Every finding mapped cleanly to one of them — which meant the problem space had a real shape, not just a list of complaints.</p>
+
+        <div style="overflow-x:auto;border-radius:12px;border:1px solid var(--border);margin:1.25rem 0">
+          <table style="width:100%;border-collapse:collapse;font-size:.78rem">
+            <thead>
+              <tr style="background:var(--off)">
+                <th style="padding:.75rem 1rem;text-align:left;font-weight:700;color:var(--black);border-bottom:1px solid var(--border);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">⚠️ Pain Points</th>
+                <th style="padding:.75rem 1rem;text-align:left;font-weight:700;color:var(--black);border-bottom:1px solid var(--border);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">🧩 Theme / Pattern</th>
+                <th style="padding:.75rem 1rem;text-align:left;font-weight:700;color:var(--black);border-bottom:1px solid var(--border);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">💡 Design Opportunity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:.75rem 1rem;color:var(--muted);border-bottom:1px solid var(--border);line-height:1.55;vertical-align:top">"No clear starting point — 4 unlabelled tiles" · "Users don't know what order to use modules" · "First screen causes abandonment"</td>
+                <td style="padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top"><span style="display:inline-flex;align-items:center;gap:.4rem;background:var(--vi-soft);color:var(--vi);font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:6px">🎯 Navigation &amp; Entry</span></td>
+                <td style="padding:.75rem 1rem;color:var(--black);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55">Four-path landing that gives every user instant orientation — role-appropriate entry in under 5 seconds, no guesswork</td>
+              </tr>
+              <tr style="background:rgba(248,248,246,.5)">
+                <td style="padding:.75rem 1rem;color:var(--muted);border-bottom:1px solid var(--border);line-height:1.55;vertical-align:top">"4+ tools for one incident response cycle" · "Copy-pasting data between dashboards" · "Context is lost every time I switch tools" · "No single source of truth"</td>
+                <td style="padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top"><span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(245,158,11,.1);color:#92400e;font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:6px">⚡ Tool Fragmentation</span></td>
+                <td style="padding:.75rem 1rem;color:var(--black);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55">Connected workflow logic — assessment findings feed directly into deployment config, no re-navigation or manual handoff</td>
+              </tr>
+              <tr>
+                <td style="padding:.75rem 1rem;color:var(--muted);border-bottom:1px solid var(--border);line-height:1.55;vertical-align:top">"Too many alerts, no prioritisation" · "I can't tell signal from noise" · "AI outputs exist but the guidance doesn't" · "I spend 2hrs every morning figuring out what to look at"</td>
+                <td style="padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top"><span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(59,130,246,.08);color:#1e40af;font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:6px">📊 Alert Fatigue</span></td>
+                <td style="padding:.75rem 1rem;color:var(--black);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55">AI chatbot as structural guide — not a sidebar widget, but the layer that surfaces what matters and tells you what to do next</td>
+              </tr>
+              <tr style="background:rgba(248,248,246,.5)">
+                <td style="padding:.75rem 1rem;color:var(--muted);line-height:1.55;vertical-align:top">"Deployment takes a full day" · "I re-read the docs every single time" · "No guided step-by-step" · "Manual configuration blocks my speed"</td>
+                <td style="padding:.75rem 1rem;vertical-align:top"><span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.08);color:#166534;font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:6px">🔧 Deployment Friction</span></td>
+                <td style="padding:.75rem 1rem;color:var(--black);vertical-align:top;line-height:1.55">Guided deployment flows — AI-assisted, step-by-step, no manual configuration required. Anyone on the team can deploy, not just the most senior engineer</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="cs-para">Four patterns. Four design directions. Everything that followed — the problem statement, the HMW questions, the solution directions — was built directly on top of these clusters.</p>
+      </div>
+
+      <!-- 5b Personas -->
+      <div id="s-personas" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">05b</span> Personas</div>
+        <h3>Two users. Two very different needs.</h3>
+        <p class="cs-para">Research consistently pointed to two distinct user types — not just different roles, but fundamentally different relationships with the platform. One needed to make fast decisions. The other needed to execute complex tasks without breaking anything. Every design decision from here was run through both of them.</p>
+
+        <div class="persona-grid">
+
+          <!-- PERSONA 1 -->
+          <div style="background:var(--white);border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,.05)">
+            <div style="background:var(--off);padding:1.1rem 1.25rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.75rem;align-items:center">
+              <div style="width:42px;height:42px;border-radius:10px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🛡️</div>
+              <div>
+                <div style="font-family:var(--body);font-size:.92rem;font-weight:700;color:var(--black)">Aarav Mehta</div>
+                <div style="font-size:.65rem;color:var(--muted);margin-top:.1rem">Security Operations Lead · 8 yrs experience · Bangalore</div>
+              </div>
+            </div>
+            <div style="padding:1.1rem 1.25rem">
+              <p style="font-size:.76rem;color:var(--muted);line-height:1.65;margin-bottom:1rem">Leads a mid-sized enterprise security team. Manages threats, handles incidents, and is ultimately responsible for compliance. His day is built around dashboards, escalating alerts, and high-pressure decisions — often with incomplete information.</p>
+
+              <div class="p-sec">Goal</div>
+              <p style="font-size:.74rem;color:var(--black);line-height:1.6;margin:.3rem 0 .75rem;font-style:italic;padding-left:.65rem;border-left:2px solid var(--vi)">"Know what's actually happening across my environment without having to dig through four different tools to find it."</p>
+
+              <div class="p-sec">Primary needs</div>
+              <ul class="p-ul" style="margin-bottom:.75rem">
+                <li>Quick, prioritised visibility into what actually matters right now</li>
+                <li>Faster incident response with less manual investigation overhead</li>
+                <li>Centralised control — one system, not four disconnected tools</li>
+                <li>AI that helps him act, not just surfaces more data to interpret</li>
+              </ul>
+
+              <div class="p-sec">Frustrations</div>
+              <ul class="p-ul" style="margin-bottom:.75rem">
+                <li>Alert fatigue — spends 2+ hours daily figuring out what to look at first</li>
+                <li>Slow insight-to-action loop across disconnected platforms</li>
+                <li>Manual workflows that consume time he doesn't have</li>
+                <li>Systems built for deep analysts, not for decision-makers under pressure</li>
+              </ul>
+
+              <div class="p-sec">In his words</div>
+              <div style="background:var(--vi-soft);border-radius:8px;padding:.65rem .85rem;font-size:.72rem;color:var(--vi);font-style:italic;line-height:1.55">"I know there's a problem somewhere. I just need the system to tell me which one to fix first — and then help me fix it."</div>
+            </div>
+          </div>
+
+          <!-- PERSONA 2 -->
+          <div style="background:var(--white);border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,.05)">
+            <div style="background:var(--off);padding:1.1rem 1.25rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.75rem;align-items:center">
+              <div style="width:42px;height:42px;border-radius:10px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">☁️</div>
+              <div>
+                <div style="font-family:var(--body);font-size:.92rem;font-weight:700;color:var(--black)">Neha Kapoor</div>
+                <div style="font-size:.65rem;color:var(--muted);margin-top:.1rem">Cloud Security Engineer · 4 yrs experience · Mumbai</div>
+              </div>
+            </div>
+            <div style="padding:1.1rem 1.25rem">
+              <p style="font-size:.76rem;color:var(--muted);line-height:1.65;margin-bottom:1rem">Works hands-on with cloud security infrastructure. Configures modules, runs assessments, deploys security tooling. Technically strong — but constantly slowed down by platforms that assume expert-mode knowledge and offer no guardrails.</p>
+
+              <div class="p-sec">Goal</div>
+              <p style="font-size:.74rem;color:var(--black);line-height:1.6;margin:.3rem 0 .75rem;font-style:italic;padding-left:.65rem;border-left:2px solid var(--vi)">"Execute tasks quickly and correctly — without having to re-read documentation every time I touch something I haven't configured in two weeks."</p>
+
+              <div class="p-sec">Primary needs</div>
+              <ul class="p-ul" style="margin-bottom:.75rem">
+                <li>Guided, step-by-step deployment flows — no doc-reading required</li>
+                <li>Clear sequence with a visible endpoint so she knows when she's done</li>
+                <li>Automation for recurring tasks so she stops doing the same thing manually</li>
+                <li>Pre-configured defaults with explanations, not blank config fields</li>
+              </ul>
+
+              <div class="p-sec">Frustrations</div>
+              <ul class="p-ul" style="margin-bottom:.75rem">
+                <li>Complex configurations with no context, no guardrails, no defaults</li>
+                <li>Multi-step processes with no clear endpoint or progress indicator</li>
+                <li>Constant reliance on documentation that's always out of date</li>
+                <li>Tools that assume expert-mode only — no room for "I'm not sure what this does"</li>
+              </ul>
+
+              <div class="p-sec">In her words</div>
+              <div style="background:var(--vi-soft);border-radius:8px;padding:.65rem .85rem;font-size:.72rem;color:var(--vi);font-style:italic;line-height:1.55">"I can do this work. I just need the platform to stop making me read the manual every single time I deploy something."</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 06 PROBLEM & OPPORTUNITIES ═══ -->
+    <section class="cs-sec" id="s-opportunities">
+      <div class="cs-sec-label"><span class="cs-sec-num">06</span> Problem &amp; Opportunities</div>
+      <h2>What the research was actually telling me</h2>
+      <p class="cs-para">Research, synthesis, affinity mapping, and personas all pointed in the same direction. This section is where everything converges — the validated problem statement, the reframed design questions, and the specific directions that guided every decision from here forward.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.5rem 0">
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;border-top:3px solid var(--vi)">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.5rem">From research</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Security pros are drowning in data</div>
+          <div style="font-size:.74rem;color:var(--muted);line-height:1.55">Not missing information — missing a system that tells them what to act on and how to act on it.</div>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;border-top:3px solid var(--vi)">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.5rem">From competitive analysis</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Every competitor shows the problem</div>
+          <div style="font-size:.74rem;color:var(--muted);line-height:1.55">Sentinel, Cortex, CrowdStrike all excel at detection. None of them help you solve it without switching tools or reading docs.</div>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;border-top:3px solid var(--vi)">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.5rem">From personas</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--black);margin-bottom:.3rem">Two users, one shared problem</div>
+          <div style="font-size:.74rem;color:var(--muted);line-height:1.55">Aarav needs to act faster. Neha needs to execute without friction. Both need the platform to guide them — not just display options.</div>
+        </div>
+      </div>
+
+      <div class="img-below">
+        <div class="img-slot">
+          <img src="img/Realize/img10.png" alt="Research convergence — all signals pointing the same direction" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">Research convergence</div><code>img/Realize/img10.png</code></div>
+        </div>
+      </div>
+
+      <!-- 6a Final Problem Statement -->
+      <div id="s-final-ps" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">06a</span> Final Problem Statement</div>
+        <h3>The real problem was never the features</h3>
+        <p class="cs-para">The original brief — "users can't understand the platform" — was pointing at a symptom, not a cause. Research forced a reframe.</p>
+
+        <div class="realproblem-compare">
+          <div class="realproblem-side realproblem-assumed">
+            <div class="realproblem-tag">What the brief assumed</div>
+            <div class="realproblem-statement">"The platform needs better UI so users can understand what each module does."</div>
+            <div class="realproblem-note">This treats the problem as a presentation issue — that better labels and cleaner screens would fix it. Research showed this wasn't the core issue.</div>
+          </div>
+          <div class="realproblem-arrow">↓</div>
+          <div class="realproblem-side realproblem-actual">
+            <div class="realproblem-tag">What research revealed</div>
+            <div class="realproblem-statement">"Security professionals don't struggle with understanding tools — they struggle with knowing what to do next and being able to do it without switching tools."</div>
+            <div class="realproblem-note">The problem isn't comprehension. It's action. Users understand what assessment means — they don't have a guided path from assessment to remediation without leaving the system or reading docs.</div>
+          </div>
+        </div>
+
+        <div class="cs-sec-divider">Validated problem statement</div>
+        <div class="realproblem-final">
+          <p>Enterprise security teams are not short on information or tools — they're short on <strong>guided action</strong>. Existing platforms excel at detecting and displaying problems, but leave users to manually piece together what to do next, how to do it, and in which tool. Realize had the same gap. The solution required redesigning not just the interface, but the <strong>underlying logic of how the system talks to its users</strong>.</p>
+        </div>
+
+        <div class="img-below" style="margin-top:1.25rem">
+          <div class="img-slot">
+            <img src="img/Realize/img11.png" alt="Validated problem statement" style="width:100%;height:auto;display:block;border-radius:12px;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">Problem statement visualised</div><code>img/Realize/img11.png</code></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 6b HMW -->
+      <div id="s-hmw" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">06b</span> How Might We</div>
+        <h3>Turning problems into design questions</h3>
+        <p class="cs-para">HMW questions are the bridge between a validated problem and an actual design direction. They're deliberately open — specific enough to point somewhere, broad enough to invite creative thinking.</p>
+
+        <div class="img-side">
+          <div class="hmw-list" style="margin:0">
+            <div class="hmw">How might we guide users toward the next best action instead of leaving them to explore a platform they don't understand?</div>
+            <div class="hmw">How might we reduce tool-switching and bring the full security workflow — assess, deploy, manage — into one coherent system?</div>
+            <div class="hmw">How might we simplify complex security deployment processes into clear, step-by-step flows that don't require documentation?</div>
+            <div class="hmw">How might we use AI as a structural guide — not a bolt-on feature — that reduces cognitive load at every step?</div>
+            <div class="hmw">How might we design for security leads and engineers simultaneously, when their needs and mental models are so different?</div>
+          </div>
+          <div class="img-slot">
+            <img src="img/Realize/img12.png" alt="HMW questions" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">HMW brainstorm</div><code>img/Realize/img12.png</code></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6c Solution Direction -->
+      <div id="s-solution-dir" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">06c</span> Solution Direction</div>
+        <h3>Where design effort should go</h3>
+        <p class="cs-para">Not every problem is equally solvable through design. These four directions had the strongest signal from research — the most frequent pain, the most users affected, and the clearest path to meaningful improvement. They became the north star for every decision that followed.</p>
+
+        <div class="opp-grid">
+          <div class="opp-card"><div class="opp-num">01</div><div class="opp-title">Guided entry &amp; clear structure</div><p class="opp-desc">Replace the four unlabelled tiles with a platform that tells users where they are and what to do — in under five seconds. Structure has to precede any specific feature work.</p></div>
+          <div class="opp-card"><div class="opp-num">02</div><div class="opp-title">Connected workflow logic</div><p class="opp-desc">Design the platform so that completing one module naturally leads into the next — assessment findings should feed directly into deployment options, not require re-navigation.</p></div>
+          <div class="opp-card"><div class="opp-num">03</div><div class="opp-title">AI as a structural layer</div><p class="opp-desc">Make the AI chatbot the connective tissue of the platform — the thing that bridges modules, answers questions mid-workflow, and executes actions on behalf of users.</p></div>
+          <div class="opp-card"><div class="opp-num">04</div><div class="opp-title">Reduced deployment friction</div><p class="opp-desc">Turn multi-day manual configuration into a guided, step-by-step flow that anyone on the team can complete — not just the most senior engineer who's done it before.</p></div>
+        </div>
+
+        <div class="sec-connector">
+          <span class="sec-connector-arrow">→</span>
+          <span>Four directions. Now the question was: what does the actual solution look like? That's where <strong>Ideation</strong> begins.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 07 IDEATION & EXPLORATION ═══ -->
+    <section class="cs-sec" id="s-ideation">
+      <div class="cs-sec-label"><span class="cs-sec-num">07</span> Ideation &amp; Exploration</div>
+      <h2>Back to the beginning — with everything we knew</h2>
+      <p class="cs-para">Ideation wasn't a blank-slate exercise. By this point we had the research, the affinity clusters, the validated problem statement, the personas, and the sprint structure behind us. The question wasn't "what could this platform be?" — it was "given everything we now know, what should it actually be?"</p>
+
+      <p class="cs-para">We went back through all of it — every insight, every friction point, every stakeholder conversation — and used that as the raw material for ideation. The goal was to translate understanding into structure: what does a platform that solves these specific problems actually look like to navigate?</p>
+
+      <div class="callout">
+        <div class="callout-lbl">How we approached it</div>
+        <p>Rather than jumping straight into Figma, we started by re-reading everything: research outputs, affinity clusters, persona goals, and the validated problem statement. Only once the problem was fully loaded did we start exploring structural solutions — navigation models, module entry logic, AI interaction patterns, and the critical assess-to-deploy handoff.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.85rem;margin:1.5rem 0">
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem">
+          <div style="font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.5rem">What we re-read</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.35rem">
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Affinity clusters and the 4 pain themes</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Persona goals, frustrations, and mental models</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Validated problem statement and HMW questions</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Competitive benchmarks — what Sentinel, Cortex, CrowdStrike do and don't do</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Founder's original vision — one system, start to finish</li>
+          </ul>
+        </div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem">
+          <div style="font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vi);margin-bottom:.5rem">What we explored</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.35rem">
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Different navigation structures — linear, hub-and-spoke, AI-led</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>How the four modules should connect to each other</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>The assess → deploy handoff — the most critical transition to design correctly</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>Where the AI chatbot lives and what it controls vs. surfaces</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start"><span style="color:var(--vi);font-weight:700;flex-shrink:0">→</span>How to serve two different users in the same interface without compromising either</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-sec-divider" style="margin-top:1.75rem">From exploration to prototype</div>
+      <p class="cs-para">Once we had a direction we believed in — the four-path landing with AI as the connective layer — we moved into Figma to build a low-fidelity prototype. This wasn't about making it look good. It was about making the structure tangible enough to <strong>test, present, and get alignment on</strong> before committing to high-fidelity work.</p>
+
+      <p class="cs-para">The prototype captured the core navigation logic, the assess-to-deploy flow, and the AI chatbot interaction model. We walked the founder and key stakeholders through it — using it as a tool for conversation, not a finished deliverable. The goal was to surface disagreements early, before they became expensive.</p>
+
+      <div style="background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.2);border-radius:14px;padding:1.35rem 1.5rem;margin:1.5rem 0;display:flex;align-items:flex-start;gap:.85rem">
+        <div style="font-size:1.1rem;flex-shrink:0">🎯</div>
+        <div>
+          <div style="font-size:.72rem;font-weight:700;color:var(--vi);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.35rem">What the prototype proved</div>
+          <p style="font-size:.82rem;color:var(--black);line-height:1.65;margin:0">The four-path structure worked — stakeholders immediately understood where to go and what each module did. The assess → deploy handoff was the moment everyone got excited about. And the AI chatbot as a structural layer, not a widget, was the idea that aligned everyone on what made Realize different.</p>
+        </div>
+      </div>
+
+      <!-- YouTube embed slot -->
+      <div class="cs-sec-divider" style="margin-top:1.75rem">Prototype walkthrough</div>
+      <p class="cs-para" style="margin-bottom:1rem">A short walkthrough of the low-fidelity Figma prototype — the structure and flows presented to the founder and stakeholders before high-fidelity design began.</p>
+      <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--off);margin:0 0 1rem">
+        <iframe
+          id="ideation-video"
+          src=""
+          title="Realize — Prototype Walkthrough"
+          style="position:absolute;inset:0;width:100%;height:100%;border:none"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <div id="video-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:var(--off)">
+          <div style="font-size:2.5rem">▶️</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--black)">Prototype walkthrough video</div>
+          <div style="font-size:.72rem;color:var(--muted)">Paste your YouTube URL into <code style="font-size:.65rem;background:var(--off2);padding:.15rem .4rem;border-radius:4px;color:var(--vi)">setVideo('YOUR_YOUTUBE_URL')</code> in the browser console</div>
+        </div>
+      </div>
+      <p style="font-size:.68rem;color:var(--muted);text-align:center;margin:0">To add the video: replace the <code style="font-size:.65rem;color:var(--vi)">src=""</code> on the iframe above with your YouTube embed URL — e.g. <code style="font-size:.65rem;color:var(--vi)">https://www.youtube.com/embed/YOUR_VIDEO_ID</code></p>
+
+    </section>
+
+    <!-- ═══ 08 MY VISION ═══ -->
+    <section class="cs-sec" id="s-vision">
+      <div class="cs-sec-label"><span class="cs-sec-num">08</span> My Vision</div>
+      <h2>A platform that <em>guides</em>, not just informs</h2>
+      <p class="cs-para">Most enterprise tools expect users to learn the system. Realize was designed to do the opposite — the system should learn the user's intent and guide them to action.</p>
+
+      <div class="vision-flip">
+        <div class="vision-side old">
+          <span style="font-size:1.2rem;flex-shrink:0">❌</span>
+          <div>
+            <div class="vision-side-tag">Old model</div>
+            <div class="vision-side-text">Dashboards that display data. Users figure out the next step themselves.</div>
+          </div>
+        </div>
+        <div class="vision-side new">
+          <span style="font-size:1.2rem;flex-shrink:0">✅</span>
+          <div>
+            <div class="vision-side-tag">New model</div>
+            <div class="vision-side-text">Workflows that drive decisions. The system reduces cognitive load at every transition.</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="cs-para">Instead of thinking about Realize as four modules the user navigates between, I thought about it as a <strong>single continuous workflow</strong> the user moves through. Assessment surfaces a problem. Deployment offers the fix. Management tracks the result. Agent Factory automates the repetition. And the AI chatbot is the guide at every step, filling the gaps that structure alone can't cover.</p>
+
+      <div class="cs-quote">The goal wasn't to add more features — it was to make the features that already existed feel like they belonged to the same story.</div>
+
+      <div class="img-below">
+        <div class="img-slot">
+          <img src="img/Realize/img13.png" alt="Vision — action-driven design" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div class="img-slot-fallback" style="display:none"><div class="img-slot-icon">🖼️</div><div style="font-size:.75rem;color:var(--muted)">Vision illustration</div><code>img/Realize/img13.png</code></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ 09 EXPERIENCE STRUCTURE ═══ -->
+    <section class="cs-sec" id="s-structure">
+      <div class="cs-sec-label"><span class="cs-sec-num">09</span> Experience Structure</div>
+      <h2>Architecture before interface</h2>
+      <p class="cs-para">Before touching a single screen in Figma, I mapped the full experience structure — how the platform is organised, how users move through it, and how each module connects to the next. Structure has to be right before visual design begins. Otherwise you're just decorating a broken system.</p>
+
+      <p class="cs-para">This is the phase most people rush through — they see wireframes as a stepping stone to the "real" design. But for a platform with four distinct modules, two very different user types, and an AI layer threaded across all of it, getting the structure wrong would have cost weeks of rework. So I slowed down here deliberately.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Why structure comes first</div>
+        <p>A beautiful screen built on a broken structure is still broken. Users don't experience pixels — they experience sequences. When those sequences don't make sense, no amount of visual polish will save the product. The structure work here directly determined how every screen was laid out, what actions appeared where, and how the modules communicated with each other.</p>
+      </div>
+
+      <div class="prob-grid" style="margin:1.5rem 0">
+        <div class="prob-card">
+          <h4>🗺️ What I mapped</h4>
+          <p>The full IA — every section, every sub-section, every entry point. How a user navigates into each module and what they encounter at each step of the journey.</p>
+        </div>
+        <div class="prob-card">
+          <h4>🔗 How modules connect</h4>
+          <p>The critical handoffs — especially Assess → Deploy. Where does one module end and another begin? What data travels between them? How does the AI chatbot bridge the gap?</p>
+        </div>
+        <div class="prob-card">
+          <h4>👤 Two users, one system</h4>
+          <p>Every structural decision was filtered through both personas. Aarav needs fast access to high-level views. Neha needs depth and step-by-step control. The structure had to serve both without compromise.</p>
+        </div>
+        <div class="prob-card">
+          <h4>⚡ First-time vs. returning</h4>
+          <p>A first-time user needs a guided path. A returning user needs direct access. The structure accounts for both — onboarding logic that fades out as users build familiarity with the system.</p>
+        </div>
+      </div>
+
+      <!-- 9a User Flows -->
+      <div id="s-userflows" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">09a</span> User Flows</div>
+        <h3>How users actually move through the system</h3>
+        <p class="cs-para">I mapped three core flows that represent the most common and highest-stakes journeys on the platform. Each flow was validated against the personas — does this make sense for Aarav? Does Neha need more steps or fewer?</p>
+
+        <div class="cs-sec-divider">Core Flow 1 — First-time user: From landing to first action</div>
+        <div class="uf-chain">
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Lands on the four-path home screen</div><div class="uf-step-desc">Sees Assess, Deploy, Manage, Agent Factory — clear entry points with brief descriptions. Knows where they are in under 5 seconds.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Selects a module and enters guided onboarding</div><div class="uf-step-desc">AI chatbot greets them, explains what this module does, and asks a few context questions to personalise the experience.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Reviews cost and confirms module activation</div><div class="uf-step-desc">One modal — select, configure, confirm. No multi-page checkout. No separate settings screen.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role admin">System</div>
+            <div class="uf-step-body"><div class="uf-step-action">Chatbot executes deployment</div><div class="uf-step-desc">AI agent runs the technical deployment steps while the user monitors progress — no manual configuration required.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Module is live — dashboard updates in real time</div><div class="uf-step-desc">System generates output and the user lands on their new module dashboard with live data already populated.</div></div>
+          </div>
+        </div>
+
+        <div class="cs-sec-divider" style="margin-top:1.75rem">Core Flow 2 — Assess to Deploy (the key handoff)</div>
+        <p class="cs-para">This is the most important flow in the product — the moment where an assessment finding becomes a deployment action. In every competitor platform, this handoff is manual. In Realize, it's designed to be seamless.</p>
+
+        <div class="uf-chain">
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Completes a security assessment</div><div class="uf-step-desc">Assessment module surfaces prioritised findings — ranked by severity and with suggested remediation paths already attached.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role user">User</div>
+            <div class="uf-step-body"><div class="uf-step-action">Selects a finding to remediate</div><div class="uf-step-desc">Each finding has a "Fix this" action — which pre-populates the Deploy module with the relevant configuration, saving setup time entirely.</div></div>
+          </div>
+          <div class="uf-step"><div></div><div class="uf-step-arrow">↓</div></div>
+          <div class="uf-step">
+            <div class="uf-step-role admin">System</div>
+            <div class="uf-step-body"><div class="uf-step-action">AI confirms the recommended solution and executes</div><div class="uf-step-desc">User confirms, chatbot handles deployment. The full cycle — identify problem to deploy fix — happens inside one session.</div></div>
+          </div>
+        </div>
+
+        <div class="outcome-strip" style="margin-top:1.25rem">
+          <span class="outcome-icon">💡</span>
+          <span><strong>Key insight:</strong> The full cycle — identify problem → deploy fix — happens inside one session. In every competitor platform, this handoff is manual. In Realize, it's designed to be seamless.</span>
+        </div>
+      </div>
+
+      <!-- 9b Information Architecture -->
+      <div id="s-ia" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">09b</span> Information Architecture</div>
+        <h3>One platform, four clear entry points</h3>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin:1.25rem 0">
+          <div style="min-width:0">
+            <p class="cs-para" style="margin-top:0">Before the UI, I defined the full IA — what content exists, how it's grouped, and how each module's navigation relates to a shared platform structure. The goal wasn't four separate tools that happened to live in the same URL. It was one system with a clear logic for how everything connects.</p>
+            <div class="callout">
+              <div class="callout-lbl">The key architectural insight</div>
+              <p>The platform's four modules aren't parallel options — they're sequential stages of a security workflow. The IA had to make that sequence legible without forcing users into a rigid linear path. Power users need to jump directly. New users need the sequence to be obvious.</p>
+            </div>
+          </div>
+          <div class="cs-img-wrap" style="min-width:0;position:sticky;top:80px">
+            <img src="img/Realize/img14.png" alt="Information architecture diagram" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+              <div style="font-size:2rem">🖼️</div>
+              <div style="font-size:.75rem;color:var(--muted);font-weight:600">Information architecture</div>
+              <code style="font-size:.62rem;color:var(--vi)">img/Realize/img14.png</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="prob-grid" style="margin:1.25rem 0">
+          <div class="prob-card">
+            <h4>🔁 What stayed consistent across modules</h4>
+            <p>Top navigation with module tabs, an AI chatbot accessible from anywhere, a notifications panel, and a profile/wallet section in the same position on every screen.</p>
+          </div>
+          <div class="prob-card">
+            <h4>🎯 What changed per module</h4>
+            <p>The main content area, the primary actions available, and the context-relevant AI prompts. Each module feels purpose-built for its specific task.</p>
+          </div>
+          <div class="prob-card">
+            <h4>⚖️ The principle behind it</h4>
+            <p>Every user should feel like the platform was built for what they're doing right now — not like they're using a Swiss Army knife where every tool looks the same.</p>
+          </div>
+          <div class="prob-card">
+            <h4>🧠 What drove the hierarchy</h4>
+            <p>Frequency and stakes. Assessment and Dashboard are the primary entry points — most accessed, most consequential. Deploy and Manage are secondary. Agent Factory is for power users.</p>
+          </div>
+        </div>
+
+        <div class="outcome-strip">
+          <span class="outcome-icon">💡</span>
+          <span><strong>Outcome:</strong> A clear, module-aware navigation system where every user can immediately locate what they need — and a shared platform structure that makes the four modules feel like one coherent product.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10 DESIGN EXECUTION ═══ -->
+    <section class="cs-sec" id="s-execution">
+      <div class="cs-sec-label"><span class="cs-sec-num">10</span> Design Execution</div>
+      <h2>From structure to screens</h2>
+      <p class="cs-para">With the flows mapped and the architecture defined, it was time to build the product. Design execution moved through four distinct phases — each tightening fidelity and sharpening decisions until the final UI was ready.</p>
+
+      <p class="cs-para">This is the phase people tend to jump to first. Sketches, Figma frames, component libraries, colour palettes. But doing it after structure means every visual decision is grounded in actual user intent — not aesthetic preference. Each screen I opened in Figma already had a clear job, a defined context, and a known user. The visual work was translating that clarity into something tangible.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:1.5rem 0">
+        <div style="padding:1.15rem 1.25rem;border-right:1px solid var(--border);background:var(--off)">
+          <div style="font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.45rem">Phase 01</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">✏️ Wireframes</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Layout and flow without visual weight. Confirm structure before anything else.</div>
+        </div>
+        <div style="padding:1.15rem 1.25rem;border-right:1px solid var(--border);background:var(--off)">
+          <div style="font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.45rem">Phase 02</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">🎨 Visual Language</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Tone, colour, typography. Define how the product feels before building it.</div>
+        </div>
+        <div style="padding:1.15rem 1.25rem;border-right:1px solid var(--border);background:var(--off)">
+          <div style="font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.45rem">Phase 03</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem">🧱 Design System</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.55">Components, tokens, patterns. One source of truth that scales across all modules.</div>
+        </div>
+        <div style="padding:1.15rem 1.25rem;background:var(--vi-soft)">
+          <div style="font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.45rem">Phase 04</div>
+          <div style="font-size:.85rem;font-weight:700;color:var(--vi);margin-bottom:.3rem">🖥️ Final UI</div>
+          <div style="font-size:.72rem;color:var(--vi);opacity:.8;line-height:1.55">High-fidelity screens across all five flows. The full product, realised.</div>
+        </div>
+      </div>
+
+      <p class="cs-para" style="margin-bottom:1.75rem">The phases weren't strictly sequential — the design system grew alongside the UI, not before it. But the order of <em>intent</em> mattered: I never started adding colour until layout was confirmed, and I never started a new flow until the components it would use were defined.</p>
+
+      <!-- 10a Wireframes -->
+      <div id="s-wireframes" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">10a</span> Wireframes</div>
+        <h3>Structure before style</h3>
+        <p class="cs-para">Wireframes are intentionally low-fidelity. That's the point — they force focus on layout, hierarchy, and flow without getting distracted by colour, type, or visual polish. Every screen started here.</p>
+        <p class="cs-para">I wireframed the full platform: the four-path landing, onboarding flows, the assessment and dashboard experiences, the deploy module purchase-to-activation flow, the manage dashboard, Agent Factory, and the AI chatbot panel. Each was reviewed against user flows to ensure navigation matched the actual task sequence.</p>
+        <div class="callout">
+          <div class="callout-lbl">What wireframes validated</div>
+          <p>The four-path landing structure, the number of steps in the deploy flow, the position and behaviour of the AI chatbot, and the content hierarchy on each module's home screen — all confirmed before any visual work began.</p>
+        </div>
+        <div class="de-img-slot">
+          <img src="img/Realize/img15.png" alt="Wireframes" class="de-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div class="de-img-fallback" style="display:none"><div>✏️</div><div>Add wireframe image at <code>img/Realize/img15.png</code></div></div>
+        </div>
+      </div>
+
+      <!-- 10b Visual Language -->
+      <div id="s-visual" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">10b</span> Visual Language</div>
+        <h3>The feel before the interface</h3>
+        <p class="cs-para">Before building frames, I defined the visual tone. For an enterprise security platform used by high-pressure security teams, the design couldn't feel consumer-light. But it also couldn't feel like a legacy enterprise tool — intimidating, data-dense, and dated. It needed to feel <strong>precise, capable, and just intelligent enough</strong> to trust.</p>
+
+        <!-- TYPOGRAPHY -->
+        <div class="cs-sec-divider">Typeface — Manrope</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.25rem 0;align-items:stretch">
+          <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:1.75rem 2rem;display:flex;flex-direction:column;gap:1rem">
+            <div style="font-family:'Manrope',sans-serif;font-size:3rem;font-weight:800;color:var(--black);letter-spacing:-.04em;line-height:1">Aa</div>
+            <div style="display:flex;flex-direction:column;gap:.35rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:1.1rem;font-weight:800;color:var(--black)">Manrope ExtraBold — headings</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.95rem;font-weight:600;color:var(--black)">Manrope SemiBold — labels &amp; UI text</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:500;color:var(--muted)">Manrope Medium — body &amp; data</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.8rem;font-weight:400;color:var(--muted)">Manrope Regular — captions &amp; metadata</div>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:.85rem;font-family:'Manrope',sans-serif;font-size:.7rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:600">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br>0 1 2 3 4 5 6 7 8 9</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.85rem">
+            <div style="background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.2);border-radius:12px;padding:1.25rem 1.5rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vi);margin-bottom:.55rem">Why Manrope?</div>
+              <p style="font-size:.85rem;color:var(--black);line-height:1.7;margin:0">Manrope is a geometric sans-serif — designed from mathematical proportions, which gives it an inherent sense of structure and logic. That felt right for a security platform where users are parsing complex data and making high-stakes decisions. The letterforms are open and clear, which means text stays legible even at the small sizes common in dense enterprise interfaces.</p>
+            </div>
+            <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.55rem">The design logic</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:.45rem;margin:0;padding:0">
+                <li style="display:flex;gap:.55rem;font-size:.8rem;color:var(--muted);line-height:1.55"><span style="width:5px;height:5px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.45rem"></span><span><strong style="color:var(--black)">Legibility under stress.</strong> Security teams scan fast. Manrope's generous x-height and open apertures make it readable at 11–12px — the kind of sizes appearing in data tables and status tags.</span></li>
+                <li style="display:flex;gap:.55rem;font-size:.8rem;color:var(--muted);line-height:1.55"><span style="width:5px;height:5px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.45rem"></span><span><strong style="color:var(--black)">Weight range.</strong> With 7 weights from Light to ExtraBold, Manrope creates a clear typographic hierarchy — users can scan a screen and immediately understand what's a heading, a label, and a data point.</span></li>
+                <li style="display:flex;gap:.55rem;font-size:.8rem;color:var(--muted);line-height:1.55"><span style="width:5px;height:5px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.45rem"></span><span><strong style="color:var(--black)">Modern but not trendy.</strong> Unlike display fonts, Manrope doesn't compete with the content. It's confident enough to feel premium, neutral enough to stay out of the way.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLOUR PALETTE -->
+        <div class="cs-sec-divider">Colour Palette — SkySecure.ai</div>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">Colour in enterprise security UI isn't decorative — it carries meaning. Every colour decision below was made to communicate trust, hierarchy, and state. The palette is anchored by SkySecure.ai's brand blue and expanded with semantic and neutral tones that work in data-heavy contexts.</p>
+
+        <!-- PRIMARY BRAND COLOUR -->
+        <div style="margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Primary — Brand Blue</div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:.85rem">
+            <!-- Main swatch -->
+            <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.07);box-shadow:0 4px 24px rgba(0,120,215,.22)">
+              <div style="height:120px;background:#0078D7;display:flex;align-items:flex-end;padding:1.1rem 1.25rem">
+                <span style="font-family:'Manrope',sans-serif;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase">Primary Brand</span>
+              </div>
+              <div style="background:#fff;padding:.9rem 1.25rem;display:flex;align-items:center;justify-content:space-between">
+                <div>
+                  <div style="font-family:'Manrope',sans-serif;font-size:.95rem;font-weight:800;color:#0C0C0E;letter-spacing:-.01em">#0078D7</div>
+                  <div style="font-family:'Manrope',sans-serif;font-size:.67rem;color:#8C8C88;margin-top:.15rem">RGB 0 · 120 · 215</div>
+                </div>
+                <div style="font-family:'Manrope',sans-serif;font-size:.67rem;color:#8C8C88;text-align:right;line-height:1.5">Buttons · Links<br>Active states</div>
+              </div>
+            </div>
+            <!-- Hover / darker -->
+            <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+              <div style="height:120px;background:#005FA3;display:flex;align-items:flex-end;padding:1.1rem 1.25rem">
+                <span style="font-family:'Manrope',sans-serif;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase">Hover</span>
+              </div>
+              <div style="background:#fff;padding:.9rem 1.25rem">
+                <div style="font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:800;color:#0C0C0E">#005FA3</div>
+                <div style="font-family:'Manrope',sans-serif;font-size:.67rem;color:#8C8C88;margin-top:.15rem">Press / hover state</div>
+              </div>
+            </div>
+            <!-- Soft tint -->
+            <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+              <div style="height:120px;background:#E3F2FD;display:flex;align-items:flex-end;padding:1.1rem 1.25rem">
+                <span style="font-family:'Manrope',sans-serif;font-size:.65rem;font-weight:700;color:rgba(0,120,215,.6);letter-spacing:.08em;text-transform:uppercase">Soft Tint</span>
+              </div>
+              <div style="background:#fff;padding:.9rem 1.25rem">
+                <div style="font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:800;color:#0C0C0E">#E3F2FD</div>
+                <div style="font-family:'Manrope',sans-serif;font-size:.67rem;color:#8C8C88;margin-top:.15rem">Backgrounds · badges</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHAT #0078D7 REPRESENTS -->
+        <div style="background:linear-gradient(135deg,#EBF4FF 0%,#F0F7FF 100%);border:1.5px solid rgba(0,120,215,.2);border-left:3px solid #0078D7;border-radius:0 12px 12px 0;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+          <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0078D7;margin-bottom:.65rem">What #0078D7 means</div>
+          <p style="font-size:.85rem;color:#0C0C0E;line-height:1.75;margin:0 0 .75rem">This is SkySecure.ai's brand blue — and its choice is deliberate. Blue is the most widely trusted colour in enterprise software. It signals reliability, competence, and calm authority — exactly what a team managing security incidents needs to feel when they open a dashboard. It's the colour of certainty in an uncertain context.</p>
+          <p style="font-size:.85rem;color:#0C0C0E;line-height:1.75;margin:0">The specific tone — a medium-bright blue with strong saturation — avoids the coldness of navy and the informality of sky blue. It reads as <strong>modern, confident, and digital-native</strong>. Used for all primary actions, active states, and interactive elements, it creates a clear visual path through the interface.</p>
+        </div>
+
+        <!-- SUPPORTING PALETTE -->
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Supporting Palette</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem;margin-bottom:1.5rem">
+          <!-- Dark Navy -->
+          <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+            <div style="height:72px;background:#0D1B2A"></div>
+            <div style="background:#fff;padding:.7rem .85rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:800;color:#0C0C0E">#0D1B2A</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.62rem;color:#8C8C88;margin-top:.12rem">Dark Navy</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;color:#8C8C88;line-height:1.4;margin-top:.25rem">Data panels, nav backgrounds</div>
+            </div>
+          </div>
+          <!-- Success Green -->
+          <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+            <div style="height:72px;background:#16A34A"></div>
+            <div style="background:#fff;padding:.7rem .85rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:800;color:#0C0C0E">#16A34A</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.62rem;color:#8C8C88;margin-top:.12rem">Success</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;color:#8C8C88;line-height:1.4;margin-top:.25rem">Passed checks, deployed, secure</div>
+            </div>
+          </div>
+          <!-- Warning Amber -->
+          <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+            <div style="height:72px;background:#D97706"></div>
+            <div style="background:#fff;padding:.7rem .85rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:800;color:#0C0C0E">#D97706</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.62rem;color:#8C8C88;margin-top:.12rem">Warning</div>
+              <div style="font-family font-size:.6rem;color:#8C8C88;line-height:1.4;margin-top:.25rem">Medium risk, requires review</div>
+            </div>
+          </div>
+          <!-- Critical Red -->
+          <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+            <div style="height:72px;background:#DC2626"></div>
+            <div style="background:#fff;padding:.7rem .85rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:800;color:#0C0C0E">#DC2626</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.62rem;color:#8C8C88;margin-top:.12rem">Critical</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;color:#8C8C88;line-height:1.4;margin-top:.25rem">High severity, active threats</div>
+            </div>
+          </div>
+          <!-- Neutral Surface -->
+          <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.07)">
+            <div style="height:72px;background:#F8F8F6;border-bottom:1px solid #E2E2DE"></div>
+            <div style="background:#fff;padding:.7rem .85rem">
+              <div style="font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:800;color:#0C0C0E">#F8F8F6</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.62rem;color:#8C8C88;margin-top:.12rem">Surface</div>
+              <div style="font-family:'Manrope',sans-serif;font-size:.6rem;color:#8C8C88;line-height:1.4;margin-top:.25rem">Card backgrounds, breathing room</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLOUR IN USE — RATIONALE -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.5rem">
+          <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem">
+            <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0078D7;margin-bottom:.5rem">Why no purple / violet?</div>
+            <p style="font-size:.78rem;color:var(--muted);line-height:1.65;margin:0">SkySecure.ai's identity is built on blue — specifically the trust associations of enterprise-grade blue software. I used their brand colour as-is rather than substituting a violet. The blue grounds the product in their established identity while still feeling modern and considered.</p>
+          </div>
+          <div style="background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem">
+            <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Semantic colour system</div>
+            <p style="font-size:.78rem;color:var(--muted);line-height:1.65;margin:0">In a security platform, colour does more than look good — it communicates severity. Green = resolved, amber = attention needed, red = critical action required. These meanings are universal to security teams and were applied consistently across all four modules so the system is learnable in minutes, not hours.</p>
+          </div>
+        </div>
+
+        <!-- REMAINING VISUAL LANGUAGE CARDS -->
+        <div class="cs-sec-divider">Other Decisions</div>
+        <div class="prob-grid">
+          <div class="prob-card"><h4>Spacing &amp; Layout</h4><p>Generous padding. Card-based content grouping for scannability under pressure. Dense-but-readable information layouts that respect the user's time without hiding data.</p></div>
+          <div class="prob-card"><h4>Tone</h4><p>Professional and direct. Microcopy that explains what's happening, not what the feature is called. Empty states that guide next actions. No jargon in UI copy.</p></div>
+        </div>
+
+      </div>
+
+      <!-- 10c Design System -->
+      <div id="s-design-system" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="cs-sec-label"><span class="cs-sec-num">10c</span> Design System</div>
+        <h3>One source of truth across the entire platform</h3>
+        <p class="cs-para">With four modules, multiple flows, and dozens of screens — building without a system would produce inconsistency everywhere. The design system was built in parallel with the UI, not after it.</p>
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><div class="step-content"><h4>Foundations</h4><p>Colour tokens (primary, semantic, surface), typography scale, spacing grid, icon set, and elevation levels — defined once, applied everywhere.</p></div></div>
+          <div class="step-item"><div class="step-num">2</div><div class="step-content"><h4>Core Components</h4><p>Buttons, inputs, cards, navigation bars, badges, modals, tables, and list items — each built with variants for all states: default, hover, active, disabled, loading, error.</p></div></div>
+          <div class="step-item"><div class="step-num">3</div><div class="step-content"><h4>Module-Specific Patterns</h4><p>Assessment result cards, deployment step indicators, incident severity tags, agent configuration panels, chatbot message bubbles — reusable patterns built for the specific contexts of each module.</p></div></div>
+          <div class="step-item"><div class="step-num">4</div><div class="step-content"><h4>AI Interaction Components</h4><p>Chatbot panel states, AI suggestion cards, execution progress indicators, confirmation modals — a dedicated component set for the AI layer that runs across all four modules.</p></div></div>
+        </div>
+        <div class="de-img-slot">
+          <img src="img/Realize/img17.png" alt="Design system" class="de-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div class="de-img-fallback" style="display:none"><div>🧱</div><div>Add design system image at <code>img/Realize/img17.png</code></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10d FIRST VISUAL ITERATIONS ═══ -->
+    <section class="cs-sec" id="s-finalui">
+      <div class="cs-sec-label"><span class="cs-sec-num">10d</span> First Visual Iterations</div>
+      <h2>Where ideas become interfaces</h2>
+      <p class="cs-para">34 high-fidelity screens across five complete flows — from first login to AI-guided deployment. Every decision from structure, visual language, and the design system comes together here. Use the flow tabs to navigate between experiences, and the arrows to step through each screen.</p>
+
+        <!-- FLOW SWITCHER TABS -->
+        <div class="fcs-wrap">
+
+          <!-- TAB ROW -->
+          <div class="fcs-tabs" id="fcsTabs">
+            <button class="fcs-tab active" data-flow="0" onclick="fcsSwitch(0)">
+              <span class="fcs-tab-num">Flow 1</span>
+              <span class="fcs-tab-name">Onboarding &amp; Setup</span>
+              <span class="fcs-tab-count">8 screens</span>
+            </button>
+            <button class="fcs-tab" data-flow="1" onclick="fcsSwitch(1)">
+              <span class="fcs-tab-num">Flow 2</span>
+              <span class="fcs-tab-name">Dashboard &amp; Assess</span>
+              <span class="fcs-tab-count">5 screens</span>
+            </button>
+            <button class="fcs-tab" data-flow="2" onclick="fcsSwitch(2)">
+              <span class="fcs-tab-num">Flow 3</span>
+              <span class="fcs-tab-name">Deploy &amp; Manage</span>
+              <span class="fcs-tab-count">5 screens</span>
+            </button>
+            <button class="fcs-tab" data-flow="3" onclick="fcsSwitch(3)">
+              <span class="fcs-tab-num">Flow 4</span>
+              <span class="fcs-tab-name">Agent Factory</span>
+              <span class="fcs-tab-count">5 screens</span>
+            </button>
+            <button class="fcs-tab" data-flow="4" onclick="fcsSwitch(4)">
+              <span class="fcs-tab-num">Flow 5</span>
+              <span class="fcs-tab-name">AI Chatbot Layer</span>
+              <span class="fcs-tab-count">11 screens</span>
+            </button>
+          </div>
+
+          <!-- CAROUSEL STAGE -->
+          <div class="fcs-stage">
+
+            <!-- FLOW META BAR -->
+            <div class="fcs-meta-bar">
+              <div class="fcs-meta-left">
+                <span class="fcs-flow-badge" id="fcsFlowBadge">Flow 1</span>
+                <span class="fcs-flow-title" id="fcsFlowTitle">Onboarding &amp; Account Setup</span>
+              </div>
+              <div class="fcs-meta-right">
+                <span class="fcs-counter" id="fcsCounter">1 / 8</span>
+                <button class="fcs-arrow" id="fcsPrev" onclick="fcsStep(-1)" aria-label="Previous screen">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="fcs-arrow" id="fcsNext" onclick="fcsStep(1)" aria-label="Next screen">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- SCREEN VIEWER -->
+            <div class="fcs-viewer" id="fcsViewer">
+              <!-- macOS chrome -->
+              <div class="fcs-chrome">
+                <div class="fcs-chrome-dots">
+                  <span style="background:#EF4444"></span>
+                  <span style="background:#F59E0B"></span>
+                  <span style="background:#22C55E"></span>
+                </div>
+                <div class="fcs-chrome-bar">
+                  <div class="fcs-chrome-url" id="fcsUrl">realize.app / onboarding</div>
+                </div>
+              </div>
+              <!-- Image area -->
+              <div class="fcs-img-area" id="fcsImgArea">
+                <img id="fcsImg" src="" alt="" />
+                <div class="fcs-img-fallback" id="fcsFallback">
+                  <div class="fcs-fallback-icon" id="fcsFallbackIcon">🚀</div>
+                  <div class="fcs-fallback-name" id="fcsFallbackName">Onboarding Start</div>
+                  <code class="fcs-fallback-path" id="fcsFallbackPath">img/Realize/UI/Flow1/img1.png</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE CAPTION -->
+            <div class="fcs-caption" id="fcsCaption">
+              <div class="fcs-caption-title" id="fcsCaptionTitle">Welcome & account creation</div>
+              <div class="fcs-caption-desc" id="fcsCaptionDesc">First screen a new user sees — role selection and workspace naming before any module is shown.</div>
+            </div>
+
+            <!-- DOT STRIP -->
+            <div class="fcs-dots" id="fcsDots"></div>
+
+          </div><!-- /fcs-stage -->
+
+          <!-- KEYBOARD HINT -->
+          <div class="fcs-hint">Use ← → arrow keys to navigate · click tabs to switch flows</div>
+
+        </div><!-- /fcs-wrap -->
+
+        <div class="outcome-strip" style="margin-top:2rem">
+          <span class="outcome-icon">🚧</span>
+          <span><strong>Early stage, actively evolving.</strong> These screens represent the MVP foundation — the structure, flows, and design system are in place, but this is very much a live work in progress. We're continuing to iterate and build on top of this base.</span>
+        </div>
+    </section>
+
+    <!-- ═══ 11 CHALLENGES ═══ -->
+    <section class="cs-sec" id="s-challenges">
+      <div class="cs-sec-label"><span class="cs-sec-num">11</span> Challenges</div>
+      <h2>Where real constraints broke the ideal plan</h2>
+      <p class="cs-para">Every project has the version you design in theory and the version you have to actually ship. These were the moments where the gap between those two versions required the most careful thinking.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">The core tension</div>
+        <p>Designing for security professionals means designing for extremely high stakes, high complexity, and low tolerance for ambiguity — while also being asked to simplify and guide. The challenge was making the platform feel capable and trustworthy to an expert, while still being navigable for someone encountering it for the first time.</p>
+      </div>
+
+      <div class="challenge-grid">
+            <div class="challenge-card">
+              <div class="challenge-num">01</div>
+              <div>
+                <div class="challenge-label">Engineering constraint</div>
+                <div class="challenge-title">Screens had already shipped before design started</div>
+                <p class="challenge-body">Several screens had been built by the time I joined, based on AI-generated designs. I had to work within what existed while simultaneously redesigning it — which meant making engineering-impact cases clearly and quickly.</p>
+                <div class="challenge-how"><strong>How I handled it:</strong> Prioritised changes by user impact, flagged the highest-friction ones first, and framed redesign asks as workflow fixes rather than aesthetic preferences.</div>
+              </div>
+            </div>
+            <div class="challenge-card">
+              <div class="challenge-num">02</div>
+              <div>
+                <div class="challenge-label">Persona tension</div>
+                <div class="challenge-title">Designing for two users with completely different mental models</div>
+                <p class="challenge-body">Aarav (ops lead) needs high-level visibility and fast decision support. Neha (cloud engineer) needs detailed control and step-by-step execution. Every design decision had to serve both without compromising either.</p>
+                <div class="challenge-how"><strong>How I handled it:</strong> Progressive disclosure throughout — surface-level summaries for Aarav with a clear path to detail, and depth-first layouts for Neha's module-specific flows. Same screens, different entry behaviours.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- B — image below cards 01 & 02 -->
+          <div class="cs-img-wrap" style="margin:.75rem 0 1.25rem">
+            <img src="img/Realize/challenges_01_02.png" alt="Challenges 01 & 02" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+            <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:2.5rem;text-align:center;width:100%">
+              <div style="font-size:2rem">🖼️</div>
+              <div style="font-size:.75rem;color:var(--muted);font-weight:600">Image — Challenges 01 &amp; 02</div>
+              <code style="font-size:.62rem;color:var(--vi)">img/Realize/challenges_01_02.png</code>
+            </div>
+          </div>
+
+          <div class="challenge-grid">
+            <div class="challenge-card">
+              <div class="challenge-num">03</div>
+              <div>
+                <div class="challenge-label">AI trust design</div>
+                <div class="challenge-title">Making AI feel trustworthy to trained sceptics</div>
+                <p class="challenge-body">Security professionals are professionally trained to distrust systems they can't inspect. An AI that claims to "execute your deployment" sounds alarming without clear explanation of what it's actually doing at each step.</p>
+                <div class="challenge-how"><strong>How I handled it:</strong> Every AI action was designed with three layers — a plain-language explanation of what it will do, a user confirmation step, and a live progress trace. Control was never hidden.</div>
+              </div>
+            </div>
+            <div class="challenge-card">
+              <div class="challenge-num">04</div>
+              <div>
+                <div class="challenge-label">Research constraint</div>
+                <div class="challenge-title">No access to a full enterprise research panel</div>
+                <p class="challenge-body">I couldn't run a broad research panel with enterprise security professionals — I had two users and time pressure. AI-assisted research had to do more work than usual.</p>
+                <div class="challenge-how"><strong>How I handled it:</strong> Treated every AI-surfaced pattern as a hypothesis, not a finding. Carried each one into user interviews as a question to validate or refute — never designed directly from AI research alone.</div>
+              </div>
+            </div>
+          </div>
+
+      <div class="outcome-strip">
+        <span class="outcome-icon">💡</span>
+        <span><strong>Takeaway:</strong> The most important design decisions in this project didn't come from clear research. They came from the moments where constraints forced creative trade-offs — and required clear rationale rather than best practice.</span>
+      </div>
+    </section>
+
+    <!-- ═══ 12 IMPACT & OUTCOME ═══ -->
+    <section class="cs-sec" id="s-impact">
+      <div class="cs-sec-label"><span class="cs-sec-num">12</span> Impact &amp; Outcome</div>
+      <h2>What the design makes possible</h2>
+      <p class="cs-para">Realize is still in active development. These outcomes reflect directional signals from the design process — validated through informal prototype walkthroughs and the clarity that structure brought to engineering conversations, rather than post-launch metrics.</p>
+
+      <div class="cs-sec-divider">Before vs. After — what the design changes</div>
+      <div class="ba-grid">
+        <div class="ba-card">
+          <div class="ba-half before"><div class="ba-tag">Before</div><div class="ba-val">0 UX</div><div class="ba-desc">AI-generated screens shipped directly to dev with no logic</div></div>
+          <div class="ba-mid">→</div>
+          <div class="ba-half after"><div class="ba-tag">After</div><div class="ba-val">Full product</div><div class="ba-desc">Research-backed, structured, consistent across all modules</div></div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-half before"><div class="ba-tag">Before</div><div class="ba-val">0 users</div><div class="ba-desc">could navigate past the first screen without help</div></div>
+          <div class="ba-mid">→</div>
+          <div class="ba-half after"><div class="ba-tag">After</div><div class="ba-val">4 clear paths</div><div class="ba-desc">Instant orientation for any user type within 5 seconds</div></div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-half before"><div class="ba-tag">Before</div><div class="ba-val">~1 day</div><div class="ba-desc">to manually deploy a security module from scratch</div></div>
+          <div class="ba-mid">→</div>
+          <div class="ba-half after"><div class="ba-tag">After</div><div class="ba-val">1 flow</div><div class="ba-desc">guided purchase-to-activation in a single modal session</div></div>
+        </div>
+      </div>
+      <div class="validation-note">⚠️ These are directional design outcomes validated through prototype walkthroughs, not post-launch data. Realize is in active development.</div>
+
+      <div class="cs-sec-divider" style="margin-top:1.75rem">Design coverage — what this project built</div>
+      <div class="stat-bars" id="statBars">
+        <div class="stat-bar-item">
+          <div class="stat-bar-label"><span class="stat-bar-name">Information Architecture</span><span class="stat-bar-val">Complete</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" data-width="100%"></div></div>
+        </div>
+        <div class="stat-bar-item">
+          <div class="stat-bar-label"><span class="stat-bar-name">Core User Flows (3 mapped)</span><span class="stat-bar-val">Complete</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" data-width="100%"></div></div>
+        </div>
+        <div class="stat-bar-item">
+          <div class="stat-bar-label"><span class="stat-bar-name">Design System</span><span class="stat-bar-val">Complete</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" data-width="100%"></div></div>
+        </div>
+        <div class="stat-bar-item">
+          <div class="stat-bar-label"><span class="stat-bar-name">High-Fidelity Screens</span><span class="stat-bar-val">5 flows done</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" data-width="80%"></div></div>
+        </div>
+        <div class="stat-bar-item">
+          <div class="stat-bar-label"><span class="stat-bar-name">Post-launch Validation</span><span class="stat-bar-val">In progress</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" data-width="25%"></div></div>
+        </div>
+      </div>
+
+      <div class="cs-img-wrap" style="margin:1.5rem 0">
+        <img src="img/Realize/img18.png" alt="What the design enables" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
+          <div style="font-size:2rem">🖼️</div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600">What the design enables</div>
+          <code style="font-size:.62rem;color:var(--vi)">img/Realize/img18.png</code>
+        </div>
+      </div>
+
+      <div class="callout"><div class="callout-lbl">Status</div><p>Still evolving. The outcome establishes a <strong>scalable design foundation</strong> for a product that didn't have one — and a clear logic for how it should grow from here.</p></div>
+    </section>
+
+    <!-- ═══ 13 REFLECTION ═══ -->
+    <section class="cs-sec" id="s-reflection">
+      <div class="cs-sec-label"><span class="cs-sec-num">13</span> Reflection</div>
+      <h2>Beyond screens — what this project taught me</h2>
+      <p class="cs-para">This project started as a brief to "fix the UI." It became something much larger — a full, from-scratch product design exercise in a domain I had to learn while building. What looked like a UI problem revealed itself as a <strong>system problem</strong>: layered, fragmented, and deeply dependent on how different types of users interact with high-stakes information under pressure.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:2.5rem;align-items:start;margin-top:1.25rem">
+        <div class="learn-grid" style="margin:0">
+          <div class="learn">
+            <div class="learn-icon">01</div>
+            <div>
+              <h4>Structure is the design work — not a precursor to it</h4>
+              <p>The hardest and most impactful decisions in this project happened before Figma opened. Once the IA and module logic were right, every screen fell into place naturally. Jumping to UI first would have created a beautiful product with a broken logic underneath.</p>
+            </div>
+          </div>
+          <div class="learn">
+            <div class="learn-icon">02</div>
+            <div>
+              <h4>AI research is only as rigorous as the designer using it</h4>
+              <p>Using Claude and Perplexity to map the landscape quickly was genuinely effective — but only because every output was treated as a hypothesis, not a fact. The discipline of separating "AI found this pattern" from "a user confirmed this problem" kept the research credible even under time pressure.</p>
+            </div>
+          </div>
+          <div class="learn">
+            <div class="learn-icon">03</div>
+            <div>
+              <h4>Designing AI features means designing for trust, not just usability</h4>
+              <p>Security professionals are trained sceptics. "The AI will deploy this for you" is not reassuring — it's alarming. The real design problem was making every AI action transparent, interruptible, and auditable. Trust is a design layer, not an afterthought.</p>
+            </div>
+          </div>
+          <div class="learn">
+            <div class="learn-icon">04</div>
+            <div>
+              <h4>Being the only designer forces clarity you don't get in a team</h4>
+              <p>No design reviews means you have to internalise every critique yourself. Every decision I made had to be fully reasoned before I moved on — because there was no one else to catch it. That constraint made the rationale tighter, and the decisions faster.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- img19 — right side, sticky -->
+        <div class="cs-img-wrap" style="position:sticky;top:80px">
+          <img src="img/Realize/img19.png" alt="Reflection" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3rem 1.5rem;text-align:center;width:100%">
+            <div style="font-size:2rem">🖼️</div>
+            <div style="font-size:.75rem;color:var(--muted);font-weight:600">Reflection</div>
+            <code style="font-size:.62rem;color:var(--vi)">img/Realize/img19.png</code>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top:1.75rem;border-top:1px solid var(--border)">
+        <div style="background:var(--vi);border-radius:14px;padding:1.5rem 1.75rem">
+          <p style="font-family:var(--hand);font-size:1.2rem;font-weight:700;color:#fff;line-height:1.55;margin:0">The hardest part wasn't designing screens — it was designing the system those screens live inside. Get that right, and everything else follows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 14 FUTURE ITERATIONS ═══ -->
+    <section class="cs-sec" id="s-future">
+      <div class="cs-sec-label"><span class="cs-sec-num">14</span> Future Iterations</div>
+      <h2>This Is Just the <em>Start</em></h2>
+      <p class="cs-para">This version of Realize is an MVP — it establishes the core structure, workflows, and design system. But the real potential of the platform comes from how it evolves over time. The next phase is focused on making the system smarter, more automated, and more personalised.</p>
+
+      <div style="font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.75rem 0 1rem">What we'd build next</div>
+
+      <!-- Future cards — grid layout -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:2rem">
+
+        <div class="future-card" onclick="toggleFuture(this)" style="cursor:pointer">
+          <div class="future-card-header">
+            <div class="future-card-num">01</div>
+            <div class="future-card-title">More AI agents, deeper automation</div>
+            <div class="future-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="future-card-body">
+            <p>Expanding the Agent Factory with more pre-built agents and allowing teams to automate repetitive security tasks end-to-end — so security professionals can focus on decisions, not execution.</p>
+          </div>
+        </div>
+
+        <div class="future-card" onclick="toggleFuture(this)" style="cursor:pointer">
+          <div class="future-card-header">
+            <div class="future-card-num">02</div>
+            <div class="future-card-title">Smarter assess → deploy loop</div>
+            <div class="future-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="future-card-body">
+            <p>Making the system more proactive — suggesting fixes earlier, auto-triggering actions, and reducing manual decision-making at every handoff point between modules.</p>
+          </div>
+        </div>
+
+        <div class="future-card" onclick="toggleFuture(this)" style="cursor:pointer">
+          <div class="future-card-header">
+            <div class="future-card-num">03</div>
+            <div class="future-card-title">AI that adapts to the user</div>
+            <div class="future-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="future-card-body">
+            <p>Personalised guidance based on experience level — faster, more direct for experts; more contextual and supportive for users newer to security tooling. Same platform, adapted experience.</p>
+          </div>
+        </div>
+
+        <div class="future-card" onclick="toggleFuture(this)" style="cursor:pointer">
+          <div class="future-card-header">
+            <div class="future-card-num">04</div>
+            <div class="future-card-title">Trust &amp; transparency in AI</div>
+            <div class="future-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="future-card-body">
+            <p>Clearer visibility into what the AI is doing, why it's doing it, and giving users more granular control when needed — building on the transparency layer already in the MVP.</p>
+          </div>
+        </div>
+
+        <!-- card 05 spans full width -->
+        <div class="future-card" onclick="toggleFuture(this)" style="cursor:pointer;grid-column:1/-1">
+          <div class="future-card-header">
+            <div class="future-card-num">05</div>
+            <div class="future-card-title">Scaling beyond four modules</div>
+            <div class="future-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="future-card-body">
+            <p>Adding new capabilities — compliance, reporting, integrations — without breaking the core workflow logic. The design system and IA were built specifically so the platform can scale without fragmenting.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- img20 below content -->
+      <div class="cs-img-wrap" style="margin:1.5rem 0">
+        <img src="img/Realize/img20.png" alt="Future iterations" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;text-align:center;width:100%">
+          <div style="font-size:2rem">🔭</div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600">Future iterations</div>
+          <code style="font-size:.62rem;color:var(--vi)">img/Realize/img20.png</code>
+        </div>
+      </div>
+
+    </section>
+</div><!-- /cs-content-zone -->
+
+
+<script src="shared.js"></script>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversational Deployment — Vagmita Pandya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="casestudy.css">
+<style>
+/* overview card below hero */
+.overview-card{
+  background:var(--vi-soft);
+  border:1.5px solid rgba(108,76,241,.2);
+  border-radius:18px;
+  padding:2.25rem 2.5rem;
+  margin-bottom:0;
+  position:relative;
+  overflow:hidden;
+}
+.overview-card::after{content:'30s';position:absolute;right:2rem;top:1rem;font-family:var(--hand);font-size:5rem;font-weight:700;color:rgba(108,76,241,.07);line-height:1;pointer-events:none;user-select:none}
+.overview-card h3{font-family:var(--hand);font-size:1.5rem;font-weight:700;color:var(--vi);margin-bottom:1.25rem}
+.ov-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem}
+.ov-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;line-height:1.6;color:var(--black);font-weight:500}
+.ov-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.52rem}
+.ov-list li strong{color:var(--black)}
+.ov-cta{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.9rem;font-weight:600;color:var(--vi);
+  text-decoration:none;
+  padding:.5rem 1rem;
+  background:rgba(108,76,241,.08);
+  border:1px solid rgba(108,76,241,.2);
+  border-radius:8px;
+  transition:background .15s,border-color .15s;
+}
+.ov-cta:hover{background:rgba(108,76,241,.14);border-color:rgba(108,76,241,.35)}
+
+/* CONTENT ZONE */
+#cs-content-zone{display:flex;align-items:flex-start}
+
+/* PART OF REALIZE STRIP */
+.realize-strip{
+  display:flex;align-items:center;gap:1.25rem;
+  padding:.95rem var(--pad);
+  background:var(--off);
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.realize-strip-badge{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--vi);background:var(--vi-soft);border:1px solid rgba(108,76,241,.2);
+  padding:.28rem .75rem;border-radius:100px;flex-shrink:0;
+}
+.realize-strip-text{font-size:.8rem;color:var(--muted);line-height:1.55}
+.realize-strip-text strong{color:var(--black);font-weight:700}
+.realize-strip-link{
+  margin-left:auto;flex-shrink:0;
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.78rem;font-weight:700;color:var(--vi);
+  text-decoration:none;border-bottom:1px dashed rgba(108,76,241,.4);
+  padding-bottom:1px;transition:border-color .15s,color .15s;
+}
+.realize-strip-link:hover{color:var(--vi2);border-color:var(--vi2)}
+
+/* HEURISTIC VISUAL */
+.heuristic-visual{
+  background:var(--off);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;margin:1.5rem 0;
+}
+.heuristic-visual-header{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:.6rem 1rem;display:flex;align-items:center;gap:.5rem;
+}
+.heuristic-visual-dot{width:8px;height:8px;border-radius:50%}
+.heuristic-visual-title{font-size:.62rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-left:.5rem}
+.heuristic-visual-body{padding:1.25rem;display:flex;flex-direction:column;gap:.65rem}
+.heuristic-row{display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:start;padding:.75rem 1rem;background:var(--white);border:1px solid var(--border);border-radius:10px;position:relative}
+.heuristic-row.flagged{border-color:rgba(200,75,49,.25);background:rgba(200,75,49,.025)}
+.heuristic-row.warn{border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.02)}
+.heuristic-row.ok{border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.02)}
+.h-icon{font-size:1rem;padding-top:.05rem}
+.h-content h5{font-size:.75rem;font-weight:700;color:var(--black);margin-bottom:.18rem}
+.h-content p{font-size:.67rem;color:var(--muted);line-height:1.5;margin:0}
+.h-badge{font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .5rem;border-radius:6px;flex-shrink:0;margin-top:.1rem}
+.h-badge.fail{background:rgba(200,75,49,.1);color:#C84B31}
+.h-badge.warn{background:rgba(245,158,11,.12);color:#92610a}
+.h-badge.pass{background:rgba(34,197,94,.12);color:#166534}
+
+/* REFLECTION CARDS */
+.reflection-grid{display:flex;flex-direction:column;gap:.75rem;margin:1.25rem 0}
+.reflection-card{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1.1rem 1.25rem;
+  background:var(--off);border:1px solid var(--border);border-radius:12px;
+  transition:box-shadow .2s,transform .2s;
+}
+.reflection-card:hover{box-shadow:0 4px 20px rgba(108,76,241,.08);transform:translateY(-1px)}
+.reflection-card-num{
+  font-family:var(--hand);font-size:1.6rem;font-weight:700;
+  color:rgba(108,76,241,.2);flex-shrink:0;line-height:1;margin-top:.1rem;
+  min-width:2rem;text-align:center;
+}
+.reflection-card-body h4{font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.3rem}
+.reflection-card-body p{font-size:.78rem;color:var(--muted);line-height:1.65;margin:0}
+
+/* WHAT'S NEXT STRIP */
+.whatsnext-chain{display:flex;flex-direction:column;gap:0;margin:1.5rem 0;position:relative}
+.whatsnext-chain::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:rgba(108,76,241,.15);border-radius:2px}
+.whatsnext-node{display:flex;gap:1rem;padding:.5rem 0 1.25rem;align-items:flex-start;position:relative}
+.whatsnext-dot{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;z-index:1}
+.whatsnext-dot.done{background:var(--vi);box-shadow:0 0 0 4px rgba(108,76,241,.14)}
+.whatsnext-dot.next{background:var(--vi-soft);border:2px solid rgba(108,76,241,.3)}
+.whatsnext-dot.future{background:var(--off);border:2px dashed rgba(108,76,241,.2)}
+.whatsnext-text h4{font-size:.86rem;font-weight:700;color:var(--black);margin-bottom:.22rem;padding-top:.55rem}
+.whatsnext-text p{font-size:.77rem;color:var(--muted);line-height:1.6;margin:0}
+.whatsnext-tag{display:inline-flex;font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px;margin-bottom:.3rem}
+.whatsnext-tag.done-tag{background:rgba(108,76,241,.1);color:var(--vi)}
+.whatsnext-tag.next-tag{background:rgba(34,197,94,.1);color:#166534}
+.whatsnext-tag.future-tag{background:var(--off2);color:var(--muted)}
+
+/* SIDEBAR */
+.cs-sidebar{width:260px;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow:hidden;display:flex;flex-direction:column;background:var(--white);border-right:1px solid var(--border)}
+.cs-sidebar-inner{padding:2rem 1rem 2rem 0;flex:1;overflow-y:auto;overflow-x:hidden}
+.cs-sidebar-inner::-webkit-scrollbar{display:none}
+.cs-sidebar-cap{font-size:.5rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;padding-left:80px}
+.cs-sidebar-nav{display:flex;flex-direction:column;gap:0;position:relative;padding-left:80px}
+.cs-sidebar-nav::before{content:'';position:absolute;left:64px;top:0;bottom:0;width:1.5px;background:rgba(108,76,241,.12);border-radius:2px}
+.snav-spine-fill{position:absolute;left:64px;top:0;width:1.5px;background:var(--vi);border-radius:2px;transition:height .12s ease;pointer-events:none;z-index:2}
+.snav-item{position:relative;display:flex;align-items:center;gap:.5rem;padding:.5rem .5rem .5rem 0;cursor:pointer;border:none;background:none;text-align:left;width:100%;border-radius:0;transition:none}
+.snav-item::before{content:'';position:absolute;left:-21px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--white);border:2px solid rgba(108,76,241,.2);transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;z-index:3}
+.snav-item:hover::before{border-color:var(--vi);background:rgba(108,76,241,.08)}
+.snav-item.active::before{background:var(--vi);border-color:var(--vi);transform:translateY(-50%) scale(1.15);box-shadow:0 0 0 4px rgba(108,76,241,.14)}
+.snav-num{display:none}
+.snav-label{font-size:.72rem;font-weight:500;color:rgba(0,0,0,.35);line-height:1.35;transition:color .15s,font-weight .15s}
+.snav-item:hover .snav-label{color:rgba(0,0,0,.7)}
+.snav-item.active .snav-label{color:var(--vi);font-weight:700;font-size:.73rem}
+
+/* MAIN CONTENT */
+#cs-main{flex:1;min-width:0;padding:0 var(--pad) 6rem var(--pad)}
+
+/* SECTIONS */
+.cs-sec{padding:3rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.cs-sec.vis{opacity:1;transform:translateY(0)}
+.cs-sec:last-child{border-bottom:none}
+.sec-label{display:flex;align-items:center;gap:.5rem;font-family:var(--hand);font-size:1rem;font-weight:700;color:var(--vi);margin-bottom:.55rem}
+.sec-label::before{content:'—';opacity:.35;font-family:var(--body)}
+.sec-num{font-family:var(--hand);font-size:.85rem;color:rgba(108,76,241,.35)}
+.cs-sec h2{font-family:var(--hand);font-size:clamp(2.2rem,3.5vw,3rem);font-weight:700;letter-spacing:-.01em;line-height:1.05;color:var(--black);margin-bottom:1.1rem}
+.cs-sec h2 em{color:var(--vi);font-style:normal}
+.cs-sec p{font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem}
+.cs-sec p strong{color:var(--black);font-weight:600}
+
+.callout{background:var(--vi-soft);border-left:3px solid var(--vi);border-radius:0 10px 10px 0;padding:1rem 1.35rem;margin:1.25rem 0}
+.callout-lbl{font-family:var(--hand);font-size:.95rem;font-weight:700;color:var(--vi);margin-bottom:.3rem}
+.callout p{font-size:.86rem;color:var(--black);line-height:1.65;margin:0}
+
+.cs-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.85rem 0}
+.cs-list li{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:var(--muted);line-height:1.6}
+.cs-list li .d{width:5px;height:5px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.5rem}
+.cs-list li strong{color:var(--black)}
+
+/* STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:0;margin:1.25rem 0;position:relative}
+.step-list::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border)}
+.step-item{display:flex;gap:.9rem;padding:0 0 1.25rem}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--vi-soft);border:2px solid var(--vi);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:var(--vi);flex-shrink:0;z-index:1}
+.step-content h4{font-family:var(--body);font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.22rem;padding-top:.38rem}
+.step-content p{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* PROB GRID */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1.25rem 0}
+.prob-card{background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1.25rem;border-top:3px solid var(--vi)}
+.prob-card h4{font-family:var(--body);font-size:.86rem;font-weight:700;color:var(--black);margin-bottom:.35rem}
+.prob-card p{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* QUOTE */
+.cs-quote{margin:1.5rem 0;padding:1.6rem 1.75rem;background:#F0EEFF;border:1.5px solid rgba(108,76,241,.2);border-radius:12px;font-family:var(--hand);font-size:1.45rem;font-weight:700;color:var(--vi);line-height:1.4;position:relative}
+.cs-quote::before{content:'"';font-size:3.5rem;line-height:0;color:var(--vi);opacity:.35;position:absolute;top:1.8rem;left:1.25rem;font-family:var(--body)}
+.cs-quote-inner{padding-left:1.1rem}
+
+/* DESKTOP MOCKUPS */
+.deploy-mockup-stack{display:flex;flex-direction:column;gap:2.5rem;margin:1.75rem 0}
+.desktop-mockup{width:100%}
+.desktop-chrome{
+  background:#E8E8E8;
+  border-radius:12px 12px 0 0;
+  padding:.55rem .85rem .5rem;
+  display:flex;align-items:center;gap:.75rem;
+  border:1.5px solid #D0D0D0;
+  border-bottom:none;
+}
+.desktop-dots{display:flex;gap:.35rem;align-items:center;flex-shrink:0}
+.desktop-dots span{width:11px;height:11px;border-radius:50%}
+.desktop-dots span:nth-child(1){background:#FF5F57}
+.desktop-dots span:nth-child(2){background:#FEBC2E}
+.desktop-dots span:nth-child(3){background:#28C840}
+.desktop-bar{flex:1;background:#fff;border:1px solid #D8D8D8;border-radius:6px;padding:.28rem .75rem;display:flex;align-items:center;gap:.4rem}
+.desktop-bar::before{content:'🔒';font-size:.6rem;opacity:.5}
+.desktop-url{font-size:.68rem;color:#666;font-family:var(--body);letter-spacing:.01em}
+.desktop-screen{
+  border:1.5px solid #D0D0D0;
+  border-top:none;
+  border-radius:0 0 12px 12px;
+  overflow:hidden;
+  background:var(--off);
+  /* sized for 1440×1024 content with a bit of extra frame */
+  aspect-ratio:1440/1024;
+  display:flex;align-items:stretch;
+}
+.desktop-screen img{width:100%;height:100%;object-fit:cover;display:block}
+.mockup-fallback{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:.5rem;width:100%;padding:3rem;text-align:center;
+  font-size:2rem;color:var(--muted);
+}
+.mockup-fallback span{font-size:.7rem;font-weight:600;color:var(--muted);font-family:var(--body)}
+.desktop-caption{
+  text-align:center;
+  font-size:.72rem;font-weight:600;color:var(--muted);
+  margin-top:.65rem;letter-spacing:.02em;
+}
+.cs-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.cs-img-grid .cs-card{background:var(--off);border-radius:10px;overflow:hidden}
+.cs-img-grid .cs-card img{width:100%;display:block;object-fit:cover;aspect-ratio:16/10;background:var(--off)}
+.cs-img-grid .cs-card .cs-caption{padding:.5rem .75rem;font-size:.7rem;color:var(--muted);font-weight:600}
+.cs-img-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+.cs-img-row img{width:100%;border-radius:10px;display:block;background:var(--off);object-fit:contain}
+.cs-img-single img{width:100%;border-radius:10px;display:block;background:var(--off);margin:1.25rem 0;object-fit:contain}
+
+/* DECISION BLOCKS */
+.decision{margin:1.6rem 0;display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+.decision.rev{direction:rtl}
+.decision.rev>*{direction:ltr}
+.dec-text h4{font-family:var(--body);font-size:.9rem;font-weight:700;color:var(--black);margin-bottom:.38rem}
+.dec-text p{font-size:.8rem;color:var(--muted);line-height:1.65;margin:0}
+.dec-visual{background:var(--off);border:1px solid var(--border);border-radius:12px;padding:1rem;min-height:100px;display:flex;align-items:center;justify-content:center}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin:1.6rem 0}
+.stat{background:var(--white);padding:1.25rem;text-align:center}
+.stat-n{font-family:var(--body);font-size:1.9rem;font-weight:800;color:var(--vi);line-height:1;margin-bottom:.2rem;letter-spacing:-.03em}
+.stat-l{font-family:var(--hand);font-size:.88rem;color:var(--muted)}
+
+/* LEARN GRID */
+.learn-grid{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0}
+.learn{display:flex;gap:.85rem;padding:.85rem 1rem;background:var(--off);border-radius:10px;border:1px solid var(--border)}
+.learn-icon{width:28px;height:28px;border-radius:7px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem}
+.learn h4{font-family:var(--body);font-size:.8rem;font-weight:700;color:var(--black);margin-bottom:.17rem}
+.learn p{font-size:.75rem;color:var(--muted);line-height:1.55;margin:0}
+
+/* HOVER POPUP for realize link */
+.realize-link{
+  position:relative;display:inline-flex;align-items:center;gap:.35rem;
+  color:var(--vi);font-weight:600;font-size:.93rem;
+  cursor:pointer;text-decoration:none;
+  border-bottom:1px dashed rgba(108,76,241,.4);padding-bottom:1px;
+}
+.realize-popup{
+  display:none;position:absolute;left:0;top:calc(100% + 10px);
+  background:var(--vi-soft);
+  border:1.5px solid rgba(108,76,241,.25);
+  border-radius:14px;padding:1.5rem 1.75rem;width:380px;
+  box-shadow:0 12px 40px rgba(108,76,241,.15),0 2px 8px rgba(0,0,0,.06);
+  z-index:50;
+}
+.realize-link:hover .realize-popup{display:block}
+.realize-popup h4{
+  font-family:var(--hand);font-size:1.4rem;font-weight:700;
+  color:var(--vi);margin-bottom:1rem;
+}
+.realize-popup ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.realize-popup ul li{display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;line-height:1.6;color:var(--black)}
+.realize-popup ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.45rem}
+.realize-popup ul li strong{color:var(--vi)}
+
+/* STICKY NOTE */
+.sticky-note-attached{transform:rotate(1.2deg);margin-top:.5rem;flex-shrink:0}
+.sticky-note-paper{position:relative;background:#FFF9C4;border-radius:2px;padding:1.75rem 2rem 1.5rem;box-shadow:3px 5px 16px rgba(0,0,0,.13),0 1px 3px rgba(0,0,0,.07),inset 0 -2px 0 rgba(0,0,0,.04);font-family:'Caveat',cursive}
+.sticky-note-tape{position:absolute;top:-13px;left:50%;transform:translateX(-50%);width:60px;height:24px;background:rgba(255,245,150,.75);border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.12);border:1px solid rgba(200,180,0,.15)}
+.sticky-note-heading{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:700;color:#3a3000;margin-bottom:.75rem;line-height:1.3}
+.sticky-note-body{font-family:'Caveat',cursive;font-size:.92rem;color:#4a3d00;line-height:1.6}
+.sticky-note-links{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+.sticky-note-btn{font-family:'Caveat',cursive;font-size:.88rem;font-weight:700;color:#fff;background:#3a3000;padding:.32rem .8rem;border-radius:6px;text-decoration:none;transition:background .15s}
+.sticky-note-btn:hover{background:#5a4d00}
+.sticky-note-btn-ghost{background:transparent;color:#3a3000;border:1.5px solid rgba(58,48,0,.3)}
+.sticky-note-btn-ghost:hover{background:rgba(58,48,0,.07)}
+.sticky-note-or{font-family:'Caveat',cursive;font-size:.85rem;color:#7a6a00}
+.overview-sticky-row{display:flex;gap:2rem;align-items:flex-start}
+.overview-sticky-row .overview-card{flex:1;min-width:0;margin-bottom:0}
+@media(max-width:860px){.overview-sticky-row{flex-direction:column}.sticky-note-attached{transform:rotate(0);margin-top:0;width:100%}}
+@media(max-width:860px){
+  :root{--pad:24px}
+  .cs-sidebar{display:none}
+  #cs-main{padding:0 var(--pad) 4rem}
+  .prob-grid,.decision,.cs-img-row{grid-template-columns:1fr}
+  .decision.rev{direction:ltr}
+  .cs-img-grid{grid-template-columns:1fr 1fr}
+  .stat-row{grid-template-columns:1fr}
+  .cs-hero{padding:3.5rem var(--pad) 2.5rem}
+  [style*="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"]{grid-template-columns:1fr!important}
+}
+@media(max-width:540px){.cs-img-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="read-progress" id="readProgress"></div>
+<body>
+
+<div class="read-progress" id="readProgress"></div>
+
+<!-- HEADER -->
+<header class="cs-header">
+  <a href="index.html" class="cs-header-logo">Vagmita Pandya</a>
+  <nav class="cs-header-nav">
+    <a href="index.html#work">My Work</a>
+    <a href="index.html#about">About me</a>
+    <a href="index.html#blogs">Blogs</a>
+    <a href="index.html#contact">Say hi</a>
+    <a href="https://linkedin.com/in/vagmita" target="_blank" class="cs-header-linkedin">
+      <span class="cs-linkedin-in">in</span>
+      <span class="cs-linkedin-label">LinkedIn</span>
+    </a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="cs-hero">
+    <div class="cs-type-chip">Case Study 02 · Realize Platform</div>
+    <h1 class="cs-hero-title">Conversational <span>Deployment</span></h1>
+    <p class="cs-hero-sub">Simplifying enterprise deployment through a chat-first experience — guiding users step by step without leaving the conversation.</p>
+    <div class="cs-meta-box">
+      <div class="cs-meta-cell"><div class="cs-meta-cell-label">Role</div><div class="cs-meta-cell-value">Product Designer</div></div>
+      <div class="cs-meta-cell"><div class="cs-meta-cell-label">Duration</div><div class="cs-meta-cell-value">15 days</div></div>
+      <div class="cs-meta-cell"><div class="cs-meta-cell-label">Type</div><div class="cs-meta-cell-value">SaaS · Enterprise · AI</div></div>
+      <div class="cs-meta-cell" style="border-right:none"><div class="cs-meta-cell-label">Team</div><div class="cs-meta-cell-value">2 Designers · 1 PM · 4 Devs</div></div>
+    </div>
+
+    <!-- 30-SECOND OVERVIEW + STICKY NOTE -->
+    <div class="overview-sticky-row">
+      <div class="overview-card">
+        <h3>30-second overview</h3>
+        <ul class="ov-list">
+          <li>This case study focuses on automating the deployment workflow within the Realize platform</li>
+          <li>While the MVP improved discovery and purchasing, deployment still required manual configuration and technical understanding</li>
+          <li>A conversational system was introduced to guide, validate, and execute deployment steps in a structured flow</li>
+          <li>The chatbot operates across both Deploy and Manage modules, adapting to user context without changing interaction patterns</li>
+          <li>Deployment is transformed into a step-based, guided experience with real-time feedback and execution support</li>
+          <li>The result is a shift from multi-screen navigation to a single, continuous interaction model</li>
+        </ul>
+      </div>
+
+      <div class="sticky-note-attached" style="width:240px;flex-shrink:0;margin-top:1rem">
+        <div class="sticky-note-paper" style="padding:1.3rem 1.4rem 1.2rem">
+          <div class="sticky-note-tape"></div>
+          <div class="sticky-note-heading" style="font-size:1rem;margin-bottom:.5rem">♦ Before you scroll in</div>
+          <p class="sticky-note-body" style="font-size:.82rem">This is a sub-module of a bigger project — research, design system &amp; core UX decisions were all shared with <strong style="color:#3a3000">Realize</strong>.</p>
+          <p class="sticky-note-body" style="font-size:.8rem;margin-top:.5rem;font-weight:700;color:#3a3000">Short on time?</p>
+          <div class="sticky-note-links" style="flex-direction:column;align-items:flex-start;gap:.4rem;margin-top:.4rem">
+            <a href="realize.html" class="sticky-note-btn" style="font-size:.8rem;padding:.28rem .7rem">👉 View full Realize case study</a>
+            <span class="sticky-note-or" style="font-size:.76rem">— or keep scrolling 😊</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- CONTENT ZONE -->
+<div id="cs-content-zone">
+
+  <!-- SIDEBAR -->
+  <aside class="cs-sidebar">
+    <div class="cs-sidebar-inner">
+      <div class="cs-sidebar-cap">Case Study</div>
+      <nav class="cs-sidebar-nav" id="snav">
+        <div class="snav-spine-fill" id="snavFill"></div>
+        <button class="snav-item active" data-sec="intro"><span class="snav-label">Introduction</span></button>
+        <button class="snav-item" data-sec="problem"><span class="snav-label">The Problem</span></button>
+        <button class="snav-item" data-sec="vision"><span class="snav-label">The Vision</span></button>
+        <button class="snav-item" data-sec="process"><span class="snav-label">The Process</span></button>
+        <button class="snav-item" data-sec="insights"><span class="snav-label">Key Insights</span></button>
+        <button class="snav-item" data-sec="solution"><span class="snav-label">Solution</span></button>
+        <button class="snav-item" data-sec="deployment"><span class="snav-label">Deployment Journey</span></button>
+        <button class="snav-item" data-sec="manage"><span class="snav-label">Managing Through Conversation</span></button>
+        <button class="snav-item" data-sec="decisions"><span class="snav-label">Design Decisions</span></button>
+        <button class="snav-item" data-sec="impact"><span class="snav-label">Impact</span></button>
+        <button class="snav-item" data-sec="reflection"><span class="snav-label">Reflection</span></button>
+        <button class="snav-item" data-sec="whatsnext"><span class="snav-label">What's Next</span></button>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="cs-main">
+
+    <!-- 01 INTRODUCTION -->
+    <section class="cs-sec" id="intro">
+      <div class="sec-label"><span class="sec-num">01</span>Introduction</div>
+      <h2>Understanding the platform foundation</h2>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.25rem;align-items:start;margin-top:1rem">
+        <div style="min-width:0">
+          <p style="font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem">The Realize platform is designed as a unified environment for enterprise cybersecurity workflows, structured into four modules — Assess, Deploy, Manage, and Agent Factory.</p>
+          <p style="font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem">In the initial 0→1 MVP stage, the focus was on simplifying navigation and reducing friction across the platform.</p>
+          <ul class="cs-list">
+            <li><span class="d"></span><span>Four-path landing helped users quickly understand where to start</span></li>
+            <li><span class="d"></span><span>Assess module redesigned as a marketplace with filters and cards</span></li>
+            <li><span class="d"></span><span>Purchase flow reduced into a single modal</span></li>
+            <li><span class="d"></span><span>Coin-based payment system aligned with enterprise behavior</span></li>
+          </ul>
+          <p style="font-size:.93rem;color:var(--muted);line-height:1.75;margin-top:.85rem">These improvements made discovery and purchasing faster. However, deployment remained a manual process.</p>
+        </div>
+        <div style="min-width:0">
+          <div style="background:var(--off);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <img src="img/Agent/img1.png" alt="Realize platform overview" style="width:100%;height:100%;object-fit:contain;display:block;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:2rem;text-align:center;width:100%">
+              <div style="font-size:1.8rem">🖼️</div>
+              <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Platform overview image</div>
+              <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img1.png</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROBLEM -->
+    <section class="cs-sec" id="problem">
+      <div class="sec-label"><span class="sec-num">02</span>The Problem</div>
+      <h2>Deployment still required manual execution</h2>
+      <div class="prob-grid">
+        <div class="prob-card"><h4>Multiple manual inputs</h4><p>Configuration required filling out technical fields across several screens without guidance.</p></div>
+        <div class="prob-card"><h4>Technical jargon</h4><p>Users had to understand complex parameters before they could proceed.</p></div>
+        <div class="prob-card"><h4>Scattered steps</h4><p>The deployment flow was spread across multiple screens with no clear through-line.</p></div>
+        <div class="prob-card"><h4>Permission interruptions</h4><p>Admin consent requests appeared mid-flow, breaking momentum and context.</p></div>
+      </div>
+      <div class="callout"><div class="callout-lbl">Core issue</div><p>Even after improving navigation, the core task — deploying a service — still felt <strong>complex and time-consuming</strong>.</p></div>
+      <div class="cs-img-row">
+        <img src="img/Agent/img2.png" alt="Old deployment flow screen 1">
+        <img src="img/Agent/img3.png" alt="Old deployment flow screen 2">
+      </div>
+    </section>
+
+    <!-- 03 VISION -->
+    <section class="cs-sec" id="vision">
+      <div class="sec-label"><span class="sec-num">03</span>The Vision</div>
+      <h2>Simplifying execution, not just navigation</h2>
+      <p>Instead of redesigning the UI again, the focus shifted to simplifying the execution process itself.</p>
+      <div class="cs-quote"><div class="cs-quote-inner">The goal was not to make deployment easier to navigate — but to make it easier to complete.</div></div>
+      <ul class="cs-list">
+        <li><span class="d"></span><span><strong>Guide users step-by-step</strong> — no need to understand the system before using it</span></li>
+        <li><span class="d"></span><span><strong>Automate configuration and validation</strong> — reduce manual inputs</span></li>
+        <li><span class="d"></span><span><strong>Reduce technical complexity</strong> — surface what matters, hide what doesn't</span></li>
+        <li><span class="d"></span><span><strong>Execute deployment directly</strong> — from within the conversation</span></li>
+      </ul>
+      <p>The chatbot was introduced to support the platform overall, but primarily to automate deployment workflows.</p>
+      <div style="background:var(--off);border-radius:14px;overflow:hidden;margin-top:1.5rem">
+        <img src="img/Agent/img4.png" alt="Vision — conversational deployment concept" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+          <div style="font-size:1.8rem">🖼️</div>
+          <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Vision concept image</div>
+          <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img4.png</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 PROCESS -->
+    <section class="cs-sec" id="process">
+      <div class="sec-label"><span class="sec-num">04</span>The Process</div>
+      <h2>Understanding where friction exists</h2>
+      <p>With a 15-day timeline, there was no room for long research phases. Three lightweight but targeted methods were used to map friction fast — each chosen to answer a specific question about the existing deployment flow.</p>
+
+      <!-- 4a HEURISTIC EVALUATION -->
+      <div style="margin-top:2rem">
+        <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.6rem">
+          <span style="width:18px;height:18px;border-radius:50%;background:var(--vi);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;flex-shrink:0">a</span>
+          Heuristic Evaluation
+        </div>
+        <h3 style="font-family:var(--hand);font-size:1.45rem;font-weight:700;color:var(--black);margin-bottom:.6rem;line-height:1.1">Walking the flow with Nielsen's lens</h3>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem">The existing Deploy module was walked through systematically using Nielsen's 10 Usability Heuristics — without involving users. The goal was to surface structural issues quickly before any user time was spent.</p>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem">Every screen, every transition, and every input field was evaluated against each principle. Issues were tagged by severity — critical, major, or minor — and grouped by theme.</p>
+        <!-- full-width image -->
+        <div style="background:var(--off);border-radius:14px;overflow:hidden;margin-top:.75rem;text-align:center">
+          <img src="img/Agent/img5.png" alt="Heuristic evaluation notes" style="max-width:100%;display:block;object-fit:contain;background:var(--off);margin:0 auto" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+            <div style="font-size:1.8rem">🖼️</div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Heuristic evaluation image</div>
+            <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img5.png</code>
+          </div>
+        </div>
+        <!-- full-width callout below -->
+        <div style="background:var(--vi-soft);border-left:3px solid var(--vi);border-radius:0 10px 10px 0;padding:.9rem 1.1rem;margin-top:1rem">
+          <div style="font-family:var(--hand);font-size:.92rem;font-weight:700;color:var(--vi);margin-bottom:.25rem">What it surfaced</div>
+          <p style="font-size:.8rem;color:var(--black);line-height:1.6;margin:0">3 critical failures in visibility, language, and user control. These alone were enough to explain why users dropped off mid-flow.</p>
+        </div>
+      </div>
+
+      <!-- heuristic table visual -->
+      <div class="heuristic-visual" style="margin-top:1.5rem">
+        <div class="heuristic-visual-header">
+          <div class="heuristic-visual-dot" style="background:#FF5F57"></div>
+          <div class="heuristic-visual-dot" style="background:#FEBC2E"></div>
+          <div class="heuristic-visual-dot" style="background:#28C840"></div>
+          <div class="heuristic-visual-title">Heuristic Evaluation — Deploy Flow</div>
+        </div>
+        <div class="heuristic-visual-body">
+          <div class="heuristic-row flagged">
+            <div class="h-icon">⚠️</div>
+            <div class="h-content">
+              <h5>Visibility of System Status</h5>
+              <p>Users receive no feedback during deployment execution. Progress states are hidden — no indication of whether the system is working, stuck, or waiting for input.</p>
+            </div>
+            <div class="h-badge fail">Fail</div>
+          </div>
+          <div class="heuristic-row flagged">
+            <div class="h-icon">⚠️</div>
+            <div class="h-content">
+              <h5>Match Between System and Real World</h5>
+              <p>Technical parameter labels (e.g. "API binding scope", "namespace prefix") are shown without explanation. Security leads without DevOps background are blocked immediately.</p>
+            </div>
+            <div class="h-badge fail">Fail</div>
+          </div>
+          <div class="heuristic-row flagged">
+            <div class="h-icon">⚠️</div>
+            <div class="h-content">
+              <h5>User Control &amp; Freedom</h5>
+              <p>Mid-flow permission requests redirect users to an admin screen with no way back. Returning means starting the entire deployment over — no save state exists.</p>
+            </div>
+            <div class="h-badge fail">Fail</div>
+          </div>
+          <div class="heuristic-row warn">
+            <div class="h-icon">💬</div>
+            <div class="h-content">
+              <h5>Error Prevention</h5>
+              <p>There is no pre-flight validation or checklist before execution begins. Users can trigger deployments in misconfigured states with no warning.</p>
+            </div>
+            <div class="h-badge warn">Partial</div>
+          </div>
+          <div class="heuristic-row ok">
+            <div class="h-icon">✓</div>
+            <div class="h-content">
+              <h5>Consistency &amp; Standards</h5>
+              <p>Visual language (colors, type, buttons) is consistent across modules. The problem is workflow logic, not visual language.</p>
+            </div>
+            <div class="h-badge pass">Pass</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4b END-TO-END WALKTHROUGH -->
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.6rem">
+          <span style="width:18px;height:18px;border-radius:50%;background:var(--vi);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;flex-shrink:0">b</span>
+          End-to-End Walkthrough
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start">
+          <div style="min-width:0">
+            <h3 style="font-family:var(--hand);font-size:1.45rem;font-weight:700;color:var(--black);margin-bottom:.6rem;line-height:1.1">Simulating the full deployment scenario</h3>
+            <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem">With heuristic issues identified, the next step was to experience them in sequence — simulating what an actual security lead would do when deploying a service for the first time, from module entry to final confirmation.</p>
+            <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:0">Each screen transition was timed and annotated. Drop-off points were marked where a real user would likely abandon the flow, and the reasoning behind each was captured.</p>
+          </div>
+          <div style="min-width:0">
+            <div style="background:var(--off);border-radius:14px;overflow:hidden">
+              <img src="img/Agent/img6.png" alt="End-to-end walkthrough annotations" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+                <div style="font-size:1.8rem">🖼️</div>
+                <div style="font-size:.72rem;font-weight:600;color:var(--muted)">End-to-end walkthrough image</div>
+                <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img6.png</code>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- full-width bullet list below both columns -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem">
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">🖥️</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">Screen 1 → 2</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">Users spent 40+ seconds trying to understand what "configure deployment" meant before touching anything.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">🔒</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">Permission prompt</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">Appeared at step 4 with no prior warning; simulated user had no admin access and the flow fully blocked.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">⚠️</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">Final confirmation</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">No summary of what was about to be deployed; only a generic "Submit" button with no undo.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4c STAKEHOLDER DISCUSSIONS -->
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-bottom:.6rem">
+          <span style="width:18px;height:18px;border-radius:50%;background:var(--vi);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;flex-shrink:0">c</span>
+          Stakeholder Discussions
+        </div>
+
+        <!-- text + image side by side -->
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start;margin-bottom:1.25rem">
+          <div style="min-width:0">
+            <h3 style="font-family:var(--hand);font-size:1.45rem;font-weight:700;color:var(--black);margin-bottom:.6rem;line-height:1.1">Understanding what the system could actually do</h3>
+            <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem">Before designing solutions, the technical floor had to be understood. Conversations with the PM and four developers clarified what the system could automate, what required human input, and what was architecturally fixed.</p>
+            <p style="font-size:.88rem;color:var(--muted);line-height:1.75;">This wasn't a requirements gathering session — it was about understanding constraints so that design decisions wouldn't promise what the system couldn't deliver.</p>
+          </div>
+          <div style="min-width:0">
+            <div style="background:var(--off);border-radius:14px;overflow:hidden">
+              <img src="img/Agent/img7.png" alt="Stakeholder discussion notes" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+                <div style="font-size:1.8rem">🖼️</div>
+                <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Stakeholder discussions image</div>
+                <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img7.png</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 boxes horizontal below -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem">
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">⚙️</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">API structure</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">Configuration fields could be pre-filled from existing tenant data — users didn't need to enter them manually.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">🔐</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">Permission system</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">Admin consent could be requested inline via the chat layer — no redirect to a separate screen required.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--off);border:1px solid var(--border);border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--vi-soft);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">✅</div>
+            <div><div style="font-size:.78rem;font-weight:700;color:var(--black);margin-bottom:.2rem">Validation logic</div><div style="font-size:.7rem;color:var(--muted);line-height:1.55">Pre-deployment checks already existed on the backend — they just weren't surfaced to the user before execution.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 INSIGHTS -->
+    <section class="cs-sec" id="insights">
+      <div class="sec-label"><span class="sec-num">05</span>Key Insights</div>
+      <h2>Execution was the real problem</h2>
+      <ul class="cs-list">
+        <li><span class="d"></span><span><strong>Friction existed after purchase, not before</strong> — users knew what to buy, but couldn't complete setup</span></li>
+        <li><span class="d"></span><span><strong>Deployment is inherently step-based</strong> — but the UI didn't reflect this, forcing users to mentally sequence the process</span></li>
+        <li><span class="d"></span><span><strong>Manual configuration increased cognitive load</strong> — technical fields required knowledge most users didn't have</span></li>
+        <li><span class="d"></span><span><strong>Permissions broke the flow</strong> — appearing unexpectedly without context or guidance</span></li>
+        <li><span class="d"></span><span><strong>Users needed guidance and execution support</strong> — not just a better interface</span></li>
+      </ul>
+      <div class="callout"><div class="callout-lbl">Key Reframe</div><p>The problem wasn't that the UI was bad. It was that the <strong>process was exposed to the user</strong> instead of handled for them.</p></div>
+    </section>
+
+    <!-- 06 SOLUTION -->
+    <section class="cs-sec" id="solution">
+      <div class="sec-label"><span class="sec-num">06</span>Solution</div>
+      <h2>A conversational execution layer</h2>
+      <p>A context-aware chatbot was introduced to automate deployment workflows across the platform. Rather than a support tool, it acts as the primary execution interface.</p>
+      <ul class="cs-list">
+        <li><span class="d"></span><span><strong>Single chatbot across Deploy and Manage modules</strong> — consistent experience, no context switching</span></li>
+        <li><span class="d"></span><span><strong>Step-by-step guided execution</strong> — the system does the work, user confirms</span></li>
+        <li><span class="d"></span><span><strong>Inline handling of permissions and validation</strong> — no page redirects or interruptions</span></li>
+        <li><span class="d"></span><span><strong>Reduced need for navigation</strong> — one conversation handles the entire deployment</span></li>
+      </ul>
+      <div class="decision">
+        <div class="dec-text">
+          <h4>From multi-screen navigation to a single conversation</h4>
+          <p>The old flow required users to move across 4–5 screens, interpret technical fields, and manage permissions manually. The new flow collapses this into a single guided conversation with inline actions.</p>
+        </div>
+        <div class="dec-visual">
+          <div style="width:100%">
+            <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.6rem;opacity:.45">
+              <div style="flex:1;height:28px;background:var(--off);border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.55rem;font-weight:600;color:var(--muted)">Screen 1</div>
+              <div style="font-size:.6rem;color:var(--muted)">→</div>
+              <div style="flex:1;height:28px;background:var(--off);border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.55rem;font-weight:600;color:var(--muted)">Screen 2</div>
+              <div style="font-size:.6rem;color:var(--muted)">→</div>
+              <div style="flex:1;height:28px;background:var(--off);border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.55rem;font-weight:600;color:var(--muted)">Screen 3+</div>
+            </div>
+            <div style="font-size:.65rem;text-align:center;color:var(--muted);margin-bottom:.6rem">↓</div>
+            <div style="background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.3);border-radius:8px;padding:.65rem;display:flex;gap:.4rem">
+              <div style="width:18px;height:18px;border-radius:50%;background:var(--vi);flex-shrink:0;margin-top:.1rem"></div>
+              <div>
+                <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.3rem .5rem;font-size:.6rem;color:var(--black);margin-bottom:.3rem">Starting deployment session…</div>
+                <div style="display:flex;justify-content:flex-end"><div style="background:var(--vi);border-radius:6px;padding:.3rem .5rem;font-size:.6rem;color:white">Ready. Let's start.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--off);border-radius:14px;overflow:hidden;margin-top:1.75rem">
+        <img src="img/Agent/img8.png" alt="Conversational execution layer" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+          <div style="font-size:1.8rem">🖼️</div>
+          <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Solution overview image</div>
+          <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img8.png</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 DEPLOYMENT JOURNEY -->
+    <section class="cs-sec" id="deployment">
+      <div class="sec-label"><span class="sec-num">07</span>Deployment Journey</div>
+      <h2>From manual steps to guided execution</h2>
+      <p>Every step of the deployment is handled within the conversation — from session entry to final confirmation.</p>
+      <div class="deploy-mockup-stack">
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img1.png" alt="Session start" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img1.png</span></div>
+          </div>
+          <div class="desktop-caption">Session start</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img2.png" alt="Conversation begins" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img2.png</span></div>
+          </div>
+          <div class="desktop-caption">Conversation begins</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img3.png" alt="Checklist validation" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img3.png</span></div>
+          </div>
+          <div class="desktop-caption">Checklist validation</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img4.png" alt="Deployment trigger" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img4.png</span></div>
+          </div>
+          <div class="desktop-caption">Deployment trigger</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img5.png" alt="Guided flow continues" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img5.png</span></div>
+          </div>
+          <div class="desktop-caption">Guided flow continues</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img6.png" alt="Admin consent inline" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img6.png</span></div>
+          </div>
+          <div class="desktop-caption">Admin consent — inline</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img7.png" alt="Flow continuity" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img7.png</span></div>
+          </div>
+          <div class="desktop-caption">Flow continuity</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img8.png" alt="Permission modal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img8.png</span></div>
+          </div>
+          <div class="desktop-caption">Permission modal</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img9.png" alt="System feedback" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img9.png</span></div>
+          </div>
+          <div class="desktop-caption">System feedback</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / deploy</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img10.png" alt="Session updates" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img10.png</span></div>
+          </div>
+          <div class="desktop-caption">Session updates</div>
+        </div>
+
+        <div class="desktop-mockup">
+          <div class="desktop-chrome">
+            <div class="desktop-dots"><span></span><span></span><span></span></div>
+            <div class="desktop-bar"><div class="desktop-url">realize.app / manage</div></div>
+          </div>
+          <div class="desktop-screen">
+            <img src="img/Agent/UI/img11.png" alt="Transition to manage" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="mockup-fallback">🖼️<span>img/Agent/UI/img11.png</span></div>
+          </div>
+          <div class="desktop-caption">Transition to manage</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 08 MANAGING THROUGH CONVERSATION -->
+    <section class="cs-sec" id="manage">
+      <div class="sec-label"><span class="sec-num">08</span>Managing Through Conversation</div>
+      <h2>The chatbot doesn't stop at deployment</h2>
+      <p>After deployment, the same conversational layer continues into the Manage module — providing status updates, handling incidents, and surfacing actions without requiring users to navigate away.</p>
+      <ul class="cs-list">
+        <li><span class="d"></span><span><strong>Seamless handoff</strong> — deployment ends and management begins in the same chat thread</span></li>
+        <li><span class="d"></span><span><strong>Status transparency</strong> — users always know what the system is doing and why</span></li>
+        <li><span class="d"></span><span><strong>Action within conversation</strong> — users can trigger actions (restart, configure, escalate) from the chat</span></li>
+        <li><span class="d"></span><span><strong>Consistent interface</strong> — no new patterns to learn when moving from Deploy to Manage</span></li>
+      </ul>
+      <div style="background:var(--off);border-radius:14px;overflow:hidden;margin-top:1.75rem">
+        <img src="img/Agent/img9.png" alt="Managing through conversation" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+          <div style="font-size:1.8rem">🖼️</div>
+          <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Manage module image</div>
+          <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img9.png</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 DESIGN DECISIONS -->
+    <section class="cs-sec" id="decisions">
+      <div class="sec-label"><span class="sec-num">09</span>Design Decisions</div>
+      <h2>The choices that shaped the experience</h2>
+
+      <div class="decision">
+        <div class="dec-text">
+          <h4>Session-based entry sets mental context</h4>
+          <p>Opening with "Starting management session…" grounds the user before any interaction begins. It signals that the system is aware, prepared, and working with them — not just waiting for input.</p>
+        </div>
+        <div class="dec-visual">
+          <div style="background:var(--vi-soft);border:1.5px solid rgba(108,76,241,.25);border-radius:8px;padding:.75rem 1rem;width:100%">
+            <div style="font-size:.62rem;font-weight:700;color:var(--vi);margin-bottom:.4rem;font-family:Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase">System</div>
+            <div style="font-size:.82rem;color:var(--black);font-style:italic">"Starting management session — preparing your deployment environment…"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision rev">
+        <div class="dec-text">
+          <h4>Checklist before execution reduces anxiety</h4>
+          <p>Surfacing a structured pre-deployment checklist lets users verify readiness before committing. This reduces the fear of doing something wrong and builds confidence in the system.</p>
+        </div>
+        <div class="dec-visual">
+          <div style="width:100%;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+            <div style="font-size:.65rem;font-weight:700;color:var(--black);margin-bottom:.5rem">Pre-deployment checklist</div>
+            <div style="display:flex;flex-direction:column;gap:.28rem">
+              <div style="display:flex;align-items:center;gap:.45rem;font-size:.62rem;color:var(--muted)"><span style="color:#22C55E">✓</span> Permissions verified</div>
+              <div style="display:flex;align-items:center;gap:.45rem;font-size:.62rem;color:var(--muted)"><span style="color:#22C55E">✓</span> Configuration ready</div>
+              <div style="display:flex;align-items:center;gap:.45rem;font-size:.62rem;color:var(--muted)"><span style="color:#22C55E">✓</span> Dependencies resolved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision">
+        <div class="dec-text">
+          <h4>Permissions handled inline, not as interruptions</h4>
+          <p>Instead of redirecting to a separate admin screen, permission requests are surfaced as cards within the conversation. The user never loses their place or context.</p>
+        </div>
+        <div class="dec-visual">
+          <div style="width:100%;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+            <div style="display:flex;gap:.4rem;margin-bottom:.35rem">
+              <div style="width:16px;height:16px;border-radius:50%;background:var(--vi);flex-shrink:0"></div>
+              <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.3rem .5rem;font-size:.6rem;color:var(--black)">Admin consent required for this module.</div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:.3rem">
+              <div style="background:var(--off);border:1px solid var(--border);border-radius:5px;padding:.25rem .5rem;font-size:.58rem;color:var(--muted)">Decline</div>
+              <div style="background:var(--vi);border-radius:5px;padding:.25rem .5rem;font-size:.58rem;color:white">Grant access</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 IMPACT -->
+    <section class="cs-sec" id="impact">
+      <div class="sec-label"><span class="sec-num">10</span>Impact</div>
+      <h2>Expected improvements</h2>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-n">1</div><div class="stat-l">Continuous interaction model</div></div>
+        <div class="stat"><div class="stat-n">↓</div><div class="stat-l">Reduced cognitive load</div></div>
+        <div class="stat"><div class="stat-n">0</div><div class="stat-l">Screen switches during deployment</div></div>
+      </div>
+      <ul class="cs-list">
+        <li><span class="d"></span><span>Deployment simplified into a single guided flow — no screen switching required</span></li>
+        <li><span class="d"></span><span>Technical configuration abstracted away — users make decisions, not configurations</span></li>
+        <li><span class="d"></span><span>Permission handling integrated inline — no flow interruption</span></li>
+        <li><span class="d"></span><span>Scalable foundation for automating future workflows across the platform</span></li>
+      </ul>
+      <div class="callout" style="margin-top:1.5rem"><div class="callout-lbl">Final thought</div><p>The chatbot isn't a feature layer on top of the product — it <strong>is</strong> the product experience for deployment. That's the real shift.</p></div>
+    </section>
+
+    <!-- 11 REFLECTION -->
+    <section class="cs-sec" id="reflection">
+      <div class="sec-label"><span class="sec-num">11</span>Reflection</div>
+      <h2>What this project taught me</h2>
+      <p style="font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem">This was a short engagement — 15 days from brief to delivery. Looking back, three things stand out as genuine shifts in how I think about design.</p>
+
+      <!-- Card 01: S- text left, image right -->
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start;margin-bottom:1rem">
+        <div class="reflection-card" style="margin:0">
+          <div class="reflection-card-num">01</div>
+          <div class="reflection-card-body">
+            <h4>Conversation is a UX pattern, not just a feature</h4>
+            <p>I went in thinking of the chatbot as a tool layered on top of the UI. I came out understanding it as an entirely different interaction model — one that's particularly powerful when the task is inherently sequential. The chat window isn't a shortcut. It's the interface. That reframe changed almost every design decision I made.</p>
+          </div>
+        </div>
+        <div style="background:var(--off);border-radius:14px;overflow:hidden">
+          <img src="img/Agent/img10.png" alt="Conversation as UX pattern" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+            <div style="font-size:1.8rem">🖼️</div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Reflection 01 image</div>
+            <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img10.png</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards 02 + 03: side by side -->
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem">
+        <div class="reflection-card" style="margin:0">
+          <div class="reflection-card-num">02</div>
+          <div class="reflection-card-body">
+            <h4>The hardest design problem is knowing what to hide</h4>
+            <p>Deployment involves dozens of real technical decisions. The temptation was to surface them all "transparently." What actually helped users was the opposite — abstracting the complexity and only surfacing the decisions that genuinely needed human input. Drawing that line was harder than designing the UI around it.</p>
+          </div>
+        </div>
+        <div class="reflection-card" style="margin:0">
+          <div class="reflection-card-num">03</div>
+          <div class="reflection-card-body">
+            <h4>Speed forced better prioritisation</h4>
+            <p>15 days is not enough time to be precious. I had to decide early what mattered most — and the heuristic evaluation forced that clarity. I didn't have time to design everything well, so I designed the critical path well and left the rest for the next iteration. That discipline produced a tighter, more focused outcome than a longer timeline might have.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 WHAT'S NEXT -->
+    <section class="cs-sec" id="whatsnext">
+      <div class="sec-label"><span class="sec-num">12</span>What's Next</div>
+      <h2>The chatbot doesn't end at deployment</h2>
+      <p>Conversational deployment was designed as the first phase of a larger pattern — a single continuous thread that carries from Deploy into Manage without the user needing to restart or reorient.</p>
+      <div class="whatsnext-chain">
+        <div class="whatsnext-node">
+          <div class="whatsnext-dot done">✓</div>
+          <div class="whatsnext-text">
+            <div class="whatsnext-tag done-tag">Shipped</div>
+            <h4>Conversational Deployment — this case study</h4>
+            <p>The chatbot guides users through the entire Deploy module: session entry, pre-flight checklist, configuration, permission handling, and execution confirmation — all within a single conversation thread.</p>
+          </div>
+        </div>
+        <div class="whatsnext-node">
+          <div class="whatsnext-dot next">→</div>
+          <div class="whatsnext-text">
+            <div class="whatsnext-tag next-tag">Next phase</div>
+            <h4>Conversational Management — same thread, new context</h4>
+            <p>After deployment completes, the same conversation continues into Manage. Status updates, incident alerts, and response actions are surfaced inline — no screen switch, no loss of context. The user stays in the flow they already understand.</p>
+          </div>
+        </div>
+        <div class="whatsnext-node">
+          <div class="whatsnext-dot future">⋯</div>
+          <div class="whatsnext-text">
+            <div class="whatsnext-tag future-tag">Future</div>
+            <h4>Proactive AI — from reactive to anticipatory</h4>
+            <p>The current chatbot responds to user intent. The next version would surface recommendations before the user asks — flagging deployment risks, suggesting configurations, and auto-triggering actions where confidence is high enough to skip confirmation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout"><div class="callout-lbl">The bigger idea</div><p>A single conversation layer across the entire platform — from <strong>Assess</strong> to <strong>Deploy</strong> to <strong>Manage</strong> to <strong>Agent Factory</strong> — where the AI knows what you just did and what you likely need to do next.</p></div>
+      <div style="background:var(--off);border-radius:14px;overflow:hidden;margin-top:1.75rem">
+        <img src="img/Agent/img11.png" alt="What's next — platform vision" style="width:100%;display:block;object-fit:contain;background:var(--off)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;flex-direction:column;align-items:center;gap:.4rem;padding:3rem 2rem;text-align:center">
+          <div style="font-size:1.8rem">🖼️</div>
+          <div style="font-size:.72rem;font-weight:600;color:var(--muted)">Platform vision image</div>
+          <code style="font-size:.6rem;color:var(--vi);background:var(--vi-soft);padding:.2rem .5rem;border-radius:4px">img/Agent/img11.png</code>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--off);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Want to see the full platform?</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--black)">The Realize case study covers the end-to-end system — research, IA, design system, and all four modules.</div>
+        </div>
+        <a href="realize.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:var(--white);background:var(--vi);padding:.55rem 1.25rem;border-radius:8px;text-decoration:none;transition:background .15s;flex-shrink:0" onmouseover="this.style.background='#5A3DD8'" onmouseout="this.style.background='#6C4CF1'">
+          View Realize case study
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+<script src="shared.js"></script>
+<script>
+function smoothTo(id, e){
+  if(e) e.preventDefault();
+  var el=document.getElementById(id);
+  if(el){var top=el.getBoundingClientRect().top+window.scrollY-80;window.scrollTo({top:top,behavior:'smooth'});}
+}
+</script>
+</body>
+</html>
