@@ -1755,6 +1755,19 @@ window.initStats=function(){
 document.addEventListener('DOMContentLoaded',function(){
   window.initFades();
   window.initStats();
+
+  /* ── HASH-ON-LOAD: scroll to section if URL has #hash ── */
+  var hash = window.location.hash.replace('#','');
+  if(hash){
+    /* small delay so the page is fully painted and intro check has run */
+    setTimeout(function(){
+      if(window.scrollToSection) window.scrollToSection(hash);
+      else {
+        var el = document.getElementById(hash);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    }, 150);
+  }
 });
 
 /* intro skip — defined early so the button works immediately */
@@ -1763,9 +1776,21 @@ window.skipIntro=function skipIntro(){
   if(!ov||ov.dataset.gone)return;
   ov.dataset.gone='1';
   ov.classList.add('hide');
+  /* mark intro as seen — never show again */
+  try{localStorage.setItem('vp_intro_seen','1');}catch(e){}
   setTimeout(function(){ov.style.display='none';ov.style.pointerEvents='none';},950);
 };
 function skipIntro(){ window.skipIntro(); }
+
+/* ── HIDE INTRO IMMEDIATELY if already seen ── */
+(function(){
+  var seen=false;
+  try{seen=!!localStorage.getItem('vp_intro_seen');}catch(e){}
+  if(seen){
+    /* inject a one-liner style that hides overlay before paint */
+    document.write('<style>#intro-overlay{display:none!important;pointer-events:none!important}</style>');
+  }
+})();
 </script>
 </head>
 <body>
@@ -1954,6 +1979,8 @@ function skipIntro(){ window.skipIntro(); }
     var ov=document.getElementById('intro-overlay');
     if(!ov||ov.dataset.gone)return;
     ov.dataset.gone='1';
+    /* mark as seen so it never shows again */
+    try{localStorage.setItem('vp_intro_seen','1');}catch(e){}
     ov.classList.add('hide');
     setTimeout(function(){
       ov.style.display='none';
@@ -2018,7 +2045,7 @@ function skipIntro(){ window.skipIntro(); }
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" id="navLogo" onclick="showView('home')">
+  <div class="nav-logo" id="navLogo" onclick="showView('home');window.scrollTo({top:0,behavior:'smooth'})">
     <span class="nl-long">
       <span>V</span><span>a</span><span>g</span><span>m</span><span>i</span><span>t</span><span>a</span><span>P</span><span>a</span><span>n</span><span>d</span><span>y</span><span>a</span>
     </span>
