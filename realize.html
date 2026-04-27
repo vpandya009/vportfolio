@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Realize Platform — A case study by Vagmita Pandya on redesigning enterprise cybersecurity UX from scratch across 4 modules.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Realize Platform — Vagmita Pandya</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +17,7 @@
 
 /* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+a{color:inherit;text-decoration:none;}
 html{font-size:16px;scroll-behavior:smooth}
 
 :root{
@@ -118,7 +120,8 @@ body{
   position:relative;white-space:nowrap;
 }
 .cs-header-linkedin:hover{
-  background:var(--vi2)!important;transform:scale(1.06);
+  background:var(--vi2)!important;
+  transform:scale(1.06);
   border-radius:42% 58% 55% 45% / 48% 60% 40% 52%;
 }
 .cs-linkedin-in{
@@ -537,6 +540,15 @@ body{
   .cs-header{padding:0 1.25rem}
 }
 
+
+@media(max-width:480px){
+  .cs-hero-title{ font-size:clamp(1.9rem,9vw,2.8rem) !important; }
+  .decision{ grid-template-columns:1fr !important; }
+  .cs-img-grid{ grid-template-columns:1fr !important; }
+  [style*="grid-template-columns:minmax(0,1fr) min(340px"]{
+    grid-template-columns:1fr !important;
+  }
+}
 </style>
 <style>
 .step-list::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border)}
@@ -945,10 +957,16 @@ body{
     Go back
   </a>
   <nav class="cs-header-nav" style="margin-left:auto">
-    <a href="https://linkedin.com/in/vagmita" target="_blank" class="cs-header-linkedin">
-      <span class="cs-linkedin-in">in</span>
-      <span class="cs-linkedin-label">LinkedIn</span>
-    </a>
+    <a href="https://linkedin.com/in/vagmita-pandya-798a53174" target="_blank" rel="noopener" class="nav-li-pill" style="position:relative;display:inline-flex;align-items:center;justify-content:center;padding:.5rem 1.3rem;font-family:'Caveat',cursive;font-size:1.05rem;font-weight:700;color:#fff;text-decoration:none;cursor:pointer;transition:transform .18s;">
+        <svg viewBox="0 0 200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;">
+          <path d="M22,8 C40,5 80,4 100,5 C120,4 160,5 178,8 C190,11 196,20 197,30 C198,38 196,46 192,52 C186,57 162,58 140,59 C120,60 80,60 60,59 C38,58 14,57 8,52 C4,46 2,38 3,30 C4,20 10,11 22,8 Z" style="fill:var(--vi);"/>
+          <path d="M22,8 C40,5 80,4 100,5 C120,4 160,5 178,8 C190,11 196,20 197,30 C198,38 196,46 192,52 C186,57 162,58 140,59 C120,60 80,60 60,59 C38,58 14,57 8,52 C4,46 2,38 3,30 C4,20 10,11 22,8 Z" style="fill:none;stroke:var(--vi);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"/>
+        </svg>
+        <span style="display:inline-flex;align-items:center;gap:.35rem;position:relative;z-index:2;color:#fff;font-family:'Caveat',cursive;font-size:1.05rem;font-weight:700;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;color:#fff;"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
+          LinkedIn
+        </span>
+      </a>
   </nav>
 </header>
 
@@ -2568,7 +2586,7 @@ body{
       <h2>Beyond screens — what this project taught me</h2>
       <p class="cs-para">This project started as a brief to "fix the UI." It became something much larger — a full, from-scratch product design exercise in a domain I had to learn while building. What looked like a UI problem revealed itself as a <strong>system problem</strong>: layered, fragmented, and deeply dependent on how different types of users interact with high-stakes information under pressure.</p>
 
-      <div style="display:grid;grid-template-columns:1fr 340px;gap:2.5rem;align-items:start;margin-top:1.25rem">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) min(340px,100%);gap:2.5rem;align-items:start;margin-top:1.25rem">
         <div class="learn-grid" style="margin:0">
           <div class="learn">
             <div class="learn-icon">01</div>
@@ -3135,6 +3153,28 @@ if (document.readyState === 'loading') {
 </script>
 <script>
 
+
+/* ── Mobile hamburger nav ── */
+function toggleCsMobMenu(){
+  const ham = document.getElementById('csHam');
+  const drawer = document.getElementById('csMobDrawer');
+  if(!ham||!drawer) return;
+  const isOpen = ham.classList.toggle('open');
+  drawer.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var drawer = document.getElementById('csMobDrawer');
+  if(drawer){
+    drawer.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        document.getElementById('csHam')?.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+});
 </script>
 </body>
 </html>

@@ -25,6 +25,11 @@ html{font-size:16px;scroll-behavior:smooth}
   --logo:'Plus Jakarta Sans',sans-serif;
   --pad:80px;
   --nav-h:56px;
+  /* aliases for index.html compatibility */
+  --violet:#6C4CF1;
+  --violet2:#5A3DD8;
+  --violet-soft:#EEEAFD;
+  --violet-mid:rgba(108,76,241,.12);
 }
 
 body{
@@ -33,6 +38,14 @@ body{
   color:var(--black);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+}
+/* Global safety net */
+*,*::before,*::after{ box-sizing:border-box; }
+img,video{ max-width:100%; height:auto; display:block; }
+/* Global anchor reset — prevents browser blue+underline everywhere */
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
 /* ── READING PROGRESS BAR ── */
@@ -108,7 +121,8 @@ body{
   position:relative;white-space:nowrap;
 }
 .cs-header-linkedin:hover{
-  background:var(--vi2)!important;transform:scale(1.06);
+  background:var(--vi2)!important;
+  transform:scale(1.06);
   border-radius:42% 58% 55% 45% / 48% 60% 40% 52%;
 }
 .cs-linkedin-in{
@@ -525,4 +539,184 @@ body{
   .cs-meta-cell:nth-child(4){border-top:1px solid var(--border)}
   .prob-grid{grid-template-columns:1fr}
   .cs-header{padding:0 1.25rem}
+}
+
+/* ══════════════════════════════════
+   MOBILE NAV — HAMBURGER (case study pages)
+══════════════════════════════════ */
+
+/* Ham button — hidden on desktop, shown via media query */
+.cs-ham{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:40px;height:40px;cursor:pointer;
+  background:none;border:none;padding:4px;margin-left:auto;
+  border-radius:8px;transition:background .15s;
+  -webkit-tap-highlight-color:transparent;flex-shrink:0;
+}
+.cs-ham:hover{background:var(--off)}
+.cs-ham span{
+  display:block;width:22px;height:2px;
+  background:var(--black);border-radius:2px;
+  transition:transform .3s ease,opacity .2s ease;
+}
+.cs-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.cs-ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.cs-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Full-screen drawer */
+.cs-mob-drawer{
+  display:none;
+  position:fixed;
+  top:var(--nav-h);left:0;right:0;bottom:0;
+  background:#ffffff;
+  z-index:9800;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2.5rem;
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.cs-mob-drawer.open{
+  display:flex;
+  opacity:1;
+}
+
+/* Plain nav links in drawer */
+.cs-mob-drawer .mob-link{
+  font-family:var(--hand) !important;
+  font-size:2rem !important;
+  font-weight:700 !important;
+  color:var(--black) !important;
+  text-decoration:none !important;
+  background:none !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  display:block;
+  line-height:1;
+  transition:color .15s;
+}
+.cs-mob-drawer .mob-link:hover{color:var(--vi) !important}
+
+/* LinkedIn in mobile drawer */
+.cs-mob-drawer .cs-li-pill{
+  font-size:1rem;
+  box-shadow:none;
+}
+
+@media(max-width:720px){
+  .cs-ham{display:flex}
+  .cs-header-nav{display:none}
+}
+
+/* ══════════════════════════════════
+   HERO — MOBILE
+══════════════════════════════════ */
+@media(max-width:680px){
+  .cs-hero{padding:2.5rem var(--pad) 2rem}
+  .cs-hero-title{letter-spacing:-.03em;line-height:.97}
+  .cs-hero-sub{margin-bottom:1.75rem}
+  .cs-meta-box{grid-template-columns:1fr 1fr}
+  .cs-meta-cell:nth-child(2){border-right:none}
+  .cs-meta-cell:nth-child(3){border-top:1px solid var(--border)}
+  .cs-meta-cell:nth-child(4){border-top:1px solid var(--border)}
+}
+
+/* ══════════════════════════════════
+   OVERVIEW — MOBILE
+══════════════════════════════════ */
+@media(max-width:680px){
+  .cs-overview-wrap{padding:2rem var(--pad)}
+  .cs-overview-card{padding:1.5rem 1.25rem}
+  .cs-overview-card::after{font-size:3.5rem;right:1rem}
+}
+
+/* ══════════════════════════════════
+   SECTION BODY / SIDEBAR — MOBILE
+══════════════════════════════════ */
+@media(max-width:680px){
+  .cs-main{padding:0 var(--pad) 3rem}
+  .cs-sec{padding:2rem 0}
+  .cs-sec-title{font-size:1.3rem}
+  .prob-grid{grid-template-columns:1fr}
+
+  /* image/mockup blocks */
+  .cs-img-block{border-radius:12px}
+  .cs-img-block img{border-radius:12px}
+}
+
+/* ══════════════════════════════════
+   CHATBOT PANEL — FULL-SCREEN ON MOBILE
+══════════════════════════════════ */
+@media(max-width:540px){
+  #boo-panel{
+    position:fixed;
+    bottom:0;right:0;left:0;
+    width:100%;
+    border-radius:24px 24px 0 0;
+    max-height:80vh;
+  }
+  #boo-wrap{
+    bottom:1.25rem;right:1.25rem;
+  }
+}
+
+/* ══════════════════════════════════
+   SIDEBAR NAV SCROLL-PILL — MOBILE
+══════════════════════════════════ */
+@media(max-width:1024px){
+  .cs-sidebar-nav{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    flex-wrap:nowrap;
+  }
+  .cs-sidebar-nav::-webkit-scrollbar{display:none}
+  .snav-item{white-space:nowrap;flex-shrink:0}
+}
+
+/* 5-column meta box (edtech) → 3+2 on mobile */
+@media(max-width:680px){
+  .cs-meta-box-5{grid-template-columns:repeat(3,1fr)!important}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(3){border-right:none}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(4){border-top:1px solid var(--border)}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(5){border-top:1px solid var(--border)}
+}
+@media(max-width:440px){
+  .cs-meta-box-5{grid-template-columns:1fr 1fr!important}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(2){border-right:none}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(3){border-top:1px solid var(--border);border-right:1px solid var(--border)}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(4){border-top:1px solid var(--border);border-right:none}
+  .cs-meta-box-5 .cs-meta-cell:nth-child(5){border-top:1px solid var(--border);border-right:none}
+}
+
+/* Read-time chip — make sure it wraps */
+@media(max-width:480px){
+  .read-time-chip{font-size:.6rem;padding:.25rem .65rem}
+  .cs-type-chip{font-size:.6rem;padding:.25rem .7rem}
+}
+
+/* Ensure long words / URLs break on tiny screens */
+@media(max-width:480px){
+  .cs-sec-body, .cs-overview-list li, .callout p, .cs-list li{
+    word-break:break-word;overflow-wrap:break-word;
+  }
+}
+
+/* ══════════════════════════════════
+   VERY SMALL SCREENS (≤360px)
+══════════════════════════════════ */
+@media(max-width:360px){
+  :root{ --pad:1rem; }
+  .cs-hero-title{ font-size:1.7rem; }
+  .cs-hero-sub{ font-size:.88rem; }
+  .cs-header-linkedin{ padding:.4rem .9rem .4rem .8rem; font-size:.9rem; }
+  .cs-meta-box,.cs-meta-box-5{ grid-template-columns:1fr!important; }
+  .cs-meta-cell{ border-right:none!important; }
+  .cs-meta-cell+.cs-meta-cell{ border-top:1px solid var(--border); }
+  .cs-sec-title{ font-size:1.15rem; }
+  .cs-overview-card{ padding:1.25rem 1rem; }
 }

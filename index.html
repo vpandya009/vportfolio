@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="casestudy.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img,video{max-width:100%;height:auto;display:block}
 html{scroll-behavior:smooth;font-size:16px}
 :root{
   --black:#0C0C0E;
@@ -371,11 +372,11 @@ nav{
   position:absolute;inset:0;width:100%;height:100%;
   overflow:visible;pointer-events:none;
 }
-.btn-solid .hd-oval-svg ellipse.hd-fill{
+.btn-solid .hd-oval-svg path.hd-fill{
   fill:var(--violet);stroke:none;transition:fill .18s;
 }
-.btn-solid .hd-oval-svg ellipse.hd-stroke{
-  fill:none;stroke:var(--violet);stroke-width:2;
+.btn-solid .hd-oval-svg path.hd-stroke{
+  fill:none;stroke:var(--violet);stroke-width:2.2;
   stroke-linecap:round;stroke-linejoin:round;
   stroke-dasharray:1000;stroke-dashoffset:1000;
   animation:hd-btn-draw 1.1s cubic-bezier(.4,0,.2,1) .4s forwards;
@@ -384,8 +385,9 @@ nav{
 @keyframes hd-btn-draw{ to{ stroke-dashoffset:0; } }
 .btn-solid span{ position:relative;z-index:1; }
 .btn-solid:hover{ transform:scale(1.04); }
-.btn-solid:hover .hd-oval-svg ellipse.hd-fill{ fill:var(--violet2); }
-.btn-solid:hover .hd-oval-svg ellipse.hd-stroke{ stroke:var(--violet2); }
+.btn-solid:hover .hd-oval-svg path.hd-fill{ fill:var(--violet2); }
+.btn-solid:hover .hd-oval-svg path.hd-stroke{ stroke:var(--violet2); }
+
 
 /* nav filled pill */
 .nav-li-pill{
@@ -400,27 +402,14 @@ nav{
   text-decoration:none;border:none;
   box-shadow:none;filter:none;cursor:pointer;
 }
-.nav-li-pill .hd-oval-svg{
-  position:absolute;inset:0;width:100%;height:100%;
-  overflow:visible;pointer-events:none;
-}
-.nav-li-pill .hd-oval-svg ellipse.hd-fill{ fill:var(--violet);stroke:none;transition:fill .18s; }
-.nav-li-pill .hd-oval-svg ellipse.hd-stroke{
-  fill:none;stroke:var(--violet);stroke-width:2;
-  stroke-linecap:round;stroke-linejoin:round;
-  transition:stroke .18s;
-}
-.nav-li-pill span{ position:relative;z-index:1; }
-.nav-li-pill:hover{ transform:scale(1.05);color:var(--white)!important; }
-.nav-li-pill:hover .hd-oval-svg ellipse.hd-fill{ fill:var(--violet2); }
-.nav-li-pill:hover .hd-oval-svg ellipse.hd-stroke{ stroke:var(--violet2); }
+.nav-li-pill:hover{ transform:scale(1.05); }
 
 /* ── BRINGS STRIP ── */
 
 /* ── SECTION HEADINGS ── */
 .sec-heading{
   font-family:var(--body);
-  font-size:12px;
+  font-size:14px;
   font-weight:700;
   color:var(--muted);
   letter-spacing:.04em;
@@ -752,219 +741,234 @@ nav{
 
 </script><style>
 /* ══════════════════════════════════
-   SAY HI SECTION — 3-row layout
+   SAY HI SECTION — dark moody
 ══════════════════════════════════ */
+:root{
+  --sh-bg:#0E0E12;
+  --sh-surface:rgba(255,255,255,.04);
+  --sh-border:rgba(255,255,255,.08);
+  --sh-muted:rgba(255,255,255,.38);
+  --sh-text:#F0F0EE;
+  --sh-violet:#9D85FF;
+  --sh-violet-glow:rgba(108,76,241,.35);
+}
 .sh-sec{
-  padding:clamp(3.5rem,7vw,6rem) clamp(1.25rem,5vw,3.5rem);
-  background:transparent;
+  padding:clamp(4rem,8vw,7rem) clamp(1.25rem,5vw,3.5rem);
+  background:var(--sh-bg);
   position:relative;
+  overflow:hidden;
 }
-.sh-sec .sec-label{color:var(--muted);margin-bottom:1.25rem}
-.sh-sec .sec-label::before{color:var(--violet)}
+/* subtle noise grain overlay */
+.sh-sec::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+  pointer-events:none;z-index:0;opacity:.6;
+}
+/* ambient violet glow top-right */
+.sh-sec::after{
+  content:'';
+  position:absolute;
+  top:-120px;right:-80px;
+  width:520px;height:520px;
+  background:radial-gradient(circle, rgba(108,76,241,.18) 0%, transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.sh-sec > *{ position:relative;z-index:1; }
 
-/* shared max-width container for all rows */
-.sh-row1,.sh-row2,.sh-row3{
-  max-width:1100px;
-  margin:0 auto;
-}
 
-/* ── ROW 1: heading left | email right ── */
-.sh-row1{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:clamp(3rem,7vw,8rem);
-  align-items:start;
-  margin-bottom:16px;
-}
-.sh-row1-left{}
-.sh-row1-right{
-  display:flex;flex-direction:column;
-  align-items:flex-end;
-  justify-content:flex-start;
-  gap:.5rem;
-  padding-top:0;
-}
 .sh-title{
   font-family:var(--body);font-weight:800;
-  font-size:2rem;
-  line-height:1.15;letter-spacing:-.03em;
-  color:var(--black);margin:0 0 .4rem;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  line-height:1.1;letter-spacing:-.03em;
+  color:var(--sh-text);margin:0 0 .3rem;
 }
-.sh-title-line{ display:block;white-space:nowrap; }
+.sh-title-line{ display:block; }
 .sh-hand{
   display:block;
   font-family:var(--hand);font-weight:700;
-  font-size:clamp(2.4rem,5.5vw,4.8rem);
-  color:var(--violet);letter-spacing:-.01em;line-height:1.05;
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  color:var(--sh-violet);
+  letter-spacing:-.01em;line-height:1.0;
+  text-shadow:0 0 60px rgba(108,76,241,.4);
 }
 .sh-hand-line{ white-space:nowrap; }
 .sh-sub{
-  font-size:.92rem;color:var(--muted);
-  line-height:1.65;margin:.85rem 0 0;font-weight:400;
+  font-size:.92rem;
+  color:var(--sh-muted);
+  line-height:1.7;margin:.9rem 0 0;font-weight:400;
+  max-width:400px;
 }
 
-/* tap copy */
-.sh-tap-copy{
-  font-family:var(--hand);font-size:.9rem;font-weight:600;
-  color:var(--muted);margin-top:.25rem;
-  text-align:center;
-  transition:color .2s;
-}
-#shCopyLabel.copied{ color:var(--violet); }
-.sh-resume-row{
-  display:flex;align-items:center;gap:1rem;
-  margin-top:24px;flex-wrap:wrap;
-}
-.sh-resume-pre{
-  font-family:var(--hand);font-size:.95rem;font-weight:600;
-  color:var(--muted);margin:0;
-}
-.sh-social-wrap{
-  display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;
-}
-/* inline resume link in row2 */
-.sh-resume-inline{
-  font-family:var(--hand);font-size:.95rem;font-weight:700;
-  color:var(--violet);text-decoration:none;
-  transition:color .2s;
-}
-.sh-resume-inline:hover{ color:var(--violet2); }
 
-/* ── ROW 2: socials left | resume right ── */
-.sh-row2{
-  display:flex;
-  padding:16px 0;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  margin-bottom:32px;
-}
-.sh-row2-left{
+/* ── ROW 2: socials ── */
+/* ══ CENTERED LAYOUT ══ */
+.sh-center{
+  max-width:760px;
+  margin:0 auto;
   display:flex;flex-direction:column;
-  gap:.85rem;
+  align-items:center;
+  text-align:center;
 }
-.sh-social-hint{
-  font-family:var(--hand);font-size:1rem;font-weight:600;
-  color:var(--muted);margin:0;white-space:nowrap;
+
+/* eyebrow */
+.sh-eyebrow{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:2rem;
 }
+.sh-eyebrow-line{
+  display:block;width:48px;height:1px;
+  background:var(--sh-border);
+}
+.sh-eyebrow-text{
+  font-family:var(--body);font-size:.68rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sh-muted);white-space:nowrap;
+}
+
+/* email + resume row */
+.sh-action-row{
+  display:flex;align-items:center;
+  gap:1.25rem;flex-wrap:wrap;justify-content:center;
+  margin-top:2.5rem;
+}
+
+/* outer wrapper for tap hint positioning */
+.sh-pill-wrap-outer{
+  position:relative;
+  display:inline-flex;
+}
+/* diagonal "tap to copy" label — top left, rotated */
+.sh-tap-hint{
+  position:absolute;
+  top:-22px;
+  left:8px;
+  font-family:var(--hand);
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--sh-muted);
+  letter-spacing:.02em;
+  transform:rotate(-8deg);
+  transform-origin:left center;
+  pointer-events:none;
+  white-space:nowrap;
+  opacity:.8;
+  transition:color .2s, opacity .2s;
+}
+.sh-pill-wrap-outer:hover .sh-tap-hint{
+  opacity:1;
+  color:rgba(255,255,255,.6);
+}
+/* copied state */
+.sh-tap-hint.sh-copied{
+  color:var(--sh-violet) !important;
+  opacity:1 !important;
+}
+/* pill pop on click */
+@keyframes sh-pill-pop{
+  0%  { transform:scale(1); }
+  35% { transform:scale(.94); }
+  70% { transform:scale(1.04); }
+  100%{ transform:scale(1); }
+}
+@keyframes sh-hint-bounce{
+  0%  { transform:rotate(-8deg) translateY(0); }
+  40% { transform:rotate(-10deg) translateY(-4px); }
+  70% { transform:rotate(-6deg) translateY(2px); }
+  100%{ transform:rotate(-8deg) translateY(0); }
+}
+.sh-pill.sh-pill-popping{
+  animation:sh-pill-pop .4s cubic-bezier(.36,.07,.19,.97) forwards;
+}
+.sh-tap-hint.sh-hint-bouncing{
+  animation:sh-hint-bounce .45s cubic-bezier(.36,.07,.19,.97) forwards;
+  pointer-events:none;
+}
+
+/* ── UNIFIED PILL (email filled + resume outline) ── */
+.sh-pill{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;user-select:none;text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+  width:280px;height:72px;
+  transition:transform .18s;
+}
+.sh-pill:active{ transform:scale(.97); }
+.sh-pill-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  overflow:visible;pointer-events:none;
+}
+/* email: white fill */
+.sh-pill-bg-white{
+  fill:#ffffff;
+  transition:fill .22s ease;
+}
+.sh-pill-filled:hover .sh-pill-bg-white{ fill:#f0edff; }
+/* resume: dark fill */
+.sh-pill-bg-dark{
+  fill:#18181f;
+  transition:fill .22s ease;
+}
+.sh-pill-outline:hover .sh-pill-bg-dark{ fill:#26243a; }
+
+.sh-pill-ring{ transition:stroke .22s ease; }
+
+/* hand-drawn path draw-in */
+.sh-pill-ring-draw{
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  animation:hd-draw 1.3s cubic-bezier(.4,0,.2,1) .4s forwards;
+}
+
+/* labels */
+.sh-pill-label{
+  position:relative;z-index:1;
+  font-family:var(--hand);font-size:1rem;font-weight:700;
+  color:rgba(255,255,255,.9);letter-spacing:-.01em;
+  pointer-events:none;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:.4rem;
+  transition:color .22s;
+}
+.sh-pill-label-dark{
+  color:#0C0C0E;
+}
+.sh-pill-filled:hover .sh-pill-label-dark{ color:#2a1a6e; }
+.sh-pill-outline .sh-pill-label{ color:rgba(255,255,255,.8); }
+.sh-pill-outline:hover .sh-pill-label{ color:#fff; }
+/* social row */
 .sh-social-row{
   display:flex;flex-direction:row;
-  gap:1.75rem;flex-wrap:wrap;
-  align-items:center;
+  gap:2.5rem;flex-wrap:wrap;
+  align-items:center;justify-content:center;
+  margin-top:2rem;
+  padding-top:1.75rem;
+  border-top:1px solid var(--sh-border);
+  width:100%;
 }
 .sh-social-link{
   display:inline-flex;align-items:center;gap:.45rem;
-  text-decoration:none;color:var(--black);
+  text-decoration:none;color:var(--sh-text);
 }
 .sh-social-icon{
-  flex-shrink:0;color:var(--muted);
-  transition:color .2s;
+  flex-shrink:0;color:var(--sh-muted);transition:color .2s;
 }
-.sh-social-link:hover .sh-social-icon{ color:var(--violet); }
+.sh-social-link:hover .sh-social-icon{ color:var(--sh-violet); }
 .sh-social-text{
-  font-family:var(--hand);font-size:1rem;font-weight:700;
-  color:var(--black);position:relative;
+  font-family:var(--hand);font-size:1.05rem;font-weight:700;
+  color:var(--sh-text);position:relative;
   display:inline-flex;flex-direction:column;line-height:1.2;
   transition:color .2s;
 }
-.sh-social-link:hover .sh-social-text{ color:var(--violet); }
-.sh-uline{
-  display:block;width:100%;height:8px;
-  margin-top:1px;overflow:visible;
-}
-.sh-uline-path{
-  stroke-dasharray:100;stroke-dashoffset:100;
-  transition:stroke-dashoffset 0s;
-}
+.sh-social-link:hover .sh-social-text{ color:var(--sh-violet); }
+.sh-uline{ display:block;width:100%;height:8px;margin-top:1px;overflow:visible; }
+.sh-uline-path{ stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 0s; }
 .sh-social-link:hover .sh-uline-path{
   stroke-dashoffset:0;
   transition:stroke-dashoffset .38s cubic-bezier(.4,0,.2,1);
 }
 
-/* resume row */
-.sh-row2-right{ display:none; }
-
-/* ── ROW 3: full-width form ── */
-.sh-row3{
-  display:flex;flex-direction:column;
-  gap:.75rem;
-}
-.sh-form-hint{
-  font-family:var(--hand);
-  font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:700;
-  color:var(--black);letter-spacing:-.01em;
-  display:flex;align-items:center;gap:.5rem;
-}
-.sh-mail-icon{ color:var(--violet);flex-shrink:0; }
-.sh-box{
-  background:var(--white);
-  padding:clamp(1.25rem,2.5vw,2rem);
-  width:100%;
-  border:2.5px solid var(--black);
-  border-radius:4% 6% 5% 4% / 5% 4% 6% 5%;
-  filter:url(#wobbly);
-  transition:transform .3s ease;
-}
-.sh-box:hover{transform:rotate(-0.2deg)}
-/* two-col name+email row */
-.sh-fields-row{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1.25rem;
-  margin-bottom:1rem;
-}
-.sh-field{
-  margin-bottom:1rem;
-  display:flex;flex-direction:column;
-}
-.sh-field:last-of-type{ margin-bottom:.25rem; }
-.sh-field-half{ margin-bottom:0; }
-.sh-label{
-  display:block;
-  font-family:var(--body);font-size:.75rem;font-weight:500;
-  color:var(--muted);margin-bottom:.4rem;
-  letter-spacing:.02em;
-}
-.sh-input{
-  width:100%;border:none;
-  border-bottom:1.5px solid var(--border);
-  padding:.6rem 0;
-  font-family:var(--body);font-size:.88rem;
-  font-weight:400;color:var(--black);background:transparent;
-  outline:none;transition:border-color .2s;box-sizing:border-box;
-  line-height:1.5;
-}
-.sh-input:focus{ border-bottom-color:var(--violet); }
-.sh-input::placeholder{
-  color:var(--muted);
-  font-family:var(--body);font-size:.88rem;font-weight:400;
-}
-.sh-select{
-  appearance:none;-webkit-appearance:none;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238C8C88' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 4px center;
-  padding-right:24px;
-}
-.sh-textarea{
-  resize:none;
-  height:72px;
-  display:block;
-  padding-top:.6rem;
-  padding-bottom:.6rem;
-  line-height:1.55;
-}
-/* send — original white bg + black border style */
-.sh-send{
-  display:inline-flex;align-items:center;gap:.45rem;
-  margin-top:.75rem;padding:.55rem 1.4rem;
-  background:var(--white);color:var(--black);
-  border:1.5px solid var(--black);border-radius:4px;
-  font-family:var(--body);font-size:.82rem;font-weight:600;
-  letter-spacing:.03em;cursor:pointer;
-  transition:background .15s,color .15s;
-  filter:none;box-shadow:none;
-}
-.sh-send:hover{ background:var(--black);color:var(--white); }
-.sh-send-arrow{ display:inline-block;transition:transform .2s; }
-.sh-send:hover .sh-send-arrow{ transform:translateX(3px); }
 
 /* ══════════════════════════════════
    EMAIL BLOB + RESUME PILL STYLES
@@ -1133,16 +1137,129 @@ nav{
 
 /* ── RESPONSIVE ── */
 @media(max-width:860px){
-  .sh-row1,.sh-row2{ grid-template-columns:1fr; gap:2rem; }
-  .sh-row1-right{ align-items:flex-start; }
   .sh-title{ font-size:clamp(2rem,7vw,3.2rem); }
   .sh-hand{ font-size:clamp(2.2rem,8vw,3.5rem); }
   .sh-social-row{ gap:1.25rem; }
 }
 @media(max-width:540px){
-  .sh-fields-row{ grid-template-columns:1fr; }
-  .sh-social-row{ flex-direction:column; gap:.75rem; align-items:flex-start; }
+  .sh-social-row{ flex-direction:column; gap:.75rem; align-items:center; }
   .hd-blob-svg{ width:100%; }
+}
+
+
+/* ── MOBILE NAV HAMBURGER ── */
+.nav-ham{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;padding:4px;
+  border-radius:8px;transition:background .15s;
+  -webkit-tap-highlight-color:transparent;flex-shrink:0;
+}
+.nav-ham:hover{ background:var(--off); }
+.nav-ham span{
+  display:block;width:22px;height:2px;
+  background:var(--black);border-radius:2px;
+  transition:transform .3s ease,opacity .2s ease;
+}
+.nav-ham.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-ham.open span:nth-child(2){ opacity:0;transform:scaleX(0); }
+.nav-ham.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+.index-mob-drawer{
+  display:none;
+  position:fixed;
+  top:var(--nav-h);left:0;right:0;bottom:0;
+  background:#ffffff;
+  z-index:9800;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2.25rem;
+}
+.index-mob-drawer .mob-link{
+  font-family:var(--hand);
+  font-size:2rem;font-weight:700;
+  color:var(--black);
+  text-decoration:none;cursor:pointer;
+  background:none;border:none;
+  transition:color .15s;
+}
+.index-mob-drawer .mob-link:hover{ color:var(--violet); }
+.index-mob-drawer .mob-link-li{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:1rem;
+  color:var(--violet);
+  background:var(--violet-soft);
+  border:1.5px solid rgba(108,76,241,.25);
+  border-radius:100px;
+  padding:.5rem 1.25rem;
+}
+
+/* ══════════════════════════════════════
+   GLOBAL RESPONSIVE RULES — index.html
+══════════════════════════════════════ */
+
+/* ── TABLET (≤900px) ── */
+@media(max-width:900px){
+  /* Work cards */
+  .cards-grid{ grid-template-columns:1fr 1fr; gap:1.25rem; }
+
+  /* About split */
+  .ab-split{ grid-template-columns:1fr; gap:2.5rem; }
+  .ab-split-right{ align-items:flex-start; }
+
+  /* Say hi */
+  .sh-action-row{ gap:1rem; }
+  .sh-pill{ width:240px; height:64px; }
+}
+
+/* ── MOBILE (≤640px) ── */
+@media(max-width:640px){
+  /* Nav */
+  .nav-links{ display:none; }
+  .nav-ham{ display:flex; }
+  .index-mob-drawer.open{ display:flex; }
+
+  /* Hero */
+  .hero-h{ font-size:clamp(2.4rem,11vw,4rem); line-height:.95; }
+  .hero-hand{ font-size:clamp(1.8rem,9vw,3rem); }
+  .hero-body{ font-size:.92rem; }
+  .hero-actions{ flex-direction:column; align-items:flex-start; gap:.75rem; }
+  .btn-solid{ width:100%; max-width:280px; justify-content:center; }
+  #hero{ padding:2rem 1.25rem; }
+
+  /* Work */
+  .sec-label{ font-size:.62rem; }
+  .cards-grid{ grid-template-columns:1fr; gap:1rem; }
+  .card{ border-radius:16px; }
+
+  /* About */
+  .ab-stack{ width:220px; height:255px; }
+  .ab-h1{ font-size:1.6rem; }
+  .ab-body{ max-width:100%; }
+
+  /* Blogs */
+  .blogs-grid{ grid-template-columns:1fr; }
+
+  /* Say hi */
+  .sh-sec{ padding:3rem 1.25rem; }
+  .sh-hand{ font-size:clamp(2rem,10vw,3rem); }
+  .sh-sub{ font-size:.88rem; }
+  .sh-action-row{ flex-direction:column; align-items:center; gap:.85rem; }
+  .sh-pill{ width:100%; max-width:300px; }
+  .sh-pill-svg{ width:100%; }
+  .sh-social-row{ gap:1.5rem; justify-content:center; }
+  .sh-eyebrow-line{ width:30px; }
+  .sh-tap-hint{ left:4px; font-size:.85rem; }
+}
+
+/* ── SMALL MOBILE (≤420px) ── */
+@media(max-width:420px){
+  .hero-h{ font-size:2.2rem; }
+  .hero-hand{ font-size:1.8rem; }
+  .sh-pill-label{ font-size:.88rem; }
+  .sh-social-row{ gap:1rem; }
 }
 
 /* ══════════════════════════════════════
@@ -1372,6 +1489,21 @@ nav{
 
 </head>
 <script>
+window.toggleIndexMobNav=function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('indexMobDrawer');
+  if(!ham||!drawer)return;
+  var isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
+};
+window.closeMobNav=function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('indexMobDrawer');
+  if(ham)ham.classList.remove('open');
+  if(drawer)drawer.classList.remove('open');
+  document.body.style.overflow='';
+};
 window.showView=function(id){
   document.querySelectorAll('.page-view').forEach(function(v){v.classList.remove('active')});
   var el=document.getElementById('view-'+id);
@@ -2083,19 +2215,36 @@ function skipIntro(){ window.skipIntro(); }
 
     <li>
       <a href="https://linkedin.com/in/vagmita-pandya-798a53174" target="_blank" rel="noopener" class="nav-li-pill">
-        <svg class="hd-oval-svg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="50" rx="49" ry="47" class="hd-fill"/>
-          <ellipse cx="50" cy="50" rx="49" ry="47" class="hd-stroke"/>
+        <svg class="hd-oval-svg" viewBox="0 0 200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;">
+          <path d="M22,8 C40,5 80,4 100,5 C120,4 160,5 178,8 C190,11 196,20 197,30 C198,38 196,46 192,52 C186,57 162,58 140,59 C120,60 80,60 60,59 C38,58 14,57 8,52 C4,46 2,38 3,30 C4,20 10,11 22,8 Z" style="fill:var(--violet);"/>
+          <path d="M22,8 C40,5 80,4 100,5 C120,4 160,5 178,8 C190,11 196,20 197,30 C198,38 196,46 192,52 C186,57 162,58 140,59 C120,60 80,60 60,59 C38,58 14,57 8,52 C4,46 2,38 3,30 C4,20 10,11 22,8 Z" style="fill:none;stroke:var(--violet);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"/>
         </svg>
-        <span style="display:inline-flex;align-items:center;gap:.35rem;position:relative;z-index:1">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
+        <span style="display:inline-flex;align-items:center;gap:.35rem;position:relative;z-index:2;color:#fff;font-family:'Caveat',cursive;font-size:1.05rem;font-weight:700;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;color:#fff;"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
           LinkedIn
         </span>
       </a>
     </li>
 
   </ul>
+
+  <!-- mobile hamburger -->
+  <button class="nav-ham" id="navHam" onclick="toggleIndexMobNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- mobile nav drawer -->
+<div class="index-mob-drawer" id="indexMobDrawer">
+  <a onclick="closeMobNav();scrollToSection('work')" class="mob-link">My Work</a>
+  <a onclick="closeMobNav();scrollToSection('about')" class="mob-link">About me</a>
+  <a onclick="closeMobNav();scrollToSection('blogs')" class="mob-link">Blogs</a>
+  <a onclick="closeMobNav();scrollToSection('sayhi')" class="mob-link">Say hi</a>
+  <a href="https://linkedin.com/in/vagmita-pandya-798a53174" target="_blank" rel="noopener" class="mob-link mob-link-li">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
+    LinkedIn
+  </a>
+</div>
 
 <!-- PAGE WRAPPER -->
 <div id="page">
@@ -2114,9 +2263,9 @@ function skipIntro(){ window.skipIntro(); }
       <p class="hero-body" style="margin-bottom:0;">Curious where all that ends up?</p>
       <div class="hero-actions" style="margin-top:1rem;">
         <a class="btn-solid" onclick="scrollToSection('work')">
-          <svg class="hd-oval-svg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="50" cy="50" rx="49" ry="47" class="hd-fill"/>
-            <ellipse cx="50" cy="50" rx="49" ry="47" class="hd-stroke"/>
+          <svg class="hd-oval-svg" viewBox="0 0 260 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28,7 C55,4 105,3 130,4 C155,3 205,4 232,7 C247,10 255,20 257,30 C259,38 257,48 254,55 C249,61 228,64 200,65 C175,66 155,66 130,66 C105,66 85,66 60,65 C32,64 11,61 6,55 C3,48 1,38 3,30 C5,20 13,10 28,7 Z" class="hd-fill"/>
+            <path d="M28,7 C55,4 105,3 130,4 C155,3 205,4 232,7 C247,10 255,20 257,30 C259,38 257,48 254,55 C249,61 228,64 200,65 C175,66 155,66 130,66 C105,66 85,66 60,65 C32,64 11,61 6,55 C3,48 1,38 3,30 C5,20 13,10 28,7 Z" class="hd-stroke"/>
           </svg>
           <span>View My Work →</span>
         </a>
@@ -2668,116 +2817,88 @@ function skipIntro(){ window.skipIntro(); }
     <!-- Say hi -->
     <section id="sayhi" class="sh-sec">
 
-      <!-- ══ ROW 1: heading left | email right ══ -->
-      <div class="sh-row1">
-        <div class="sh-row1-left">
-          <h3 class="sec-heading">Let's build something<svg class="sh-hd-line" viewBox="0 0 200 6" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path class="sh-hd-path" d="M1,3 C30,1 60,5 100,3 C140,1 170,5 199,3"/></svg></h3>
-          <h2 class="sh-title">
-            <span class="sh-title-line">you came this far —</span>
-            <span class="sh-hand sh-hand-line">might as well say hi.</span>
-          </h2>
-          <p class="sh-sub">I'm always up for a good conversation — whether it's a project, a collab, or just a random idea at 2am.</p>
-          <div class="sh-resume-row">
-            <p class="sh-resume-pre">the formal version of me</p>
-            <a href="img/resume.pdf" target="_blank" rel="noopener" class="hd-pill-wrap hd-resume-pill">
-            <svg class="hd-circle" viewBox="0 0 160 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="80" cy="30" rx="73" ry="22" fill="none" stroke="#9E9E9E" stroke-width="2.4" stroke-linecap="round" pathLength="1000" class="hd-ring hd-ring-grey"/>
-              <ellipse cx="80" cy="30" rx="73" ry="22" class="hd-fill-ellipse hd-fill-grey"/>
-            </svg>
-            <span class="hd-icon hd-icon-grey">↓</span>
-            <span class="hd-label hd-label-grey">resume</span>
-          </a>
-          </div><!-- /sh-resume-row -->
+      <div class="sh-center">
+
+        <!-- eyebrow -->
+        <div class="sh-eyebrow">
+          <span class="sh-eyebrow-line"></span>
+          <span class="sh-eyebrow-text">let's connect</span>
+          <span class="sh-eyebrow-line"></span>
         </div>
-        <div class="sh-row1-right">
-          <div class="hd-email-pill" onclick="shCopyEmail()" title="tap to copy">
-            <svg class="hd-blob-svg" viewBox="0 0 340 80" xmlns="http://www.w3.org/2000/svg">
-              <!-- fill background -->
-              <ellipse cx="170" cy="40" rx="158" ry="32" class="hd-blob-fill"/>
-              <!-- animated hand-drawn circle -->
-              <ellipse cx="170" cy="40" rx="158" ry="32"
-                fill="none"
-                stroke="var(--black)"
-                stroke-width="3.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                pathLength="1000"
-                class="hd-draw-circle"
+
+        <!-- heading -->
+        <h2 class="sh-title">
+          <span class="sh-title-line">you came this far —</span>
+          <span class="sh-hand sh-hand-line">might as well say hi.</span>
+        </h2>
+
+        <!-- sub -->
+        <p class="sh-sub">I’m always up for a good conversation — whether it’s a project, a collab, or just a random idea at 2am.</p>
+
+        <!-- email + resume row -->
+        <div class="sh-action-row">
+
+          <!-- email pill: white filled, hand-drawn border -->
+          <div class="sh-pill-wrap-outer">
+            <span class="sh-tap-hint">tap to copy</span>
+            <div class="sh-pill sh-pill-filled" onclick="shCopyEmail()" title="click to copy">
+              <svg class="sh-pill-svg" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg">
+                <!-- white fill -->
+                <path d="M42,8 C65,6 105,5 140,6 C175,5 218,7 238,9 C251,11 259,16 262,25 C264,31 263,37 262,43 C260,52 253,61 241,63 C219,66 175,67 140,66 C105,67 63,65 42,63 C29,61 20,54 18,45 C16,38 17,32 18,26 C20,17 28,10 42,8 Z" class="sh-pill-bg-white"/>
+                <!-- hand-drawn stroke -->
+                <path d="M42,8 C65,6 105,5 140,6 C175,5 218,7 238,9 C251,11 259,16 262,25 C264,31 263,37 262,43 C260,52 253,61 241,63 C219,66 175,67 140,66 C105,67 63,65 42,63 C29,61 20,54 18,45 C16,38 17,32 18,26 C20,17 28,10 42,8 Z"
+                  fill="none" stroke="rgba(200,200,200,.25)" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="sh-pill-ring sh-pill-ring-draw"
+                />
+              </svg>
+              <span class="sh-pill-label sh-pill-label-dark">heyvagmita@gmail.com</span>
+            </div>
+          </div>
+
+          <!-- resume pill: dark bg, white hand-drawn border -->
+          <a href="img/resume.pdf" target="_blank" rel="noopener" class="sh-pill sh-pill-outline">
+            <svg class="sh-pill-svg" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg">
+              <!-- dark fill -->
+              <path d="M44,9 C68,7 108,6 140,7 C172,6 214,8 236,10 C249,12 258,18 261,27 C263,33 262,39 261,45 C259,54 251,62 238,64 C216,67 172,68 140,67 C108,68 66,66 44,64 C31,62 21,55 19,46 C17,39 18,33 19,27 C21,18 30,11 44,9 Z" class="sh-pill-bg-dark"/>
+              <!-- hand-drawn stroke -->
+              <path d="M44,9 C68,7 108,6 140,7 C172,6 214,8 236,10 C249,12 258,18 261,27 C263,33 262,39 261,45 C259,54 251,62 238,64 C216,67 172,68 140,67 C108,68 66,66 44,64 C31,62 21,55 19,46 C17,39 18,33 19,27 C21,18 30,11 44,9 Z"
+                fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"
+                class="sh-pill-ring sh-pill-ring-draw"
               />
             </svg>
-            <span class="hd-blob-label">heyvagmita@gmail.com</span>
-          </div>
-          <div class="sh-tap-copy"><span id="shCopyLabel">✦ tap to copy!</span></div>
-        </div>
-      </div>
+            <span class="sh-pill-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+              view resume
+            </span>
+          </a>
 
-      <!-- ══ ROW 2: social links left | resume right ══ -->
-      <div class="sh-row2">
-        <div class="sh-row2-left">
-          <div class="sh-social-wrap">
-          <p class="sh-social-hint">my social links …</p>
-          <div class="sh-social-row">
-            <a href="https://linkedin.com/in/vagmita-pandya-798a53174" target="_blank" rel="noopener" class="sh-social-link">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
-              <span class="sh-social-text">LinkedIn
-                <svg class="sh-uline" viewBox="0 0 80 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C10,2 22,7 35,4 C48,1 58,6 70,4 C74,3 77,5 79,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
-              </span>
-            </a>
-            <a href="https://behance.net/vagmitapandya" target="_blank" rel="noopener" class="sh-social-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M7.5 11.5c.97 0 1.75-.78 1.75-1.75S8.47 8 7.5 8H4v3.5h3.5zm.5 2H4V17h4c1.1 0 2-.9 2-2s-.9-1.5-2-1.5zM20 9h-5V8h5v1zm-2.5 3c-1.38 0-2.5 1.12-2.5 2.5S16.12 17 17.5 17s2.5-1.12 2.5-2.5h-2c0 .28-.22.5-.5.5s-.5-.22-.5-.5H20c0-1.38-1.12-2.5-2.5-2.5zM2 6h8.5c1.93 0 3.5 1.57 3.5 3.5 0 .95-.38 1.82-1 2.45C14.12 12.6 15 13.7 15 15c0 2.21-1.79 4-4 4H2V6zm13-1h6v1.5h-6V5z"/></svg>
-              <span class="sh-social-text">Behance
-                <svg class="sh-uline" viewBox="0 0 80 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C12,2 25,7 38,4 C51,1 60,6 71,4 C75,3 78,5 79,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
-              </span>
-            </a>
-            <a href="https://medium.com/@vagmitapandya" target="_blank" rel="noopener" class="sh-social-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-              <span class="sh-social-text">Medium
-                <svg class="sh-uline" viewBox="0 0 70 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C10,2 20,7 32,4 C44,1 54,6 62,4 C66,3 68,5 69,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
-              </span>
-            </a>
-          </div>
-          </div><!-- /sh-social-wrap -->
-        </div>
-        <div class="sh-row2-right">
-        </div>
-      </div>
+        </div>/div>
 
-      <!-- ══ ROW 3: full-width form ══ -->
-      <div class="sh-row3">
-        <p class="sh-form-hint">
-          Ideas? opportunities? send them my way!
-          <svg class="sh-mail-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-          </svg>
-        </p>
-        <div class="sh-box">
-          <div class="sh-fields-row">
-            <div class="sh-field sh-field-half">
-              <input type="text" id="shName" placeholder="your name" class="sh-input">
-            </div>
-            <div class="sh-field sh-field-half">
-              <input type="email" id="shEmail" placeholder="your email" class="sh-input">
-            </div>
-          </div>
-          <div class="sh-field">
-            <label class="sh-label">what are we talking about?</label>
-            <select id="shTopic" class="sh-input sh-select">
-              <option value="" disabled selected>pick one…</option>
-              <option value="UI/UX">UI/UX</option>
-              <option value="Illustration">Illustration</option>
-              <option value="Fun chat">Fun chat</option>
-              <option value="Cool idea">Cool idea</option>
-              <option value="Something random">Something random</option>
-            </select>
-          </div>
-          <div class="sh-field">
-            <textarea id="shMsg" class="sh-input sh-textarea" placeholder="say something… idea, hi, random thought, anything"></textarea>
-          </div>
-          <button class="sh-send" id="shSendBtn" onclick="shSendMail()">
-            send <span class="sh-send-arrow">→</span>
-          </button>
+        <!-- social links -->
+        <div class="sh-social-row">
+          <a href="https://linkedin.com/in/vagmita-pandya-798a53174" target="_blank" rel="noopener" class="sh-social-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-3a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            <span class="sh-social-text">LinkedIn
+              <svg class="sh-uline" viewBox="0 0 80 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C10,2 22,7 35,4 C48,1 58,6 70,4 C74,3 77,5 79,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
+            </span>
+          </a>
+          <a href="https://behance.net/vagmitapandya" target="_blank" rel="noopener" class="sh-social-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M7.5 11.5c.97 0 1.75-.78 1.75-1.75S8.47 8 7.5 8H4v3.5h3.5zm.5 2H4V17h4c1.1 0 2-.9 2-2s-.9-1.5-2-1.5zM20 9h-5V8h5v1zm-2.5 3c-1.38 0-2.5 1.12-2.5 2.5S16.12 17 17.5 17s2.5-1.12 2.5-2.5h-2c0 .28-.22.5-.5.5s-.5-.22-.5-.5H20c0-1.38-1.12-2.5-2.5-2.5zM2 6h8.5c1.93 0 3.5 1.57 3.5 3.5 0 .95-.38 1.82-1 2.45C14.12 12.6 15 13.7 15 15c0 2.21-1.79 4-4 4H2V6zm13-1h6v1.5h-6V5z"/></svg>
+            <span class="sh-social-text">Behance
+              <svg class="sh-uline" viewBox="0 0 80 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C12,2 25,7 38,4 C51,1 60,6 71,4 C75,3 78,5 79,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
+            </span>
+          </a>
+          <a href="https://medium.com/@vagmitapandya" target="_blank" rel="noopener" class="sh-social-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="sh-social-icon"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+            <span class="sh-social-text">Medium
+              <svg class="sh-uline" viewBox="0 0 70 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M1,5 C10,2 20,7 32,4 C44,1 54,6 62,4 C66,3 68,5 69,4" fill="none" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" pathLength="100" class="sh-uline-path"/></svg>
+            </span>
+          </a>
         </div>
-      </div>
+
+      </div><!-- /sh-center -->
 
     </section>
 
@@ -2788,78 +2909,46 @@ function skipIntro(){ window.skipIntro(); }
 </div><!-- /page -->
 
 
-<!-- PIXEL CHATBOT — HTML panel (JS handled by shared.js) -->
-<div id="boo-panel">
-  <!-- header -->
-  <div class="bp-head">
-    <div class="bp-id">
-      <div class="bp-av-px">Px</div>
-      <div>
-        <div class="bp-name">Pixel</div>
-        <div class="bp-status">V's out designing. I'll take it from here.</div>
-      </div>
-    </div>
-    <button class="bp-close" id="booClose" style="margin-left:auto;">&#x2715;</button>
-  </div>
-  <div class="bp-orb-wrap">
-    <div class="bp-orb"></div>
-  </div>
-  <!-- messages -->
-  <div class="bp-msgs" id="booMsgs"></div>
-  <!-- quick chips -->
-  <div class="bp-chips" id="booChips">
-    <button class="bp-chip" onclick="booQuick(this,'What projects has she worked on?')">her work</button>
-    <button class="bp-chip" onclick="booQuick(this,'Is she available?')">availability</button>
-    <button class="bp-chip" onclick="booQuick(this,'What makes her different?')">why her</button>
-  </div>
-  <!-- input -->
-  <div class="bp-foot">
-    <div class="bp-foot-inner">
-      <input class="bp-in" id="booIn" placeholder="ask me anything…" onkeydown="if(event.key==='Enter')booSend()">
-      <button class="bp-send" onclick="booSend()">↑</button>
-    </div>
-  </div>
-</div>
-
-<div id="boo-wrap">
-  <div id="vbot-tooltip"></div>
-  <div id="boo" class="boo-hidden">
-    <canvas id="booCanvas" width="90" height="90"></canvas>
-  </div>
-</div>
+<!-- PIXEL CHATBOT — injected by shared.js -->
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-(function(){emailjs.init({publicKey:'_6YhCXbLr4wCX8BjL'});})();
 
-function shSendMail(){
-  var btn=document.getElementById('shSendBtn');
-  var n=document.getElementById('shName').value.trim();
-  var e=document.getElementById('shEmail').value.trim();
-  var t=document.getElementById('shTopic').value;
-  var m=document.getElementById('shMsg').value.trim();
-  if(!n||!e||!m){
-    btn.textContent='fill in all fields first';
-    setTimeout(function(){btn.innerHTML='send <span class="sh-send-arrow">→</span>';},2000);
-    return;
-  }
-  var body='Name: '+n+'%0AEmail: '+e+'%0ATopic: '+(t||'Not specified')+'%0A%0A'+encodeURIComponent(m);
-  window.location.href='mailto:heyvagmita@gmail.com?subject=Hey from '+encodeURIComponent(n)+'&body=Name: '+n+'%0AEmail: '+e+'%0ATopic: '+(t||'Not specified')+'%0A%0A'+encodeURIComponent(m);
-}
 
 function shCopyEmail(){
+  var pill = document.querySelector('.sh-pill-filled');
+  var hint = document.querySelector('.sh-tap-hint');
+
+  // pop + bounce animations
+  if(pill){
+    pill.classList.remove('sh-pill-popping');
+    void pill.offsetWidth; // reflow
+    pill.classList.add('sh-pill-popping');
+    pill.addEventListener('animationend', function(){
+      pill.classList.remove('sh-pill-popping');
+    }, {once:true});
+  }
+  if(hint){
+    hint.classList.remove('sh-hint-bouncing');
+    void hint.offsetWidth;
+    hint.classList.add('sh-hint-bouncing');
+    hint.addEventListener('animationend', function(){
+      hint.classList.remove('sh-hint-bouncing');
+    }, {once:true});
+  }
+
+  // copy + label feedback
   navigator.clipboard.writeText('heyvagmita@gmail.com').then(function(){
-    var lbl=document.getElementById('shCopyLabel');
-    if(lbl){lbl.textContent='✓ copied!';lbl.classList.add('copied');}
-    setTimeout(function(){
-      if(lbl){lbl.textContent='✦ tap to copy!';lbl.classList.remove('copied');}
-    },2000);
-  }).catch(function(){
-    var lbl=document.getElementById('shCopyLabel');
-    if(lbl)lbl.textContent='heyvagmita@gmail.com';
-  });
+    if(hint){
+      hint.textContent = 'copied! ✦';
+      hint.classList.add('sh-copied');
+      setTimeout(function(){
+        hint.textContent = 'tap to copy';
+        hint.classList.remove('sh-copied');
+      }, 2000);
+    }
+  }).catch(function(){});
 }
 
 // ── Hand-drawn circle draw-in on hover ──

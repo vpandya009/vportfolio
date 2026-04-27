@@ -110,41 +110,42 @@ window.initFades = (function () {
   /* inject HTML if not already present */
   if (!document.getElementById('boo-panel')) {
     var panelHtml = `
-<div id="boo-panel">
-  <div class="bp-head">
-    <div class="bp-id">
-      <div class="bp-av-px">Px</div>
+<div id="boo-panel" style="position:fixed;bottom:5.5rem;right:1.75rem;width:min(360px,calc(100vw - 2rem));background:#ffffff;border-radius:28px;display:none;flex-direction:column;max-height:520px;box-shadow:0 8px 48px rgba(0,0,0,.12),0 2px 12px rgba(0,0,0,.06);overflow:hidden;z-index:9501;font-family:'Manrope',sans-serif;">
+  <div class="bp-head" style="padding:.85rem 1rem .85rem 1.1rem;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;flex-shrink:0;position:relative;">
+    <div class="bp-id" style="display:flex;align-items:center;gap:.7rem;">
+      <div class="bp-av-px" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;background:#eeeafd;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#6C4CF1;letter-spacing:.02em;">Px</div>
       <div>
-        <div class="bp-name">Pixel</div>
-        <div class="bp-status">V's out designing. I'll take it from here.</div>
+        <div class="bp-name" style="font-size:.88rem;font-weight:700;color:#111;font-family:'Manrope',sans-serif;">Pixel</div>
+        <div class="bp-status" style="font-size:.72rem;color:#8C8C88;font-family:'Manrope',sans-serif;font-style:italic;margin-top:.1rem;">V's out designing. I'll take it from here.</div>
       </div>
     </div>
-    <button class="bp-close" id="booClose" style="margin-left:auto;">&#x2715;</button>
+    <button class="bp-close" id="booClose" style="position:absolute;top:14px;right:14px;background:rgba(0,0,0,.05);border:none;cursor:pointer;color:#666;font-size:.75rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;">&#x2715;</button>
   </div>
-  <div class="bp-orb-wrap"><div class="bp-orb"></div></div>
-  <div class="bp-msgs" id="booMsgs"></div>
-  <div class="bp-chips" id="booChips">
-    <button class="bp-chip" onclick="booQuick(this,'What projects has she worked on?')">her work</button>
-    <button class="bp-chip" onclick="booQuick(this,'Is she available?')">availability</button>
-    <button class="bp-chip" onclick="booQuick(this,'What makes her different?')">why her</button>
+  <div class="bp-orb-wrap" style="display:none;"><div class="bp-orb"></div></div>
+  <div class="bp-msgs" id="booMsgs" style="flex:1;overflow-y:auto;padding:.25rem 1.5rem .5rem;display:flex;flex-direction:column;gap:.55rem;scroll-behavior:smooth;"></div>
+  <div class="bp-chips" id="booChips" style="padding:.25rem 1.5rem .75rem;display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;flex-shrink:0;">
+    <button class="bp-chip" onclick="booQuick(this,'What projects has she worked on?')" style="background:transparent;border:1px solid #e0e0e0;padding:.28rem .75rem;border-radius:100px;font-size:.7rem;color:#555;cursor:pointer;font-family:'Manrope',sans-serif;">her work</button>
+    <button class="bp-chip" onclick="booQuick(this,'Is she available?')" style="background:transparent;border:1px solid #e0e0e0;padding:.28rem .75rem;border-radius:100px;font-size:.7rem;color:#555;cursor:pointer;font-family:'Manrope',sans-serif;">availability</button>
+    <button class="bp-chip" onclick="booQuick(this,'What makes her different?')" style="background:transparent;border:1px solid #e0e0e0;padding:.28rem .75rem;border-radius:100px;font-size:.7rem;color:#555;cursor:pointer;font-family:'Manrope',sans-serif;">why her</button>
   </div>
-  <div class="bp-foot">
-    <div class="bp-foot-inner">
-      <input class="bp-in" id="booIn" placeholder="ask me anything…" onkeydown="if(event.key==='Enter')booSend()">
-      <button class="bp-send" onclick="booSend()">↑</button>
+  <div class="bp-foot" style="padding:.75rem 1rem 1rem;flex-shrink:0;">
+    <div class="bp-foot-inner" style="display:flex;align-items:center;gap:.5rem;background:#f5f5f5;border-radius:100px;padding:.5rem .6rem .5rem .9rem;">
+      <input class="bp-in" id="booIn" placeholder="ask me anything…" onkeydown="if(event.key==='Enter')booSend()" style="flex:1;border:none;background:transparent;font-family:'Manrope',sans-serif;font-size:.8rem;color:#111;outline:none;min-width:0;">
+      <button class="bp-send" onclick="booSend()" style="width:34px;height:34px;flex-shrink:0;background:#111;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;">↑</button>
     </div>
   </div>
 </div>
-<div id="boo-wrap">
-  <div id="vbot-tooltip"></div>
-  <div id="boo" class="boo-hidden">
+<div id="boo-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:9500;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;pointer-events:none;">
+  <div id="vbot-tooltip" style="pointer-events:all;cursor:pointer;background:#1a0f3c;color:#c4b5fd;font-family:'Manrope',sans-serif;font-size:12px;font-weight:500;padding:7px 13px;border-radius:16px 16px 4px 16px;white-space:normal;line-height:1.45;opacity:0;transform:translateY(6px) scale(.95);transition:opacity .25s,transform .25s;max-width:240px;"></div>
+  <div id="boo" class="boo-hidden" style="pointer-events:all;cursor:pointer;transform-origin:center center;transition:opacity .5s ease,transform .5s cubic-bezier(.34,1.56,.64,1);opacity:0;transform:translateY(50px) scale(0.5);">
     <canvas id="booCanvas" width="90" height="90"></canvas>
   </div>
 </div>`;
     document.body.insertAdjacentHTML('beforeend', panelHtml);
   }
 
-  /* blob renderer */
+  /* blob renderer — wrapped in setTimeout so injected DOM is ready */
+  setTimeout(function() {
   var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
   document.addEventListener('mousemove', function (e) { mouseX = e.clientX; mouseY = e.clientY; });
 
@@ -253,14 +254,26 @@ window.initFades = (function () {
     "returning visitor — respect. what can I help with this time?"
   ];
 
-  setTimeout(function () { boo.classList.remove('boo-hidden'); boo.classList.add('boo-visible'); }, 600);
+  setTimeout(function () {
+    boo.classList.remove('boo-hidden');
+    boo.classList.add('boo-visible');
+    boo.style.opacity = '1';
+    boo.style.transform = 'translateY(0) scale(1)';
+    boo.style.pointerEvents = 'all';
+  }, 600);
   var isMobile = /Mobi|Android/i.test(navigator.userAgent);
   setTimeout(function () {
     if (!tooltipShown && !isOpen) {
       tooltipShown = true;
       tooltip.textContent = TOOLTIPS[Math.floor(Math.random() * TOOLTIPS.length)];
       tooltip.classList.add('show');
-      tooltipTimer = setTimeout(function () { tooltip.classList.remove('show'); }, 5000);
+      tooltip.style.opacity = '1';
+      tooltip.style.transform = 'translateY(0) scale(1)';
+      tooltipTimer = setTimeout(function () {
+        tooltip.classList.remove('show');
+        tooltip.style.opacity = '0';
+        tooltip.style.transform = 'translateY(6px) scale(.95)';
+      }, 5000);
     }
   }, isMobile ? 4000 : 3000);
 
@@ -323,12 +336,47 @@ RULES:
     msgs.innerHTML = '';
     var chips = document.getElementById('booChips');
     if (chips) chips.style.display = 'flex';
-    var d = document.createElement('div'); d.className = 'bp-msg bot';
+    var d = document.createElement('div');
+    d.style.cssText = 'font-size:.82rem;line-height:1.6;font-family:Manrope,sans-serif;color:#111;text-align:left;align-self:flex-start;max-width:88%;background:none;padding:0;';
     var greeting = greetingShown ? RETURN_MSGS[Math.floor(Math.random() * RETURN_MSGS.length)] : OPENINGS[Math.floor(Math.random() * OPENINGS.length)];
     d.innerHTML = renderMarkdown(greeting);
-    msgs.appendChild(d); greetingShown = true; isOpen = true; panel.classList.add('open');
+    msgs.appendChild(d);
+    greetingShown = true; isOpen = true;
+
+    // show panel
+    if(window.innerWidth <= 540){
+      panel.style.bottom = '0';
+      panel.style.right = '0';
+      panel.style.left = '0';
+      panel.style.width = '100%';
+      panel.style.borderRadius = '24px 24px 0 0';
+      panel.style.maxHeight = '80vh';
+    } else {
+      panel.style.bottom = '5.5rem';
+      panel.style.right = '1.75rem';
+      panel.style.left = '';
+      panel.style.width = 'min(360px,calc(100vw - 2rem))';
+      panel.style.borderRadius = '28px';
+      panel.style.maxHeight = '520px';
+    }
+    panel.style.display = 'flex';
+    panel.style.opacity = '0';
+    panel.style.transform = 'translateY(14px) scale(.96)';
+    panel.style.transition = 'transform .35s cubic-bezier(.34,1.4,.64,1),opacity .25s';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0) scale(1)';
+      });
+    });
   }
-  function closeChat() { isOpen = false; panel.classList.remove('open'); }
+
+  function closeChat() {
+    isOpen = false;
+    panel.style.opacity = '0';
+    panel.style.transform = 'translateY(14px) scale(.96)';
+    setTimeout(function(){ panel.style.display = 'none'; }, 300);
+  }
 
   boo.addEventListener('click', function (e) {
     e.stopPropagation(); blobMain.squish();
@@ -338,8 +386,8 @@ RULES:
     if (isOpen) closeChat(); else openChat();
   });
 
-  document.getElementById('booClose').addEventListener('click', function (e) { e.stopPropagation(); closeChat(); });
-
+  var booCloseBtn = document.getElementById('booClose');
+  if(booCloseBtn) booCloseBtn.addEventListener('click', function (e) { e.stopPropagation(); closeChat(); });
   document.addEventListener('click', function (e) {
     if (!isOpen) return;
     var p = document.getElementById('boo-panel');
@@ -355,6 +403,11 @@ RULES:
       setTimeout(function () {
         boo.classList.remove('boo-puff', 'boo-visible');
         boo.classList.add('boo-chat');
+        boo.style.position = 'fixed';
+        boo.style.bottom = '1.75rem';
+        boo.style.right = '1.75rem';
+        boo.style.opacity = '1';
+        boo.style.transform = 'scale(1)';
       }, 600);
     }
   }, { passive: true });
@@ -364,7 +417,13 @@ RULES:
   function booAddMsg(text, role) {
     var m = document.getElementById('booMsgs');
     var d = document.createElement('div'); d.className = 'bp-msg ' + role;
-    if (role === 'bot') { d.innerHTML = renderMarkdown(text); } else { d.textContent = text; }
+    if (role === 'bot') {
+      d.style.cssText = 'font-size:.82rem;line-height:1.6;font-family:Manrope,sans-serif;color:#111;text-align:left;align-self:flex-start;max-width:88%;background:none;padding:0;';
+      d.innerHTML = renderMarkdown(text);
+    } else {
+      d.style.cssText = 'font-size:.82rem;line-height:1.6;font-family:Manrope,sans-serif;background:#f2f2f0;color:#111;align-self:flex-end;max-width:80%;padding:.5rem .85rem;border-radius:18px 18px 4px 18px;text-align:left;';
+      d.textContent = text;
+    }
     m.appendChild(d); m.scrollTop = m.scrollHeight;
   }
   function booTyping() {
@@ -407,6 +466,7 @@ RULES:
     if (inp) inp.value = text;
     window.booSend();
   };
+  }, 0);
 })();
 
 /* ────────────────────────────────────────────────────────
@@ -417,3 +477,28 @@ if (document.readyState === 'loading') {
 } else {
   window.initFades();
 }
+
+/* ═══════════════════════════════
+   CASE-STUDY MOBILE HAMBURGER NAV
+═══════════════════════════════ */
+function toggleCsMobMenu() {
+  const ham = document.getElementById('csHam');
+  const drawer = document.getElementById('csMobDrawer');
+  if (!ham || !drawer) return;
+  const isOpen = ham.classList.toggle('open');
+  drawer.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+// Close drawer on link click
+document.addEventListener('DOMContentLoaded', () => {
+  const drawer = document.getElementById('csMobDrawer');
+  if (drawer) {
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('csHam')?.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+});
