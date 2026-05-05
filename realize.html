@@ -379,32 +379,65 @@
   font-weight: 700 !important;
   color: #3a3000 !important;
   letter-spacing: .01em;
+  margin-bottom: .75rem;
 }
 .sticky-note-body {
   font-family: 'Manrope', sans-serif !important;
-  font-size: .82rem !important;
+  font-size: .85rem !important;
   font-weight: 500 !important;
-  line-height: 1.65 !important;
+  line-height: 1.75 !important;
   color: #4a3c00 !important;
+  font-style: normal !important;
+  margin-bottom: .75rem;
 }
 .sticky-note-or {
   font-family: 'Manrope', sans-serif !important;
-  font-size: .75rem !important;
+  font-size: .72rem !important;
+  font-weight: 500 !important;
   color: #6b5500 !important;
 }
-.sticky-note-btn {
-  font-family: 'Caveat', cursive !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: .01em;
-  background: #000 !important;
-  color: #fff !important;
-  border-color: #000 !important;
+.sticky-note-link {
+  font-family: 'Manrope', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  color: #2a1f00;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(42,31,0,.5);
 }
-.sticky-note-btn-ghost {
-  background: transparent !important;
-  color: #000 !important;
-  border: 1.5px solid #000 !important;
+.sticky-note-link:hover { text-decoration-color: #2a1f00; }
+.sticky-note-btn {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: .85rem !important;
+  font-weight: 700 !important;
+  background: #2a1f00 !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  padding: .4rem 1rem !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+.sticky-note-btn:hover { background: #3d2e00 !important; }
+.sticky-note-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3a3000;
+  background: transparent;
+  border: 1.5px solid rgba(58,48,0,.45);
+  padding: .38rem .9rem;
+  border-radius: 62% 38% 55% 45% / 48% 52% 48% 52%;
+  text-decoration: none;
+  transition: border-radius .4s ease, background .15s;
+}
+.sticky-note-btn-outline:hover {
+  background: rgba(58,48,0,.06);
+  border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%;
 }
 
 /* RESPONSIVE */
@@ -494,19 +527,14 @@
     <div class="sticky-note-paper sticky-note-attached">
   <div class="sticky-note-tape"></div>
   <div class="sticky-note-heading">✨ Before you scroll in…</div>
-  <p class="sticky-note-body">
-    Fair warning — I documented everything in this case study.<br>
-    The messy parts, the wrong turns, the moments it clicked. All of it's in here.
-  </p>
-  <div style="display:flex;align-items:center;gap:.75rem;margin-top:.75rem;flex-wrap:wrap">
-    <p class="sticky-note-body" style="margin:0;font-weight:400;color:#3a3000;white-space:nowrap">Short on time?</p>
-    <a href="#ideation-video" class="sticky-note-btn">👉 Skip to the prototype</a>
-  </div>
-  <div class="sticky-note-links" style="flex-direction:column;align-items:flex-start;gap:.5rem;margin-top:.5rem">
-    <div style="display:flex;align-items:center;gap:.4rem">
-      <span class="sticky-note-or">or…</span>
+  <p class="sticky-note-body">Fair warning — I documented everything in this case study.<br>The messy parts, the wrong turns, the moments it clicked. All of it's in here.</p>
+  <p class="sticky-note-body" style="margin-bottom:.75rem"><span style="font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:600">Short on time?</span> <a href="#ideation-video" class="sticky-note-link">👉 Skip to the prototype</a></p>
+  <div class="sticky-note-links" style="display:flex;flex-direction:column;align-items:flex-start;gap:.5rem">
+    <span class="sticky-note-or">or.....</span>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:nowrap;white-space:nowrap">
+      <a href="index.html#contact" class="sticky-note-btn-outline">👋 Say hi</a>
+      <span style="font-family:'Caveat',cursive;font-size:1.05rem;font-weight:600;color:#4a3d00;white-space:nowrap">— I give great walkthroughs</span>
     </div>
-    <a href="index.html#contact" class="sticky-note-btn sticky-note-btn-ghost">👋 Say hi — I give great walkthroughs</a>
   </div>
 </div>
   </div>

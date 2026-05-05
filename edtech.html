@@ -225,28 +225,21 @@ body{
   border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.12);
   border:1px solid rgba(200,180,0,.18);
 }
-.sticky-note-heading{font-family:var(--hand);font-size:1.15rem;font-weight:700;color:#2a1f00;margin-bottom:.7rem;line-height:1.3}
-.sticky-note-body{font-family:var(--hand);font-size:.93rem;color:#3a2d00;line-height:1.75;font-style:italic}
+.sticky-note-heading{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:700;color:#2a1f00;margin-bottom:.75rem;line-height:1.3}
+.sticky-note-body{font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:500;color:#3a2d00;line-height:1.75;font-style:normal;margin-bottom:.75rem}
 .sticky-note-body em{font-style:normal;font-weight:700}
-.sticky-note-links{display:flex;flex-direction:column;gap:.5rem;margin-top:.85rem}
+.sticky-note-links{display:flex;flex-direction:column;gap:.5rem;margin-top:0;align-items:flex-start}
+.sticky-note-link{font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:700;color:#2a1f00;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(42,31,0,.5)}
+.sticky-note-link:hover{text-decoration-color:#2a1f00}
 .sticky-note-btn{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--hand);font-size:.95rem;font-weight:700;
-  color:#fff;background:#2a1f00;padding:.45rem 1.1rem;border-radius:8px;
+  font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:700;
+  color:#fff;background:#2a1f00;padding:.4rem 1rem;border-radius:8px;
   text-decoration:none;width:fit-content;transition:background .15s;
 }
 .sticky-note-btn:hover{background:#3d2e00}
-.sticky-note-btn-ghost{
-  display:inline-flex;align-items:center;
-  font-family:var(--hand);font-size:.93rem;font-weight:600;
-  color:#2a1f00;background:rgba(255,255,255,.55);
-  padding:.4rem 1rem;border-radius:8px;
-  border:1.5px solid rgba(42,31,0,.25);
-  text-decoration:none;width:fit-content;transition:background .15s;
-}
-.sticky-note-btn-ghost:hover{background:rgba(255,255,255,.8)}
-.sticky-note-or{font-family:var(--hand);font-size:.88rem;color:#5a4a00;display:inline;margin:0 .25rem}
-.sticky-note-smile{font-family:var(--hand);font-size:.88rem;color:#3a2d00;margin-top:.1rem;display:block}
+.sticky-note-or{font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:500;color:#5a4a00;display:inline;margin:0}
+.sticky-note-ps{font-family:'Caveat',cursive;font-size:1rem;font-weight:600;color:#5a4a00;margin-top:.75rem}
 @media(max-width:860px){.sticky-note-paper{transform:none}}
 
 /* ══════════════════════════════════
@@ -662,17 +655,18 @@ body{
   box-shadow:0 1px 4px rgba(0,0,0,.12);
   border:1px solid rgba(200,180,0,.15);
 }
-.sticky-note-heading{font-family:var(--hand);font-size:1.2rem;font-weight:700;color:#3a3000;margin-bottom:.85rem;line-height:1.3}
-.sticky-note-body{font-family:var(--hand);font-size:1rem;color:#4a3d00;line-height:1.65}
-.sticky-note-body em{font-style:italic;font-weight:700;color:#3a3000}
-.sticky-note-links{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:.85rem}
-.sticky-note-btn{font-family:var(--hand);font-size:.95rem;font-weight:700;color:#fff;background:#3a3000;padding:.35rem .9rem;border-radius:6px;text-decoration:none;transition:background .15s}
+.sticky-note-heading{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:700;color:#3a3000;margin-bottom:.75rem;line-height:1.3}
+.sticky-note-body{font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:500;color:#4a3d00;line-height:1.75;font-style:normal;margin-bottom:.75rem}
+.sticky-note-body em{font-style:normal;font-weight:700;color:#3a3000}
+.sticky-note-links{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;margin-top:0}
+.sticky-note-link{font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:700;color:#2a1f00;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(42,31,0,.5)}
+.sticky-note-link:hover{text-decoration-color:#2a1f00}
+.sticky-note-btn{font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:700;color:#fff;background:#3a3000;padding:.4rem 1rem;border-radius:8px;text-decoration:none;transition:background .15s;display:inline-flex;align-items:center;gap:.4rem}
 .sticky-note-btn:hover{background:#5a4d00}
-.sticky-note-btn-ghost{background:transparent;color:#3a3000;border:1.5px solid rgba(58,48,0,.3)}
-.sticky-note-btn-ghost:hover{background:rgba(58,48,0,.07)}
-.sticky-note-or{font-family:var(--hand);font-size:.9rem;color:#7a6a00}
-.sticky-note-smile{font-family:var(--hand);font-size:.9rem;color:#4a3d00}
-@media(max-width:860px){.sticky-note-wrap{padding:0 var(--pad) 2rem}}
+.sticky-note-or{font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:500;color:#7a6a00}
+.sticky-note-ps{font-family:'Caveat',cursive;font-size:1rem;font-weight:600;color:#5a4a00;margin-top:.75rem}
+.sticky-note-btn-outline{display:inline-flex;align-items:center;gap:.4rem;font-family:'Caveat',cursive;font-size:1rem;font-weight:700;color:#3a3000;background:transparent;border:1.5px solid rgba(58,48,0,.45);padding:.38rem .9rem;border-radius:62% 38% 55% 45% / 48% 52% 48% 52%;text-decoration:none;transition:border-radius .4s ease,background .15s}
+.sticky-note-btn-outline:hover{background:rgba(58,48,0,.06);border-radius:45% 55% 40% 60% / 55% 45% 55% 45%}
 
 /* ── IMAGE LAYOUT HELPERS ── */
 /* S- : text left, image right — image matches text height */
@@ -1230,19 +1224,15 @@ body{
     <!-- STICKY NOTE -->
     <div class="sticky-note-paper sticky-note-attached">
       <div class="sticky-note-tape"></div>
-      <div class="sticky-note-heading">✦ Before you scroll in</div>
+      <div class="sticky-note-heading">✨ Before you scroll in</div>
       <p class="sticky-note-body">This is an end-to-end project where I owned everything — from the first founder conversation to the final UI.</p>
-      <p class="sticky-note-body" style="margin-top:.6rem;font-weight:700;color:#3a3000">Short on time?</p>
-      <div class="sticky-note-links" style="flex-direction:column;align-items:flex-start;gap:.5rem;margin-top:.5rem">
-        <a href="#s-finalui" class="sticky-note-btn">👉 Jump to the UI</a>
-        <div style="display:flex;align-items:center;gap:.4rem">
-          <span class="sticky-note-or">or</span>
+      <p class="sticky-note-body" style="margin-bottom:.75rem"><span style="font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:600">Short on time?</span> <a href="#s-finalui" class="sticky-note-link">👉 Jump to the UI</a></p>
+      <div class="sticky-note-links">
+        <span class="sticky-note-or" style="font-family:'Manrope',sans-serif;font-size:.72rem;font-weight:500;color:#7a6a00">or.....</span>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:nowrap;white-space:nowrap">
+          <a href="index.html#sayhi" class="sticky-note-btn-outline">👋 Say hello</a>
+          <span style="font-family:'Caveat',cursive;font-size:1.05rem;font-weight:600;color:#4a3d00;white-space:nowrap">— happy to walk you through it</span>
         </div>
-        <a href="#s-video" class="sticky-note-btn">🎥 See how the research actually happened</a>
-        <div style="display:flex;align-items:center;gap:.4rem">
-          <span class="sticky-note-or">or</span>
-        </div>
-        <a href="index.html#sayhi" class="sticky-note-btn sticky-note-btn-ghost">👋 Say hello</a>
       </div>
     </div>
 
