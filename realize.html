@@ -9,7 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="casestudy.css">
 <style>
-.step-list::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border)}
+.step-list{position:relative;overflow:hidden}
+.step-list::before{content:'';position:absolute;left:16px;top:16px;bottom:16px;width:1px;background:var(--border)}
 .step-item{display:flex;gap:.9rem;padding:0 0 1.25rem}
 .step-num{width:32px;height:32px;border-radius:50%;background:var(--vi-soft);border:2px solid var(--vi);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:var(--vi);flex-shrink:0;z-index:1}
 .step-content h4{font-family:var(--body);font-size:.85rem;font-weight:700;color:var(--black);margin-bottom:.22rem;padding-top:.38rem}
@@ -419,6 +420,9 @@
   .cs-meta-cell:nth-child(1),.cs-meta-cell:nth-child(2),.cs-meta-cell:nth-child(3){border-bottom:1px solid var(--border)}
   .cs-header{padding:0 24px}
 }
+  .cs-sidebar { border-right: none !important; overflow: hidden !important; }
+  .cs-sidebar-inner { overflow: hidden !important; }
+  .callout { border-left: none !important; border-radius: 12px !important; }
 
 </style>
 </head>
@@ -1605,7 +1609,7 @@
               <p>The platform's four modules aren't parallel options — they're sequential stages of a security workflow. The IA had to make that sequence legible without forcing users into a rigid linear path. Power users need to jump directly. New users need the sequence to be obvious.</p>
             </div>
           </div>
-          <div class="cs-img-wrap" style="min-width:0;position:sticky;top:80px">
+          <div class="cs-img-wrap" style="min-width:0">
             <img src="img/Realize/img14.png" alt="Information architecture diagram" style="width:100%;height:auto;display:block;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.nextElementSibling.style.flexDirection='column'"/>
             <div style="display:none;flex-direction:column;align-items:center;gap:.5rem;padding:3.5rem 2rem;background:var(--off);text-align:center">
               <div style="font-size:2rem">🖼️</div>
@@ -2251,13 +2255,144 @@
 
 <script src="shared.js"></script>
 <script>
+// ── FINAL UI CAROUSEL ──────────────────────────────────────────────
+const fcsFlows = [
+  {
+    label: 'Flow 1', title: 'Onboarding & Account Setup', url: 'realize.app / onboarding',
+    screens: [
+      { name: 'Welcome & account creation',       desc: 'First screen a new user sees — role selection and workspace naming before any module is shown.', src: 'img/Realize/UI/Flow1/img1.png', icon: '🚀' },
+      { name: 'Role selection',                    desc: 'User selects their primary role — determines default module entry and AI prompt context.',          src: 'img/Realize/UI/Flow1/img2.png', icon: '👤' },
+      { name: 'Workspace setup',                   desc: 'Naming and configuring the workspace before any integrations are connected.',                       src: 'img/Realize/UI/Flow1/img3.png', icon: '🏢' },
+      { name: 'Integration connect',               desc: 'Connecting the first data source — the step that unlocks the Assessment module.',                   src: 'img/Realize/UI/Flow1/img4.png', icon: '🔗' },
+      { name: 'AI introduction',                   desc: 'First encounter with the AI chatbot — contextual intro based on role and workspace.',                src: 'img/Realize/UI/Flow1/img5.png', icon: '🤖' },
+      { name: 'Module overview',                   desc: 'The four-path landing — first time the user sees all modules and selects their starting point.',     src: 'img/Realize/UI/Flow1/img6.png', icon: '🗺️' },
+      { name: 'First scan initiated',              desc: 'User triggers their first environment scan from the landing — the moment the product becomes real.', src: 'img/Realize/UI/Flow1/img7.png', icon: '🔍' },
+      { name: 'Onboarding complete',               desc: 'Confirmation state — setup is done, first results are loading, and the AI surfaces next actions.',  src: 'img/Realize/UI/Flow1/img8.png', icon: '✅' },
+    ]
+  },
+  {
+    label: 'Flow 2', title: 'Dashboard & Assess', url: 'realize.app / dashboard',
+    screens: [
+      { name: 'Main dashboard',                    desc: 'The command centre — live risk score, active incidents, and AI-surfaced priorities.',               src: 'img/Realize/UI/Flow2/img1.png', icon: '📊' },
+      { name: 'Assessment overview',               desc: 'Full environment scan results — vulnerabilities grouped by severity and module.',                   src: 'img/Realize/UI/Flow2/img2.png', icon: '🔎' },
+      { name: 'Incident detail',                   desc: 'Drilling into a specific incident — context, affected assets, and recommended actions.',            src: 'img/Realize/UI/Flow2/img3.png', icon: '⚠️' },
+      { name: 'AI-guided triage',                  desc: 'The AI chatbot surfaces a prioritisation suggestion based on risk score and asset criticality.',    src: 'img/Realize/UI/Flow2/img4.png', icon: '🤖' },
+      { name: 'Assess → Deploy handoff',           desc: 'The critical transition — one action moves the user from identified problem to deployment flow.',   src: 'img/Realize/UI/Flow2/img5.png', icon: '→' },
+    ]
+  },
+  {
+    label: 'Flow 3', title: 'Deploy & Manage', url: 'realize.app / deploy',
+    screens: [
+      { name: 'Deploy module entry',               desc: 'Deployment options presented based on the incident selected in Assessment.',                        src: 'img/Realize/UI/Flow3/img1.png', icon: '🚀' },
+      { name: 'Package selection',                 desc: 'Choosing the right deployment package — AI suggests based on environment context.',                 src: 'img/Realize/UI/Flow3/img2.png', icon: '📦' },
+      { name: 'Deployment confirmation',           desc: 'Review and confirm before execution — final check with AI risk summary.',                           src: 'img/Realize/UI/Flow3/img3.png', icon: '✅' },
+      { name: 'Manage dashboard',                  desc: 'Post-deployment monitoring — tracking what was deployed and how the environment has changed.',       src: 'img/Realize/UI/Flow3/img4.png', icon: '📋' },
+      { name: 'Status & audit trail',              desc: 'Full deployment history and audit log — every action recorded with timestamps and outcomes.',        src: 'img/Realize/UI/Flow3/img5.png', icon: '📝' },
+    ]
+  },
+  {
+    label: 'Flow 4', title: 'Agent Factory', url: 'realize.app / agents',
+    screens: [
+      { name: 'Agent Factory landing',             desc: 'The automation hub — existing agents, templates, and the option to build a new one.',               src: 'img/Realize/UI/Flow4/img1.png', icon: '🏭' },
+      { name: 'Agent builder',                     desc: 'Configuring a new agent — trigger conditions, scope, and action sequence.',                         src: 'img/Realize/UI/Flow4/img2.png', icon: '⚙️' },
+      { name: 'Agent logic setup',                 desc: 'Defining the decision logic — what the agent checks, when it acts, and what it skips.',             src: 'img/Realize/UI/Flow4/img3.png', icon: '🔀' },
+      { name: 'Agent testing',                     desc: 'Dry-run mode — simulate the agent against historical data before activating.',                       src: 'img/Realize/UI/Flow4/img4.png', icon: '🧪' },
+      { name: 'Agent active state',                desc: 'Agent is live — monitoring view shows last run, next trigger, and recent actions taken.',            src: 'img/Realize/UI/Flow4/img5.png', icon: '✅' },
+    ]
+  },
+  {
+    label: 'Flow 5', title: 'AI Chatbot Layer', url: 'realize.app / ai',
+    screens: [
+      { name: 'Chatbot panel — idle',              desc: 'The AI panel in its default state — contextual suggestions based on current module.',               src: 'img/Realize/UI/Flow5/img1.png',  icon: '💬' },
+      { name: 'AI prompt — dashboard context',     desc: 'User asks the AI a question from the dashboard — response is scoped to live environment data.',     src: 'img/Realize/UI/Flow5/img2.png',  icon: '🤖' },
+      { name: 'AI-guided incident response',       desc: 'AI walks the user through an incident step by step — replacing manual documentation lookup.',       src: 'img/Realize/UI/Flow5/img3.png',  icon: '🛡️' },
+      { name: 'AI deployment suggestion',          desc: 'AI recommends a deployment action based on the current incident — one tap to execute.',             src: 'img/Realize/UI/Flow5/img4.png',  icon: '🚀' },
+      { name: 'AI cross-module transition',        desc: 'AI moves the user from one module to another — surfacing the right action at the right moment.',    src: 'img/Realize/UI/Flow5/img5.png',  icon: '→' },
+      { name: 'Chatbot history',                   desc: 'Full conversation history — every AI interaction logged and searchable within the session.',         src: 'img/Realize/UI/Flow5/img6.png',  icon: '📜' },
+      { name: 'AI in Agent Factory',               desc: 'The AI assists with agent configuration — suggesting trigger logic based on past incidents.',        src: 'img/Realize/UI/Flow5/img7.png',  icon: '🏭' },
+      { name: 'AI confirmation modal',             desc: 'Before any high-stakes action, AI surfaces a confirmation with full context and risk summary.',      src: 'img/Realize/UI/Flow5/img8.png',  icon: '⚠️' },
+      { name: 'AI error recovery',                 desc: 'When something fails, AI explains what happened and offers recovery options.',                       src: 'img/Realize/UI/Flow5/img9.png',  icon: '🔧' },
+      { name: 'AI onboarding assist',              desc: 'AI guides a new user through setup — contextual tips that disappear once the step is completed.',   src: 'img/Realize/UI/Flow5/img10.png', icon: '🎓' },
+      { name: 'AI summary report',                 desc: 'End-of-session summary — what was done, what changed, and what the AI recommends next.',            src: 'img/Realize/UI/Flow5/img11.png', icon: '📊' },
+    ]
+  }
+];
+
+let fcsFlow = 0, fcsIndex = 0;
+
+function fcsRender() {
+  const flow = fcsFlows[fcsFlow];
+  const screen = flow.screens[fcsIndex];
+  const total = flow.screens.length;
+
+  document.getElementById('fcsFlowBadge').textContent  = flow.label;
+  document.getElementById('fcsFlowTitle').textContent  = flow.title;
+  document.getElementById('fcsUrl').textContent        = flow.url;
+  document.getElementById('fcsCounter').textContent    = (fcsIndex + 1) + ' / ' + total;
+  document.getElementById('fcsCaptionTitle').textContent = screen.name;
+  document.getElementById('fcsCaptionDesc').textContent  = screen.desc;
+  document.getElementById('fcsFallbackName').textContent = screen.name;
+  document.getElementById('fcsFallbackPath').textContent = screen.src;
+  document.getElementById('fcsFallbackIcon').textContent = screen.icon;
+
+  const img = document.getElementById('fcsImg');
+  const fallback = document.getElementById('fcsFallback');
+  img.style.display = 'block';
+  fallback.style.display = 'none';
+  img.src = screen.src;
+  img.alt = screen.name;
+  img.onerror = function() {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+  };
+
+  // dots
+  const dots = document.getElementById('fcsDots');
+  dots.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'fcs-dot' + (i === fcsIndex ? ' active' : '');
+    d.onclick = (function(idx){ return function(){ fcsIndex = idx; fcsRender(); }; })(i);
+    dots.appendChild(d);
+  }
+
+  // arrows
+  document.getElementById('fcsPrev').disabled = fcsIndex === 0;
+  document.getElementById('fcsNext').disabled = fcsIndex === total - 1;
+}
+
+function fcsSwitch(flowIdx) {
+  fcsFlow = flowIdx;
+  fcsIndex = 0;
+  document.querySelectorAll('.fcs-tab').forEach(function(t, i) {
+    t.classList.toggle('active', i === flowIdx);
+  });
+  fcsRender();
+}
+
+function fcsStep(dir) {
+  const total = fcsFlows[fcsFlow].screens.length;
+  fcsIndex = Math.max(0, Math.min(total - 1, fcsIndex + dir));
+  fcsRender();
+}
+
+// keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft')  fcsStep(-1);
+  if (e.key === 'ArrowRight') fcsStep(1);
+});
+
+// init
+document.addEventListener('DOMContentLoaded', function() { fcsRender(); });
+// ── END FINAL UI CAROUSEL ──────────────────────────────────────────
+
 // Ensure s-ideation-a and s-ideation-b sub-nav buttons scroll correctly,
 // in case shared.js doesn't pick them up automatically.
 (function() {
   function scrollToId(id) {
     var el = document.getElementById(id);
     if (!el) return;
-    var offset = 80; // account for sticky header
+    var offset = 80;
     var top = el.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top: top, behavior: 'smooth' });
   }
